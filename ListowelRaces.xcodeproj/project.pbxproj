@@ -7,21 +7,109 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC166DDB1D881E58009EC5D3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC166DDA1D881E58009EC5D3 /* GoogleService-Info.plist */; };
+		BC166DEC1D881EFE009EC5D3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DDE1D881EFE009EC5D3 /* Extensions.swift */; };
+		BC166DEE1D881EFE009EC5D3 /* FBExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DE01D881EFE009EC5D3 /* FBExtensions.swift */; };
+		BC166DEF1D881EFE009EC5D3 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DE11D881EFE009EC5D3 /* Form.swift */; };
+		BC166DF21D881EFE009EC5D3 /* LocalInfoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DE41D881EFE009EC5D3 /* LocalInfoEntry.swift */; };
+		BC166DF41D881EFE009EC5D3 /* Race.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DE61D881EFE009EC5D3 /* Race.swift */; };
+		BC166DF61D881EFE009EC5D3 /* Runner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DE91D881EFE009EC5D3 /* Runner.swift */; };
+		BC166DF71D881EFE009EC5D3 /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DEA1D881EFE009EC5D3 /* Tip.swift */; };
+		BC166E041D881F1F009EC5D3 /* FBTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DF91D881F1F009EC5D3 /* FBTableViewDataSource.swift */; };
+		BC166E081D881F1F009EC5D3 /* ImageUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DFF1D881F1F009EC5D3 /* ImageUpload.swift */; };
+		BC166E0B1D881F1F009EC5D3 /* ObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E031D881F1F009EC5D3 /* ObjectContext.swift */; };
+		BC166E0D1D881F7F009EC5D3 /* FBDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E0C1D881F7F009EC5D3 /* FBDelegate.swift */; };
+		BC166E101D881FAA009EC5D3 /* FBArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E0E1D881FAA009EC5D3 /* FBArray.swift */; };
+		BC166E111D881FAA009EC5D3 /* FBCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E0F1D881FAA009EC5D3 /* FBCollectionViewDataSource.swift */; };
+		BC166E1A1D8829B9009EC5D3 /* HorseSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E131D8829B9009EC5D3 /* HorseSummaryCell.swift */; };
+		BC166E1B1D8829B9009EC5D3 /* HorseSummaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC166E141D8829B9009EC5D3 /* HorseSummaryCell.xib */; };
+		BC166E1C1D8829B9009EC5D3 /* RaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E151D8829B9009EC5D3 /* RaceCell.swift */; };
+		BC166E1D1D8829B9009EC5D3 /* RunnerDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E161D8829B9009EC5D3 /* RunnerDetailCell.swift */; };
+		BC166E1E1D8829B9009EC5D3 /* RunnerFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E171D8829B9009EC5D3 /* RunnerFormCell.swift */; };
+		BC166E1F1D8829B9009EC5D3 /* TipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E181D8829B9009EC5D3 /* TipCell.swift */; };
+		BC166E201D8829B9009EC5D3 /* TipCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC166E191D8829B9009EC5D3 /* TipCell.xib */; };
+		BC166E281D882B1C009EC5D3 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BC166E221D882B1C009EC5D3 /* bg.png */; };
+		BC166E291D882B1C009EC5D3 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = BC166E231D882B1C009EC5D3 /* GameScene.sks */; };
+		BC166E2A1D882B1C009EC5D3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E241D882B1C009EC5D3 /* GameScene.swift */; };
+		BC166E2B1D882B1C009EC5D3 /* Horse1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = BC166E251D882B1C009EC5D3 /* Horse1.atlas */; };
+		BC166E2C1D882B1C009EC5D3 /* Predictor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC166E261D882B1C009EC5D3 /* Predictor.storyboard */; };
+		BC166E2D1D882B1C009EC5D3 /* PredictorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E271D882B1C009EC5D3 /* PredictorViewController.swift */; };
+		BC166E2F1D882B77009EC5D3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC166E2E1D882B77009EC5D3 /* Images.xcassets */; };
+		BC166E351D882C36009EC5D3 /* DIDatepicker.m in Sources */ = {isa = PBXBuildFile; fileRef = BC166E321D882C36009EC5D3 /* DIDatepicker.m */; };
+		BC166E361D882C36009EC5D3 /* DIDatepickerDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC166E341D882C36009EC5D3 /* DIDatepickerDateView.m */; };
+		BC166E411D882CB9009EC5D3 /* CompositeTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E381D882CB9009EC5D3 /* CompositeTableViewDataSource.swift */; };
+		BC166E421D882CB9009EC5D3 /* FBRaceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E391D882CB9009EC5D3 /* FBRaceTableViewController.swift */; };
+		BC166E431D882CB9009EC5D3 /* LRRunnerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E3A1D882CB9009EC5D3 /* LRRunnerTableViewController.swift */; };
+		BC166E441D882CB9009EC5D3 /* LRSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E3B1D882CB9009EC5D3 /* LRSectionHeader.swift */; };
+		BC166E451D882CB9009EC5D3 /* ObjectFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = BC166E3D1D882CB9009EC5D3 /* ObjectFactory.m */; };
+		BC166E461D882CB9009EC5D3 /* PageRacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E3E1D882CB9009EC5D3 /* PageRacesViewController.swift */; };
+		BC166E471D882CB9009EC5D3 /* Racecard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC166E3F1D882CB9009EC5D3 /* Racecard.storyboard */; };
+		BC166E481D882CB9009EC5D3 /* RunnerDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E401D882CB9009EC5D3 /* RunnerDetailTableViewController.swift */; };
+		BC166E4D1D883119009EC5D3 /* ListowelRaces.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC166E4C1D883119009EC5D3 /* ListowelRaces.plist */; };
+		BC166E531D887D40009EC5D3 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC166E521D887D40009EC5D3 /* Login.storyboard */; };
+		BC166E551D887EC4009EC5D3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E541D887EC4009EC5D3 /* LoginViewController.swift */; };
+		BC166E571D8897EB009EC5D3 /* ExceptionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E561D8897EB009EC5D3 /* ExceptionTypes.swift */; };
 		BC2E4CBD1D88193C00376D95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2E4CBC1D88193C00376D95 /* AppDelegate.swift */; };
 		BC2E4CBF1D88193C00376D95 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2E4CBE1D88193C00376D95 /* FirstViewController.swift */; };
-		BC2E4CC11D88193C00376D95 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2E4CC01D88193C00376D95 /* SecondViewController.swift */; };
 		BC2E4CC41D88193C00376D95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2E4CC21D88193C00376D95 /* Main.storyboard */; };
-		BC2E4CC61D88193C00376D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC2E4CC51D88193C00376D95 /* Assets.xcassets */; };
 		BC2E4CC91D88193C00376D95 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2E4CC71D88193C00376D95 /* LaunchScreen.storyboard */; };
+		FD2689815BB9F95794F52E79 /* Pods_ListowelRaces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBBC3804371887833199B047 /* Pods_ListowelRaces.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		12F1160F587CB904E27F1383 /* Pods-ListowelRaces.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListowelRaces.release.xcconfig"; path = "Pods/Target Support Files/Pods-ListowelRaces/Pods-ListowelRaces.release.xcconfig"; sourceTree = "<group>"; };
+		1E77A4BA1CE21E9AB313D0E5 /* Pods-ListowelRaces.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListowelRaces.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ListowelRaces/Pods-ListowelRaces.debug.xcconfig"; sourceTree = "<group>"; };
+		BBBC3804371887833199B047 /* Pods_ListowelRaces.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ListowelRaces.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC166DDA1D881E58009EC5D3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BC166DDE1D881EFE009EC5D3 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		BC166DE01D881EFE009EC5D3 /* FBExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBExtensions.swift; sourceTree = "<group>"; };
+		BC166DE11D881EFE009EC5D3 /* Form.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
+		BC166DE41D881EFE009EC5D3 /* LocalInfoEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalInfoEntry.swift; sourceTree = "<group>"; };
+		BC166DE61D881EFE009EC5D3 /* Race.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Race.swift; sourceTree = "<group>"; };
+		BC166DE91D881EFE009EC5D3 /* Runner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Runner.swift; sourceTree = "<group>"; };
+		BC166DEA1D881EFE009EC5D3 /* Tip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tip.swift; sourceTree = "<group>"; };
+		BC166DF91D881F1F009EC5D3 /* FBTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBTableViewDataSource.swift; sourceTree = "<group>"; };
+		BC166DFF1D881F1F009EC5D3 /* ImageUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUpload.swift; sourceTree = "<group>"; };
+		BC166E031D881F1F009EC5D3 /* ObjectContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectContext.swift; sourceTree = "<group>"; };
+		BC166E0C1D881F7F009EC5D3 /* FBDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBDelegate.swift; sourceTree = "<group>"; };
+		BC166E0E1D881FAA009EC5D3 /* FBArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBArray.swift; sourceTree = "<group>"; };
+		BC166E0F1D881FAA009EC5D3 /* FBCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		BC166E131D8829B9009EC5D3 /* HorseSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorseSummaryCell.swift; sourceTree = "<group>"; };
+		BC166E141D8829B9009EC5D3 /* HorseSummaryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HorseSummaryCell.xib; sourceTree = "<group>"; };
+		BC166E151D8829B9009EC5D3 /* RaceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaceCell.swift; sourceTree = "<group>"; };
+		BC166E161D8829B9009EC5D3 /* RunnerDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunnerDetailCell.swift; sourceTree = "<group>"; };
+		BC166E171D8829B9009EC5D3 /* RunnerFormCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunnerFormCell.swift; sourceTree = "<group>"; };
+		BC166E181D8829B9009EC5D3 /* TipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipCell.swift; sourceTree = "<group>"; };
+		BC166E191D8829B9009EC5D3 /* TipCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TipCell.xib; sourceTree = "<group>"; };
+		BC166E221D882B1C009EC5D3 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
+		BC166E231D882B1C009EC5D3 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		BC166E241D882B1C009EC5D3 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		BC166E251D882B1C009EC5D3 /* Horse1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Horse1.atlas; sourceTree = "<group>"; };
+		BC166E261D882B1C009EC5D3 /* Predictor.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Predictor.storyboard; sourceTree = "<group>"; };
+		BC166E271D882B1C009EC5D3 /* PredictorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredictorViewController.swift; sourceTree = "<group>"; };
+		BC166E2E1D882B77009EC5D3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BC166E301D882C35009EC5D3 /* ListowelRaces-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ListowelRaces-Bridging-Header.h"; sourceTree = "<group>"; };
+		BC166E311D882C36009EC5D3 /* DIDatepicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIDatepicker.h; sourceTree = "<group>"; };
+		BC166E321D882C36009EC5D3 /* DIDatepicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIDatepicker.m; sourceTree = "<group>"; };
+		BC166E331D882C36009EC5D3 /* DIDatepickerDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIDatepickerDateView.h; sourceTree = "<group>"; };
+		BC166E341D882C36009EC5D3 /* DIDatepickerDateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIDatepickerDateView.m; sourceTree = "<group>"; };
+		BC166E381D882CB9009EC5D3 /* CompositeTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompositeTableViewDataSource.swift; sourceTree = "<group>"; };
+		BC166E391D882CB9009EC5D3 /* FBRaceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBRaceTableViewController.swift; sourceTree = "<group>"; };
+		BC166E3A1D882CB9009EC5D3 /* LRRunnerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRRunnerTableViewController.swift; sourceTree = "<group>"; };
+		BC166E3B1D882CB9009EC5D3 /* LRSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRSectionHeader.swift; sourceTree = "<group>"; };
+		BC166E3C1D882CB9009EC5D3 /* ObjectFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectFactory.h; sourceTree = "<group>"; };
+		BC166E3D1D882CB9009EC5D3 /* ObjectFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectFactory.m; sourceTree = "<group>"; };
+		BC166E3E1D882CB9009EC5D3 /* PageRacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageRacesViewController.swift; sourceTree = "<group>"; };
+		BC166E3F1D882CB9009EC5D3 /* Racecard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Racecard.storyboard; sourceTree = "<group>"; };
+		BC166E401D882CB9009EC5D3 /* RunnerDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunnerDetailTableViewController.swift; sourceTree = "<group>"; };
+		BC166E4C1D883119009EC5D3 /* ListowelRaces.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ListowelRaces.plist; sourceTree = "<group>"; };
+		BC166E521D887D40009EC5D3 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		BC166E541D887EC4009EC5D3 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BC166E561D8897EB009EC5D3 /* ExceptionTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionTypes.swift; sourceTree = "<group>"; };
 		BC2E4CB91D88193C00376D95 /* ListowelRaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ListowelRaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC2E4CBC1D88193C00376D95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC2E4CBE1D88193C00376D95 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		BC2E4CC01D88193C00376D95 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		BC2E4CC31D88193C00376D95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		BC2E4CC51D88193C00376D95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BC2E4CC81D88193C00376D95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC2E4CCA1D88193C00376D95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -31,17 +119,117 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD2689815BB9F95794F52E79 /* Pods_ListowelRaces.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A89EC4729E4FC41C41FDD84 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BBBC3804371887833199B047 /* Pods_ListowelRaces.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		863C9D9A4448A8B38B2F6DBF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1E77A4BA1CE21E9AB313D0E5 /* Pods-ListowelRaces.debug.xcconfig */,
+				12F1160F587CB904E27F1383 /* Pods-ListowelRaces.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		BC166DDC1D881EFE009EC5D3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BC166DDE1D881EFE009EC5D3 /* Extensions.swift */,
+				BC166DE01D881EFE009EC5D3 /* FBExtensions.swift */,
+				BC166DE11D881EFE009EC5D3 /* Form.swift */,
+				BC166DE41D881EFE009EC5D3 /* LocalInfoEntry.swift */,
+				BC166DE61D881EFE009EC5D3 /* Race.swift */,
+				BC166DE91D881EFE009EC5D3 /* Runner.swift */,
+				BC166DEA1D881EFE009EC5D3 /* Tip.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BC166DF81D881F1F009EC5D3 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				BC166E0E1D881FAA009EC5D3 /* FBArray.swift */,
+				BC166E0F1D881FAA009EC5D3 /* FBCollectionViewDataSource.swift */,
+				BC166E0C1D881F7F009EC5D3 /* FBDelegate.swift */,
+				BC166DF91D881F1F009EC5D3 /* FBTableViewDataSource.swift */,
+				BC166DFF1D881F1F009EC5D3 /* ImageUpload.swift */,
+				BC166E031D881F1F009EC5D3 /* ObjectContext.swift */,
+				BC166E561D8897EB009EC5D3 /* ExceptionTypes.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		BC166E121D8829B9009EC5D3 /* PrototypeCells */ = {
+			isa = PBXGroup;
+			children = (
+				BC166E131D8829B9009EC5D3 /* HorseSummaryCell.swift */,
+				BC166E141D8829B9009EC5D3 /* HorseSummaryCell.xib */,
+				BC166E151D8829B9009EC5D3 /* RaceCell.swift */,
+				BC166E161D8829B9009EC5D3 /* RunnerDetailCell.swift */,
+				BC166E171D8829B9009EC5D3 /* RunnerFormCell.swift */,
+				BC166E181D8829B9009EC5D3 /* TipCell.swift */,
+				BC166E191D8829B9009EC5D3 /* TipCell.xib */,
+			);
+			path = PrototypeCells;
+			sourceTree = "<group>";
+		};
+		BC166E211D882B1C009EC5D3 /* Predictor */ = {
+			isa = PBXGroup;
+			children = (
+				BC166E221D882B1C009EC5D3 /* bg.png */,
+				BC166E231D882B1C009EC5D3 /* GameScene.sks */,
+				BC166E241D882B1C009EC5D3 /* GameScene.swift */,
+				BC166E251D882B1C009EC5D3 /* Horse1.atlas */,
+				BC166E261D882B1C009EC5D3 /* Predictor.storyboard */,
+				BC166E271D882B1C009EC5D3 /* PredictorViewController.swift */,
+			);
+			path = Predictor;
+			sourceTree = "<group>";
+		};
+		BC166E371D882CB9009EC5D3 /* Racecard */ = {
+			isa = PBXGroup;
+			children = (
+				BC166E381D882CB9009EC5D3 /* CompositeTableViewDataSource.swift */,
+				BC166E391D882CB9009EC5D3 /* FBRaceTableViewController.swift */,
+				BC166E3A1D882CB9009EC5D3 /* LRRunnerTableViewController.swift */,
+				BC166E3B1D882CB9009EC5D3 /* LRSectionHeader.swift */,
+				BC166E3C1D882CB9009EC5D3 /* ObjectFactory.h */,
+				BC166E3D1D882CB9009EC5D3 /* ObjectFactory.m */,
+				BC166E3E1D882CB9009EC5D3 /* PageRacesViewController.swift */,
+				BC166E3F1D882CB9009EC5D3 /* Racecard.storyboard */,
+				BC166E401D882CB9009EC5D3 /* RunnerDetailTableViewController.swift */,
+			);
+			path = Racecard;
+			sourceTree = "<group>";
+		};
+		BC166E511D887D40009EC5D3 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				BC166E521D887D40009EC5D3 /* Login.storyboard */,
+				BC166E541D887EC4009EC5D3 /* LoginViewController.swift */,
+			);
+			path = Facebook;
+			sourceTree = "<group>";
+		};
 		BC2E4CB01D88193C00376D95 = {
 			isa = PBXGroup;
 			children = (
 				BC2E4CBB1D88193C00376D95 /* ListowelRaces */,
 				BC2E4CBA1D88193C00376D95 /* Products */,
+				863C9D9A4448A8B38B2F6DBF /* Pods */,
+				0A89EC4729E4FC41C41FDD84 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,13 +244,25 @@
 		BC2E4CBB1D88193C00376D95 /* ListowelRaces */ = {
 			isa = PBXGroup;
 			children = (
+				BC166E511D887D40009EC5D3 /* Facebook */,
+				BC166E4C1D883119009EC5D3 /* ListowelRaces.plist */,
+				BC166E371D882CB9009EC5D3 /* Racecard */,
+				BC166E311D882C36009EC5D3 /* DIDatepicker.h */,
+				BC166E321D882C36009EC5D3 /* DIDatepicker.m */,
+				BC166E331D882C36009EC5D3 /* DIDatepickerDateView.h */,
+				BC166E341D882C36009EC5D3 /* DIDatepickerDateView.m */,
+				BC166E211D882B1C009EC5D3 /* Predictor */,
+				BC166E121D8829B9009EC5D3 /* PrototypeCells */,
+				BC166DF81D881F1F009EC5D3 /* Core */,
+				BC166DDC1D881EFE009EC5D3 /* Model */,
+				BC166DDA1D881E58009EC5D3 /* GoogleService-Info.plist */,
 				BC2E4CBC1D88193C00376D95 /* AppDelegate.swift */,
 				BC2E4CBE1D88193C00376D95 /* FirstViewController.swift */,
-				BC2E4CC01D88193C00376D95 /* SecondViewController.swift */,
+				BC166E2E1D882B77009EC5D3 /* Images.xcassets */,
 				BC2E4CC21D88193C00376D95 /* Main.storyboard */,
-				BC2E4CC51D88193C00376D95 /* Assets.xcassets */,
 				BC2E4CC71D88193C00376D95 /* LaunchScreen.storyboard */,
 				BC2E4CCA1D88193C00376D95 /* Info.plist */,
+				BC166E301D882C35009EC5D3 /* ListowelRaces-Bridging-Header.h */,
 			);
 			path = ListowelRaces;
 			sourceTree = "<group>";
@@ -74,9 +274,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC2E4CCD1D88193C00376D95 /* Build configuration list for PBXNativeTarget "ListowelRaces" */;
 			buildPhases = (
+				3A64494D7F319535F6EC4D01 /* [CP] Check Pods Manifest.lock */,
 				BC2E4CB51D88193C00376D95 /* Sources */,
 				BC2E4CB61D88193C00376D95 /* Frameworks */,
 				BC2E4CB71D88193C00376D95 /* Resources */,
+				2F22466F0319B197BF7F36D5 /* [CP] Embed Pods Frameworks */,
+				D2B561E577CE26AED6AD9B90 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -125,21 +328,109 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC166E2B1D882B1C009EC5D3 /* Horse1.atlas in Resources */,
 				BC2E4CC91D88193C00376D95 /* LaunchScreen.storyboard in Resources */,
-				BC2E4CC61D88193C00376D95 /* Assets.xcassets in Resources */,
+				BC166E4D1D883119009EC5D3 /* ListowelRaces.plist in Resources */,
+				BC166DDB1D881E58009EC5D3 /* GoogleService-Info.plist in Resources */,
+				BC166E2C1D882B1C009EC5D3 /* Predictor.storyboard in Resources */,
+				BC166E2F1D882B77009EC5D3 /* Images.xcassets in Resources */,
 				BC2E4CC41D88193C00376D95 /* Main.storyboard in Resources */,
+				BC166E531D887D40009EC5D3 /* Login.storyboard in Resources */,
+				BC166E471D882CB9009EC5D3 /* Racecard.storyboard in Resources */,
+				BC166E291D882B1C009EC5D3 /* GameScene.sks in Resources */,
+				BC166E281D882B1C009EC5D3 /* bg.png in Resources */,
+				BC166E1B1D8829B9009EC5D3 /* HorseSummaryCell.xib in Resources */,
+				BC166E201D8829B9009EC5D3 /* TipCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2F22466F0319B197BF7F36D5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ListowelRaces/Pods-ListowelRaces-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3A64494D7F319535F6EC4D01 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D2B561E577CE26AED6AD9B90 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ListowelRaces/Pods-ListowelRaces-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BC2E4CB51D88193C00376D95 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC2E4CC11D88193C00376D95 /* SecondViewController.swift in Sources */,
+				BC166E111D881FAA009EC5D3 /* FBCollectionViewDataSource.swift in Sources */,
+				BC166E0B1D881F1F009EC5D3 /* ObjectContext.swift in Sources */,
+				BC166E1F1D8829B9009EC5D3 /* TipCell.swift in Sources */,
+				BC166DF71D881EFE009EC5D3 /* Tip.swift in Sources */,
+				BC166E451D882CB9009EC5D3 /* ObjectFactory.m in Sources */,
+				BC166E081D881F1F009EC5D3 /* ImageUpload.swift in Sources */,
+				BC166DEE1D881EFE009EC5D3 /* FBExtensions.swift in Sources */,
+				BC166E1A1D8829B9009EC5D3 /* HorseSummaryCell.swift in Sources */,
+				BC166E431D882CB9009EC5D3 /* LRRunnerTableViewController.swift in Sources */,
+				BC166E2D1D882B1C009EC5D3 /* PredictorViewController.swift in Sources */,
+				BC166E441D882CB9009EC5D3 /* LRSectionHeader.swift in Sources */,
+				BC166DF21D881EFE009EC5D3 /* LocalInfoEntry.swift in Sources */,
+				BC166E551D887EC4009EC5D3 /* LoginViewController.swift in Sources */,
+				BC166DEF1D881EFE009EC5D3 /* Form.swift in Sources */,
+				BC166E571D8897EB009EC5D3 /* ExceptionTypes.swift in Sources */,
+				BC166E461D882CB9009EC5D3 /* PageRacesViewController.swift in Sources */,
+				BC166DF41D881EFE009EC5D3 /* Race.swift in Sources */,
+				BC166DEC1D881EFE009EC5D3 /* Extensions.swift in Sources */,
+				BC166E101D881FAA009EC5D3 /* FBArray.swift in Sources */,
+				BC166E1D1D8829B9009EC5D3 /* RunnerDetailCell.swift in Sources */,
+				BC166E421D882CB9009EC5D3 /* FBRaceTableViewController.swift in Sources */,
 				BC2E4CBD1D88193C00376D95 /* AppDelegate.swift in Sources */,
+				BC166DF61D881EFE009EC5D3 /* Runner.swift in Sources */,
+				BC166E411D882CB9009EC5D3 /* CompositeTableViewDataSource.swift in Sources */,
+				BC166E1E1D8829B9009EC5D3 /* RunnerFormCell.swift in Sources */,
+				BC166E1C1D8829B9009EC5D3 /* RaceCell.swift in Sources */,
+				BC166E0D1D881F7F009EC5D3 /* FBDelegate.swift in Sources */,
+				BC166E351D882C36009EC5D3 /* DIDatepicker.m in Sources */,
+				BC166E041D881F1F009EC5D3 /* FBTableViewDataSource.swift in Sources */,
+				BC166E481D882CB9009EC5D3 /* RunnerDetailTableViewController.swift in Sources */,
+				BC166E2A1D882B1C009EC5D3 /* GameScene.swift in Sources */,
+				BC166E361D882C36009EC5D3 /* DIDatepickerDateView.m in Sources */,
 				BC2E4CBF1D88193C00376D95 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,23 +542,30 @@
 		};
 		BC2E4CCE1D88193C00376D95 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E77A4BA1CE21E9AB313D0E5 /* Pods-ListowelRaces.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = ListowelRaces/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.VirginRock.ListowelRaces;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ListowelRaces/ListowelRaces-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		BC2E4CCF1D88193C00376D95 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 12F1160F587CB904E27F1383 /* Pods-ListowelRaces.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = ListowelRaces/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.VirginRock.ListowelRaces;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ListowelRaces/ListowelRaces-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -290,6 +588,7 @@
 				BC2E4CCF1D88193C00376D95 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
