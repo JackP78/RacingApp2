@@ -7,16 +7,48 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import AWSCore
+import AWSCognito
+import Firebase
+import FirebaseDatabase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
+    override init() {
+        super.init()
+        FIRApp.configure()
+        // not really needed unless you really need it FIRDatabase.database().persistenceEnabled = true
+    }
+    
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        // Initialize the Amazon Cognito credentials provider
+        /*let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.EUWest1,
+            identityPoolId:"eu-west-1:3f02f2a6-5376-46b0-8edd-64503ed4adaf")*/
+        
+        //let configuration = AWSServiceConfiguration(region:.EUWest1, credentialsProvider:credentialsProvider)
+        
+        //AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
+
+        // Initialize the Cognito Sync client
+        //let syncClient = AWSCognito.defaultCognito()
+        
+        // Create a record in a dataset and synchronize with the server
+        /*let dataset = syncClient.openOrCreateDataset("myDataset")
+        dataset.setString("myValue", forKey:"myKey")
+        dataset.synchronize().continueWithBlock {(task: AWSTask!) -> AnyObject! in
+            // Your handler code here
+            return nil
+        }*/
+        
+        
         // Override point for customization after application launch.
-        return true
+        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -35,10 +67,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        FBSDKAppEvents.activateApp()
     }
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool
+    {
+        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
 
