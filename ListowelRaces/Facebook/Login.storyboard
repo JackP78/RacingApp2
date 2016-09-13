@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Login View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController storyboardIdentifier="LoginView" id="vXZ-lx-hvc" customClass="LoginViewController" customModule="ListowelRaces" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bES-3r-j2b" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="160" y="438" width="0.0" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="0NG-l1-5kj"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="njD-Ds-bcE" customClass="FBSDKProfilePictureView">
+                                <rect key="frame" x="85" y="71" width="150" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="0gG-aU-yVj"/>
+                                    <constraint firstAttribute="width" secondItem="njD-Ds-bcE" secondAttribute="height" multiplier="1:1" id="vvu-rP-keJ"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mS1-Lr-LWE">
+                                <rect key="frame" x="139" y="40" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3RU-ne-5zf">
+                                <rect key="frame" x="138" y="231" width="45" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kl2-pQ-lT5">
+                                <rect key="frame" x="142" y="262" width="36" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bES-3r-j2b" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="2td-iE-pV8"/>
+                            <constraint firstItem="3RU-ne-5zf" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="A3C-uV-4ZG"/>
+                            <constraint firstItem="3RU-ne-5zf" firstAttribute="top" secondItem="njD-Ds-bcE" secondAttribute="bottom" constant="10" id="CKc-GT-pDp"/>
+                            <constraint firstItem="njD-Ds-bcE" firstAttribute="top" secondItem="mS1-Lr-LWE" secondAttribute="bottom" constant="10" id="E0o-dg-Lv3"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bES-3r-j2b" secondAttribute="trailing" constant="40" id="JVQ-dz-R3U"/>
+                            <constraint firstItem="Kl2-pQ-lT5" firstAttribute="top" secondItem="3RU-ne-5zf" secondAttribute="bottom" constant="10" id="N3n-99-zgp"/>
+                            <constraint firstItem="njD-Ds-bcE" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="RLx-3W-pp2"/>
+                            <constraint firstItem="Kl2-pQ-lT5" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="kkr-w5-4JO"/>
+                            <constraint firstItem="mS1-Lr-LWE" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="lHI-We-cfm"/>
+                            <constraint firstItem="mS1-Lr-LWE" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="p5V-JW-Pfk"/>
+                            <constraint firstItem="bES-3r-j2b" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="40" id="pZe-ZL-Yia"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="bES-3r-j2b" secondAttribute="bottom" constant="80" id="pw4-LF-OLS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lblEmail" destination="Kl2-pQ-lT5" id="kn0-dI-Okt"/>
+                        <outlet property="lblLoginStatus" destination="mS1-Lr-LWE" id="ny4-wE-Uxk"/>
+                        <outlet property="lblUsername" destination="3RU-ne-5zf" id="TcL-u7-MsG"/>
+                        <outlet property="loginButton" destination="bES-3r-j2b" id="bzw-u0-p09"/>
+                        <outlet property="profilePicture" destination="njD-Ds-bcE" id="qeC-aQ-qcs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="687" y="146"/>
+        </scene>
+    </scenes>
+</document>
