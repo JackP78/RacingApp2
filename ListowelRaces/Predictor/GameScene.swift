@@ -9,11 +9,9 @@
 import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    var textures = [SKTexture]()
     let horseCategory: UInt32 = 0x1 << 0
     let finishCategory: UInt32 = 0x1 << 1
     var finished:Bool = false
-    //var bg:SKSpriteNode?
     
     override func didMoveToView(view: SKView) {
         // setup the physics engine
@@ -28,12 +26,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         createGround()
         
-        //initialize the texture atlas
-        let textureAtlas = SKTextureAtlas(named: "Horse1")
-        let numImages = textureAtlas.textureNames.count;
-        for i in 1...numImages {
-            textures.append(textureAtlas.textureNamed("Horse1Move\(i).png"))
-        }
         
         let finishNode = SKShapeNode(rectOfSize: CGSize(width: 100, height: self.frame.height - 20))
         finishNode.position = CGPoint(x:CGRectGetMaxX(self.frame) - 50, y:CGRectGetMidY(self.frame))
@@ -67,23 +59,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for touch in touches {
             let location = touch.locationInNode(self)
             
-            let sprite = SKSpriteNode(texture: textures[0])
-            
-            sprite.xScale = 0.5
-            sprite.yScale = 0.5
+            let runner = Runner()
+            runner.name = "Katie O"
+            let speed = Int(arc4random_uniform(100)) + 1;
+            runner.speed = speed
+            let sprite = HorseSprite(runner: runner)
             sprite.position = location
-            sprite.xScale = abs(sprite.xScale) * -1
-            sprite.physicsBody = SKPhysicsBody(circleOfRadius: 2)
-            sprite.physicsBody!.categoryBitMask = horseCategory
-            sprite.physicsBody!.contactTestBitMask = finishCategory;
-            sprite.name = "horse";
             self.addChild(sprite)
-            
-            let animateAction = SKAction.animateWithTextures(textures, timePerFrame: 0.05)
-            let repeatAnimation = SKAction.repeatActionForever(animateAction)
-            let moveAction = SKAction.moveByX(self.frame.size.width, y: 0, duration: 2.5)
-            let combinedAction = SKAction.group([repeatAnimation,moveAction])
-            sprite.runAction(combinedAction)
+            sprite.startRunning(self.frame.size.width)
             
             beginBackgroundScroll()
             
@@ -97,23 +80,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func didBeginContact(contact: SKPhysicsContact) {
         endBackgroundScroll()
         self.enumerateChildNodesWithName("horse") { (node: SKNode, pointer: UnsafeMutablePointer<ObjCBool>) -> Void in
-            if (node.hasActions()) {
-                node.removeAllActions()
-                let nameLabel = SKLabelNode(fontNamed: "Arial")
-                nameLabel.text = "Kato Star"
-                nameLabel.fontSize = 28
-                nameLabel.horizontalAlignmentMode = .Right;
-                nameLabel.position = CGPointMake(CGRectGetMinX(node.frame), CGRectGetMidY(node.frame));
-                self.addChild(nameLabel)
+            if let horse = node as? HorseSprite {
+                horse.stopRunning()
             }
         }
         finishedAnimation()
     }
     
     func createGround() {
-        //let groundTexture = SKTexture(imageNamed: "bg")
         for i in 0 ... 1 {
-            let bg = SKSpriteNode(imageNamed: "bg")
+            let bg = SKSpriteNode(imageNamed: "ListowelBackground")
             bg.size.height = self.size.height
             bg.size.width = self.size.width
             bg.zPosition = -10
