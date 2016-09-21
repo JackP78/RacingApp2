@@ -59,7 +59,6 @@ class FBTableViewDataSource: NSObject, UITableViewDataSource, FBDelegate {
         let cell = tableView.dequeueReusableCellWithIdentifier(self.reuseIdentifier)
         let snap = array![indexPath.row]
         if self.modelClass != nil && !self.modelClass!.isSubclassOfClass(FIRDataSnapshot.self) {
-            NSLog("\(snap)")
             let objFactory = ObjectFactory(withClass: self.modelClass)
             let model = objFactory.createFromSnapshot(snap) as! NSObject
             if let postDict = snap.value as? Dictionary<String, AnyObject> {

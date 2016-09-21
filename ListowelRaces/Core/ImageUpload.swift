@@ -8,9 +8,8 @@
 
 import UIKit
 import MBProgressHUD
-import Cloudinary
 
-class ImageUpload: NSObject, CLUploaderDelegate {
+class ImageUpload: NSObject {
     
     func uploaderProgress(bytesWritten: Int, totalBytesWritten: Int, totalBytesExpectedToWrite: Int, context: AnyObject!) {
     }
@@ -24,7 +23,7 @@ class ImageUpload: NSObject, CLUploaderDelegate {
         let imageData = UIImageJPEGRepresentation(image, 0.05)
         
         // save it to cloudinary
-        let cloudinary = CLCloudinary(url: "cloudinary://275766598556953:IPDyfPYSrVxTMcZt18CsJavXPP8@listowelraces");
+        /*let cloudinary = CLCloudinary(url: "cloudinary://275766598556953:IPDyfPYSrVxTMcZt18CsJavXPP8@listowelraces");
         let uploader = CLUploader(cloudinary, delegate: self)
         //let response = uploader.upload(imageData, options: nil)
         
@@ -36,6 +35,7 @@ class ImageUpload: NSObject, CLUploaderDelegate {
                 completion(url: nil)
             }
             hud.hide(true)
-            }, andProgress: nil)
+            }, andProgress: nil)*/
+        NSLog("Upload to Firebase instead")
     }
 }
