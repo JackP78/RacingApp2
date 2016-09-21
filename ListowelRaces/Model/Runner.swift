@@ -27,6 +27,7 @@ class Runner : NSObject {
     var silksUrl: String?
     var sireName: String?
     var trainerName: String?
+    var speed: Int = 50
     
     override init() {
         super.init()
