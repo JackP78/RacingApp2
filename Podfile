@@ -11,6 +11,7 @@ target 'ListowelRaces' do
     pod 'SwiftValidator', '3.0.3'
     pod 'Eureka', '~> 1.3'
     pod 'MBProgressHUD', '~> 0.9.2'
+    pod 'SVGPath'
     pod 'Firebase/Core'
     pod 'Firebase/Database'
     pod 'Firebase/Auth'
