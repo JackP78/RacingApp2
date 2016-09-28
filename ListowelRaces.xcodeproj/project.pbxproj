@@ -68,6 +68,8 @@
 		BCB9130F1D93448C0069DCA9 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9130E1D93448C0069DCA9 /* ChatViewController.swift */; };
 		BCB913111D93449E0069DCA9 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB913101D93449E0069DCA9 /* Chat.storyboard */; };
 		BCB913131D9348940069DCA9 /* ChatInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB913121D9348940069DCA9 /* ChatInitialViewController.swift */; };
+		BCB913201D9B160B0069DCA9 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9131F1D9B160B0069DCA9 /* SplashScreenViewController.swift */; };
+		BCB913221D9B18B00069DCA9 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB913211D9B18B00069DCA9 /* CircleView.swift */; };
 		BCE6E45E1D88CD0D00949A56 /* Horse2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = BCE6E45D1D88CD0D00949A56 /* Horse2.atlas */; };
 		BCE6E4611D88CD2D00949A56 /* Horse4.atlas in Resources */ = {isa = PBXBuildFile; fileRef = BCE6E45F1D88CD2D00949A56 /* Horse4.atlas */; };
 		BCE6E4621D88CD2D00949A56 /* Horse3.atlas in Resources */ = {isa = PBXBuildFile; fileRef = BCE6E4601D88CD2D00949A56 /* Horse3.atlas */; };
@@ -147,6 +149,8 @@
 		BCB9130E1D93448C0069DCA9 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		BCB913101D93449E0069DCA9 /* Chat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		BCB913121D9348940069DCA9 /* ChatInitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInitialViewController.swift; sourceTree = "<group>"; };
+		BCB9131F1D9B160B0069DCA9 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
+		BCB913211D9B18B00069DCA9 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		BCE6E45D1D88CD0D00949A56 /* Horse2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Horse2.atlas; sourceTree = "<group>"; };
 		BCE6E45F1D88CD2D00949A56 /* Horse4.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Horse4.atlas; sourceTree = "<group>"; };
 		BCE6E4601D88CD2D00949A56 /* Horse3.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Horse3.atlas; sourceTree = "<group>"; };
@@ -310,6 +314,8 @@
 				BC2E4CC71D88193C00376D95 /* LaunchScreen.storyboard */,
 				BC2E4CCA1D88193C00376D95 /* Info.plist */,
 				BC166E301D882C35009EC5D3 /* ListowelRaces-Bridging-Header.h */,
+				BCB9131F1D9B160B0069DCA9 /* SplashScreenViewController.swift */,
+				BCB913211D9B18B00069DCA9 /* CircleView.swift */,
 			);
 			path = ListowelRaces;
 			sourceTree = "<group>";
@@ -386,6 +392,7 @@
 				TargetAttributes = {
 					BC2E4CB81D88193C00376D95 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = WU73TC74XQ;
 					};
 				};
 			};
@@ -514,6 +521,7 @@
 				BC166DEF1D881EFE009EC5D3 /* Form.swift in Sources */,
 				BC166E571D8897EB009EC5D3 /* ExceptionTypes.swift in Sources */,
 				BC166E461D882CB9009EC5D3 /* PageRacesViewController.swift in Sources */,
+				BCB913221D9B18B00069DCA9 /* CircleView.swift in Sources */,
 				BC166DF41D881EFE009EC5D3 /* Race.swift in Sources */,
 				BC166DEC1D881EFE009EC5D3 /* Extensions.swift in Sources */,
 				BC166E101D881FAA009EC5D3 /* FBArray.swift in Sources */,
@@ -523,6 +531,7 @@
 				BC166DF61D881EFE009EC5D3 /* Runner.swift in Sources */,
 				BC166E411D882CB9009EC5D3 /* CompositeTableViewDataSource.swift in Sources */,
 				BC166E1E1D8829B9009EC5D3 /* RunnerFormCell.swift in Sources */,
+				BCB913201D9B160B0069DCA9 /* SplashScreenViewController.swift in Sources */,
 				BCB912F31D9325860069DCA9 /* BestDressedCollectionViewController.swift in Sources */,
 				BC166E1C1D8829B9009EC5D3 /* RaceCell.swift in Sources */,
 				BCB913131D9348940069DCA9 /* ChatInitialViewController.swift in Sources */,
@@ -650,10 +659,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ListowelRaces/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.VirginRock.ListowelRaces;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ListowelRaces/ListowelRaces-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -665,10 +677,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ListowelRaces/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.VirginRock.ListowelRaces;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ListowelRaces/ListowelRaces-Bridging-Header.h";
 			};
 			name = Release;
