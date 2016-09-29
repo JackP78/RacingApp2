@@ -29,7 +29,7 @@
         <!--Best Dressed Collection View Controller-->
         <scene sceneID="Cpf-jX-f7w">
             <objects>
-                <collectionViewController id="mLI-eA-SJ4" customClass="BestDressedCollectionViewController" customModule="ListowelSwift" sceneMemberID="viewController">
+                <collectionViewController id="mLI-eA-SJ4" customClass="BestDressedCollectionViewController" customModule="ListowelRaces" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="NvY-B7-dki">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

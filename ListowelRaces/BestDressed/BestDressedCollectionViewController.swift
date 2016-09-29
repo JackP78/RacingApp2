@@ -7,13 +7,13 @@
 //
 
 import UIKit
-import FirebaseDatabase
-import Firebase
 import SDWebImage
+import MBProgressHUD
 
-class BestDressedCollectionViewController: UICollectionViewController {
+class BestDressedCollectionViewController: UICollectionViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     private let reuseIdentifier = "PictureEntry"
-    private let firebaseRef = FIRDatabase.database().reference().child("photos")
+    private let objectContext = ObjectContext()
+    private let imagePicker = UIImagePickerController()
     var dataSource:FBCollectionViewDataSource?
     
     override func viewDidLoad() {
@@ -21,15 +21,14 @@ class BestDressedCollectionViewController: UICollectionViewController {
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
-        self.dataSource = FBCollectionViewDataSource(query: firebaseRef, cellReuseIdentifier: reuseIdentifier, view: self.collectionView!)
+        self.dataSource = objectContext.getBestDressedLadies(reuseIdentifier, collectionView: self.collectionView)
         self.dataSource!.populateCellWithBlock { (cell: UICollectionViewCell, obj: NSObject) -> Void in
             if let myCell = cell as? PicCollectionViewCell {
-                let snap = obj as! FIRDataSnapshot
+                let snap = obj as! BestDressedEntry
                 NSLog("\(snap)")
-                myCell.nameLabel.text = snap.value!.objectForKey("name") as? String
-                myCell.voteCount.text = (snap.value!.objectForKey("votes") as? NSNumber)?.stringValue
-                if let url = snap.value!.objectForKey("url") as? String {
+                myCell.nameLabel.text = snap.name
+                myCell.voteCount.text = snap.votes?.stringValue
+                if let url = snap.url {
                     myCell.entryImage.sd_setImageWithURL(NSURL(string: url))
                 }
                 myCell.voteButton.addTarget(self, action: #selector(BestDressedCollectionViewController.votePressed(_:)), forControlEvents: .TouchUpInside)
@@ -70,6 +69,30 @@ class BestDressedCollectionViewController: UICollectionViewController {
                 })
             }
         }
+    }
+    
+    func initButtons() {
+        imagePicker.delegate = self
+        let tipButton = UIBarButtonItem.init(title: "Add Entry", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(BestDressedCollectionViewController.chooseImage))
+        self.navigationItem.rightBarButtonItem = tipButton;
+    }
+    
+    func chooseImage() {
+        objectContext.ensureLoggedInWithCompletion(self) { (user) in
+            self.imagePicker.allowsEditing = false
+            self.imagePicker.sourceType = .PhotoLibrary
+            self.presentViewController(self.imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    // called when the image is picked
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String :
+        AnyObject]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            picker.dismissViewControllerAnimated(true, completion: nil)
+            objectContext.enterBestDressed(self, image: pickedImage)
+        }
+        
     }
 
 }
