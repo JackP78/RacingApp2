@@ -17,7 +17,30 @@ class LocalInfoFormViewController: FormViewController {
     @IBAction func submitClicked(sender: UIButton) {
         let info = LocalInfoEntry()
         let values = self.form.values()
+        let localinfoRef = FIRDatabase.database().reference().child("localinfo")
+        let newLocalInfo = localinfoRef.childByAutoId()
+        var result = [String: AnyObject]()
         NSLog("\(values)")
+        for (key, value) in values {
+            if let url = value as? NSURL {
+                result[key] = url.absoluteString
+            }
+            else if let loc = value as? CLLocation {
+                result["latitude"] = Double((loc.coordinate.latitude))
+                result["longitude"] = Double((loc.coordinate.longitude))
+            }
+            else if let loc = value as? UIImage {
+                // eat image for now
+            }
+            else if let v = value as? AnyObject {
+                result[key] = v
+            }
+        }
+        NSLog("\(result)")
+        newLocalInfo.setValue(result)
+        
+        
+        /*NSLog("\(values)")
         if let name = values["name"] as? String {
             info.name = name
         }
@@ -46,7 +69,7 @@ class LocalInfoFormViewController: FormViewController {
                 info.imageUrl = url
                 
             })
-        }
+        }*/
         
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         info.saveInBackgroundWithBlock { (result) in
