@@ -389,7 +389,6 @@
         <!--Race Table View Controller-->
         <scene sceneID="mWo-VT-wEg">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5G2-2s-lK2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="Yvo-dQ-g0v" customClass="FBRaceTableViewController" customModule="ListowelRaces" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="kgN-f4-jcs">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -438,13 +437,13 @@
                         <segue destination="LYH-Bw-KUg" kind="show" identifier="ShowRunner" id="8wI-uc-vQl"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5G2-2s-lK2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="393" y="-525"/>
         </scene>
         <!--Races-->
         <scene sceneID="Bqx-Tc-5da">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FWk-hv-4DA" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="nZR-sK-8sn" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Races" id="PcA-rt-eXN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Seu-MC-M95">
@@ -455,6 +454,7 @@
                         <segue destination="Yvo-dQ-g0v" kind="relationship" relationship="rootViewController" id="bv3-hz-h88"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FWk-hv-4DA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-679" y="-525"/>
         </scene>

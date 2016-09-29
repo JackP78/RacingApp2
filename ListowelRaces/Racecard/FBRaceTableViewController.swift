@@ -27,6 +27,16 @@ class FBRaceTableViewController: UITableViewController {
             cell.detailTextLabel?.text = snap.raceTitle
         }
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        super.viewWillDisappear(animated)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +54,7 @@ class FBRaceTableViewController: UITableViewController {
     }
 
     func dateSelected() {
+        self.dataSource!.tableView = nil;
         self.title = titleDateFormatter.stringFromDate(self.datePicker.selectedDate)
         self.dataSource = context.findRacesFor(self.datePicker.selectedDate, cellReuseIdentifier: reuseIdentifier, tableView: self.tableView)
         self.dataSource!.populateCell = populateCellHandler

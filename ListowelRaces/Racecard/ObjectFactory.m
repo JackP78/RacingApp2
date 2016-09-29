@@ -20,7 +20,12 @@
 
 - (id)createFromSnapshot:(FIRDataSnapshot *)snapShot {
     id model = [[self.modelClass alloc] init];
-    [model setValuesForKeysWithDictionary:snapShot.value];
+    @try{
+        [model setValuesForKeysWithDictionary:snapShot.value];
+    }
+    @catch (NSException* exception) {
+        NSLog(@"Got exception: %@    Reason: %@", exception.name, exception.reason);
+    }
     return model;
 }
 
