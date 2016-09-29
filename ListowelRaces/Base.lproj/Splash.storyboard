@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Wt7-Dt-NK2">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Splash Screen View Controller-->
+        <scene sceneID="z2B-f2-Wve">
+            <objects>
+                <viewController id="Wt7-Dt-NK2" customClass="SplashScreenViewController" customModule="ListowelRaces" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UFo-Bt-C6g"/>
+                        <viewControllerLayoutGuide type="bottom" id="mO7-ZW-7cd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hRd-Yl-j2T">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="yuA-Q3-5Rb" kind="modal" identifier="showMain" animates="NO" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="kvf-QC-Syr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CkQ-03-MTi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="918" y="711"/>
+        </scene>
+        <!--Main-->
+        <scene sceneID="ozX-fc-aT0">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" id="yuA-Q3-5Rb" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M6F-Te-Ks7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1482.5" y="717"/>
+        </scene>
+    </scenes>
+</document>

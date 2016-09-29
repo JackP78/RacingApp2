@@ -21,7 +21,6 @@
                         <segue destination="clO-nh-073" kind="relationship" relationship="viewControllers" id="UZD-L7-BLh"/>
                         <segue destination="BEH-kq-opI" kind="relationship" relationship="viewControllers" id="hrR-E2-es4"/>
                         <segue destination="oB3-NT-sb6" kind="relationship" relationship="viewControllers" id="2NQ-gH-yUv"/>
-                        <segue destination="kpZ-AY-8vk" kind="relationship" relationship="viewControllers" id="J5d-21-wkq"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -67,25 +66,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LFd-rz-1CO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="650.5" y="406"/>
-        </scene>
-        <!--Item-->
-        <scene sceneID="Orv-Xb-d4P">
-            <objects>
-                <viewController id="kpZ-AY-8vk" customClass="SplashScreenViewController" customModule="ListowelRaces" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ccz-f3-879"/>
-                        <viewControllerLayoutGuide type="bottom" id="zp6-xy-Hdc"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Dw0-4A-jDB">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="tPh-V1-vxa"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="z5b-s4-S8f" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="825" y="815"/>
         </scene>
         <!--Login-->
         <scene sceneID="fhI-1l-38m">
