@@ -39,9 +39,10 @@ NSString * const kDIDatepickerCellIndentifier = @"kDIDatepickerCellIndentifier";
 - (void)setupViews
 {
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.backgroundColor = [UIColor whiteColor];
+    //self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor colorWithRed:0 green:0.259 blue:0.145 alpha:1.0];
     self.bottomLineColor = [UIColor colorWithWhite:0.816 alpha:1.000];
-    self.selectedDateBottomLineColor = self.tintColor;
+    self.selectedDateBottomLineColor = [UIColor whiteColor];
 }
 
 #pragma mark Setters | Getters

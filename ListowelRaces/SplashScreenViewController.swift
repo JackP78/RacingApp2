@@ -16,27 +16,18 @@ class SplashScreenViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        addCircleView()
+        let circleView = SplashView(frame: CGRectMake(0, 0, view.frame.size.width - 10, view.frame.size.height - 200))
+        circleView.center = CGPointMake(view.frame.size.width  / 2,
+                                        view.frame.size.height / 2);
+        view.addSubview(circleView)
+        circleView.animateLogoWithCompletion(2.0) {
+            self.performSegueWithIdentifier("showMain", sender: self)
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func addCircleView() {
-        let diceRoll = CGFloat(Int(arc4random_uniform(7))*50)
-        var circleWidth = CGFloat(200)
-        var circleHeight = circleWidth
-        // Create a new CircleView
-        var circleView = CircleView(frame: CGRectMake(diceRoll, 0, circleWidth, circleHeight))
-        
-        circleView.center = CGPointMake(view.frame.size.width  / 2,
-                                        view.frame.size.height / 2);
-        
-        
-        view.addSubview(circleView)
-        circleView.animateShape(2.0)
     }
     
 

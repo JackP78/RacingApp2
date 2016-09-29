@@ -46,8 +46,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return nil
         }*/
         
+        let navbarFont = UISettings.getPrimaryFont()
+        let barbuttonFont = UIFont(name: UISettings.getFontName(), size: 17) ?? UIFont.systemFontOfSize(15)
         
-        // Override point for customization after application launch.
+        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: navbarFont, NSForegroundColorAttributeName:UIColor.whiteColor()]
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: barbuttonFont, NSForegroundColorAttributeName:UIColor.whiteColor()], forState: UIControlState.Normal)
+        
+        UINavigationBar.appearance().translucent = false
+        UINavigationBar.appearance().barTintColor = UISettings.getPrimaryBackGroundColour()
+        
+        //Change status bar color
+        let statusBar: UIView = UIApplication.sharedApplication().valueForKey("statusBar") as! UIView
+        if statusBar.respondsToSelector("setBackgroundColor:") {
+            statusBar.backgroundColor = UISettings.getPrimaryBackGroundColour()
+        }
+        
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
 

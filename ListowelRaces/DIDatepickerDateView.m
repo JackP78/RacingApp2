@@ -4,6 +4,7 @@
 //
 
 #import "DIDatepickerDateView.h"
+#import "ListowelRaces-Swift.h"
 
 
 const CGFloat kDIDatepickerItemWidth = 46.;
@@ -42,7 +43,18 @@ const CGFloat kDIDatepickerSelectionLineWidth = 51.;
 {
     _date = date;
     
-    [self.dateFormatter setDateFormat:@"dd"];
+    
+    [self.dateFormatter setDateFormat:@"E"];
+    NSString *dayFormattedString = [self.dateFormatter stringFromDate:date];
+    
+    NSMutableAttributedString *dateString = [[NSMutableAttributedString alloc] initWithString:dayFormattedString];
+    
+    [dateString addAttributes:@{
+                                NSFontAttributeName: [UIFont fontWithName:@"AromaNo2LTW01-ExtraBold" size:20],
+                                NSForegroundColorAttributeName: [UIColor whiteColor]
+                                } range:NSMakeRange(0, dateString.length)];
+    
+    /*[self.dateFormatter setDateFormat:@"dd"];
     NSString *dayFormattedString = [self.dateFormatter stringFromDate:date];
     
     [self.dateFormatter setDateFormat:@"EEE"];
@@ -72,7 +84,7 @@ const CGFloat kDIDatepickerSelectionLineWidth = 51.;
         [dateString addAttribute:NSFontAttributeName
                            value:[UIFont fontWithName:@"HelveticaNeue-Medium" size:8]
                            range:NSMakeRange(dayFormattedString.length + 1, dayInWeekFormattedString.length)];
-    }
+    }*/
     
     self.dateLabel.attributedText = dateString;
 }
@@ -119,6 +131,7 @@ const CGFloat kDIDatepickerSelectionLineWidth = 51.;
     if (!_selectionView) {
         _selectionView = [[UIView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.frame) - 51) / 2, CGRectGetHeight(self.frame) - 3, 51, 3)];
         _selectionView.alpha = 0.0f;
+        //_selectionView.backgroundColor = [UIColor colorWithRed:242./255. green:93./255. blue:28./255. alpha:1.];
         _selectionView.backgroundColor = [UIColor colorWithRed:242./255. green:93./255. blue:28./255. alpha:1.];
         [self addSubview:_selectionView];
     }
