@@ -10,7 +10,7 @@ target 'ListowelRaces' do
     pod 'FBSDKShareKit', '4.9.1'
     pod 'SwiftValidator', '3.0.3'
     pod 'Eureka', '~> 1.3'
-    pod 'MBProgressHUD', '~> 0.9.2'
+    pod 'MBProgressHUD', '~> 1.0.0'
     pod 'SVGPath'
     pod 'Firebase/Core'
     pod 'Firebase/Database'
