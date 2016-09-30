@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		BC166DDB1D881E58009EC5D3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC166DDA1D881E58009EC5D3 /* GoogleService-Info.plist */; };
 		BC166DEC1D881EFE009EC5D3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DDE1D881EFE009EC5D3 /* Extensions.swift */; };
-		BC166DEE1D881EFE009EC5D3 /* FBExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DE01D881EFE009EC5D3 /* FBExtensions.swift */; };
 		BC166DEF1D881EFE009EC5D3 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DE11D881EFE009EC5D3 /* Form.swift */; };
 		BC166DF21D881EFE009EC5D3 /* LocalInfoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DE41D881EFE009EC5D3 /* LocalInfoEntry.swift */; };
 		BC166DF41D881EFE009EC5D3 /* Race.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DE61D881EFE009EC5D3 /* Race.swift */; };
@@ -67,9 +66,7 @@
 		BCB9130F1D93448C0069DCA9 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9130E1D93448C0069DCA9 /* ChatViewController.swift */; };
 		BCB913111D93449E0069DCA9 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB913101D93449E0069DCA9 /* Chat.storyboard */; };
 		BCB913131D9348940069DCA9 /* ChatInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB913121D9348940069DCA9 /* ChatInitialViewController.swift */; };
-		BCB913201D9B160B0069DCA9 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9131F1D9B160B0069DCA9 /* SplashScreenViewController.swift */; };
 		BCB913221D9B18B00069DCA9 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB913211D9B18B00069DCA9 /* SplashView.swift */; };
-		BCB913251D9C686D0069DCA9 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB913231D9C686C0069DCA9 /* Splash.storyboard */; };
 		BCB9132A1D9C7E580069DCA9 /* AromaNo2LTW01-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCB913291D9C7DC60069DCA9 /* AromaNo2LTW01-ExtraBold.ttf */; };
 		BCB9132C1D9D6CC20069DCA9 /* UISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9132B1D9D6CC20069DCA9 /* UISettings.swift */; };
 		BCB9132E1D9D998C0069DCA9 /* BestDressedEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9132D1D9D998C0069DCA9 /* BestDressedEntry.swift */; };
@@ -78,6 +75,8 @@
 		BCE6E4621D88CD2D00949A56 /* Horse3.atlas in Resources */ = {isa = PBXBuildFile; fileRef = BCE6E4601D88CD2D00949A56 /* Horse3.atlas */; };
 		BCE6E4641D88CFA500949A56 /* HorseSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E4631D88CFA500949A56 /* HorseSprite.swift */; };
 		BCE6E4681D89C7B700949A56 /* ListowelBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = BCE6E4671D89C7B700949A56 /* ListowelBackground.png */; };
+		BCEFDBDF1D9DD32000284036 /* TabBarControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFDBDE1D9DD32000284036 /* TabBarControllerDelegate.swift */; };
+		BCEFDBE11D9DD7AD00284036 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFDBE01D9DD7AD00284036 /* MainViewController.swift */; };
 		FD2689815BB9F95794F52E79 /* Pods_ListowelRaces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBBC3804371887833199B047 /* Pods_ListowelRaces.framework */; };
 /* End PBXBuildFile section */
 
@@ -87,7 +86,6 @@
 		BBBC3804371887833199B047 /* Pods_ListowelRaces.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ListowelRaces.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC166DDA1D881E58009EC5D3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BC166DDE1D881EFE009EC5D3 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		BC166DE01D881EFE009EC5D3 /* FBExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBExtensions.swift; sourceTree = "<group>"; };
 		BC166DE11D881EFE009EC5D3 /* Form.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
 		BC166DE41D881EFE009EC5D3 /* LocalInfoEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalInfoEntry.swift; sourceTree = "<group>"; };
 		BC166DE61D881EFE009EC5D3 /* Race.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Race.swift; sourceTree = "<group>"; };
@@ -151,9 +149,7 @@
 		BCB9130E1D93448C0069DCA9 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		BCB913101D93449E0069DCA9 /* Chat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		BCB913121D9348940069DCA9 /* ChatInitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInitialViewController.swift; sourceTree = "<group>"; };
-		BCB9131F1D9B160B0069DCA9 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		BCB913211D9B18B00069DCA9 /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
-		BCB913241D9C686D0069DCA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Splash.storyboard; sourceTree = "<group>"; };
 		BCB913291D9C7DC60069DCA9 /* AromaNo2LTW01-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AromaNo2LTW01-ExtraBold.ttf"; sourceTree = "<group>"; };
 		BCB9132B1D9D6CC20069DCA9 /* UISettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISettings.swift; sourceTree = "<group>"; };
 		BCB9132D1D9D998C0069DCA9 /* BestDressedEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BestDressedEntry.swift; path = ../Core/BestDressedEntry.swift; sourceTree = "<group>"; };
@@ -162,6 +158,8 @@
 		BCE6E4601D88CD2D00949A56 /* Horse3.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Horse3.atlas; sourceTree = "<group>"; };
 		BCE6E4631D88CFA500949A56 /* HorseSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorseSprite.swift; sourceTree = "<group>"; };
 		BCE6E4671D89C7B700949A56 /* ListowelBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ListowelBackground.png; sourceTree = "<group>"; };
+		BCEFDBDE1D9DD32000284036 /* TabBarControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControllerDelegate.swift; sourceTree = "<group>"; };
+		BCEFDBE01D9DD7AD00284036 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,7 +196,6 @@
 			children = (
 				BCB9132D1D9D998C0069DCA9 /* BestDressedEntry.swift */,
 				BC166DDE1D881EFE009EC5D3 /* Extensions.swift */,
-				BC166DE01D881EFE009EC5D3 /* FBExtensions.swift */,
 				BC166DE11D881EFE009EC5D3 /* Form.swift */,
 				BC166DE41D881EFE009EC5D3 /* LocalInfoEntry.swift */,
 				BC166DE61D881EFE009EC5D3 /* Race.swift */,
@@ -320,12 +317,12 @@
 				BC2E4CBC1D88193C00376D95 /* AppDelegate.swift */,
 				BC166E2E1D882B77009EC5D3 /* Images.xcassets */,
 				BC2E4CC21D88193C00376D95 /* Main.storyboard */,
-				BCB913231D9C686C0069DCA9 /* Splash.storyboard */,
 				BC2E4CC71D88193C00376D95 /* LaunchScreen.storyboard */,
 				BC2E4CCA1D88193C00376D95 /* Info.plist */,
 				BC166E301D882C35009EC5D3 /* ListowelRaces-Bridging-Header.h */,
-				BCB9131F1D9B160B0069DCA9 /* SplashScreenViewController.swift */,
 				BCB913211D9B18B00069DCA9 /* SplashView.swift */,
+				BCEFDBDE1D9DD32000284036 /* TabBarControllerDelegate.swift */,
+				BCEFDBE01D9DD7AD00284036 /* MainViewController.swift */,
 			);
 			path = ListowelRaces;
 			sourceTree = "<group>";
@@ -457,7 +454,6 @@
 				BC166E201D8829B9009EC5D3 /* TipCell.xib in Resources */,
 				BCB913111D93449E0069DCA9 /* Chat.storyboard in Resources */,
 				BCE6E4681D89C7B700949A56 /* ListowelBackground.png in Resources */,
-				BCB913251D9C686D0069DCA9 /* Splash.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,7 +521,6 @@
 				BC166E081D881F1F009EC5D3 /* ImageUpload.swift in Sources */,
 				BCB913041D9342210069DCA9 /* LocalInfoTableViewController.swift in Sources */,
 				BCB913051D9342210069DCA9 /* LocationRow.swift in Sources */,
-				BC166DEE1D881EFE009EC5D3 /* FBExtensions.swift in Sources */,
 				BC166E1A1D8829B9009EC5D3 /* HorseSummaryCell.swift in Sources */,
 				BCB913071D9342210069DCA9 /* MapViewController.swift in Sources */,
 				BCB913011D9342210069DCA9 /* LocalInfoDetailController.swift in Sources */,
@@ -540,6 +535,7 @@
 				BC166DEF1D881EFE009EC5D3 /* Form.swift in Sources */,
 				BC166E571D8897EB009EC5D3 /* ExceptionTypes.swift in Sources */,
 				BC166E461D882CB9009EC5D3 /* PageRacesViewController.swift in Sources */,
+				BCEFDBE11D9DD7AD00284036 /* MainViewController.swift in Sources */,
 				BCB913221D9B18B00069DCA9 /* SplashView.swift in Sources */,
 				BC166DF41D881EFE009EC5D3 /* Race.swift in Sources */,
 				BC166DEC1D881EFE009EC5D3 /* Extensions.swift in Sources */,
@@ -550,10 +546,10 @@
 				BC166DF61D881EFE009EC5D3 /* Runner.swift in Sources */,
 				BC166E411D882CB9009EC5D3 /* CompositeTableViewDataSource.swift in Sources */,
 				BC166E1E1D8829B9009EC5D3 /* RunnerFormCell.swift in Sources */,
-				BCB913201D9B160B0069DCA9 /* SplashScreenViewController.swift in Sources */,
 				BCB9132C1D9D6CC20069DCA9 /* UISettings.swift in Sources */,
 				BCB912F31D9325860069DCA9 /* BestDressedCollectionViewController.swift in Sources */,
 				BC166E1C1D8829B9009EC5D3 /* RaceCell.swift in Sources */,
+				BCEFDBDF1D9DD32000284036 /* TabBarControllerDelegate.swift in Sources */,
 				BCB913131D9348940069DCA9 /* ChatInitialViewController.swift in Sources */,
 				BCB913061D9342210069DCA9 /* LRMapView.swift in Sources */,
 				BC166E0D1D881F7F009EC5D3 /* FBDelegate.swift in Sources */,
@@ -585,14 +581,6 @@
 				BC2E4CC81D88193C00376D95 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		BCB913231D9C686C0069DCA9 /* Splash.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BCB913241D9C686D0069DCA9 /* Base */,
-			);
-			name = Splash.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
