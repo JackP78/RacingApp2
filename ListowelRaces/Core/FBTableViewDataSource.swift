@@ -12,7 +12,7 @@ import FirebaseDatabase
 class FBTableViewDataSource: NSObject, UITableViewDataSource, FBDelegate {
     var array: FBArray?
     var reuseIdentifier : String
-    var tableView : UITableView
+    var tableView : UITableView?
     var modelClass : AnyClass?
     var populateCell:((cell: UITableViewCell, object: NSObject) -> Void)?
     var section : Int = 1
@@ -33,7 +33,7 @@ class FBTableViewDataSource: NSObject, UITableViewDataSource, FBDelegate {
         self.section = section
         if (nibNamed != nil) {
             let nib = UINib.init(nibName: nibNamed!, bundle: nil)
-            self.tableView.registerNib(nib, forCellReuseIdentifier: self.reuseIdentifier)
+            self.tableView?.registerNib(nib, forCellReuseIdentifier: self.reuseIdentifier)
         }
         if model == nil {
             self.modelClass = FIRDataSnapshot.self
@@ -75,27 +75,27 @@ class FBTableViewDataSource: NSObject, UITableViewDataSource, FBDelegate {
     }
 
     func childAdded(object: AnyObject, atIndex: Int) {
-        self.tableView.beginUpdates()
-        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: Int(atIndex), inSection: self.section)], withRowAnimation: .Automatic)
-        self.tableView.endUpdates()
+        self.tableView?.beginUpdates()
+        self.tableView?.insertRowsAtIndexPaths([NSIndexPath(forRow: Int(atIndex), inSection: self.section)], withRowAnimation: .Automatic)
+        self.tableView?.endUpdates()
     }
     
     func childChanged(object: AnyObject, atIndex: Int) {
-        self.tableView.beginUpdates()
-        self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: Int(atIndex), inSection: self.section)], withRowAnimation: .Automatic)
-        self.tableView.endUpdates()
+        self.tableView?.beginUpdates()
+        self.tableView?.reloadRowsAtIndexPaths([NSIndexPath(forRow: Int(atIndex), inSection: self.section)], withRowAnimation: .Automatic)
+        self.tableView?.endUpdates()
     }
     
     func childRemoved(object: AnyObject, atIndex: Int) {
-        self.tableView.beginUpdates()
-        self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: Int(atIndex), inSection: self.section)], withRowAnimation: .Automatic)
-        self.tableView.endUpdates()
+        self.tableView?.beginUpdates()
+        self.tableView?.deleteRowsAtIndexPaths([NSIndexPath(forRow: Int(atIndex), inSection: self.section)], withRowAnimation: .Automatic)
+        self.tableView?.endUpdates()
     }
     
     func childMoved(object: AnyObject, fromIndex: Int, toIndex: Int) {
-        self.tableView.beginUpdates()
-        self.tableView.moveRowAtIndexPath(NSIndexPath(forRow: Int(fromIndex), inSection: self.section), toIndexPath: NSIndexPath(forRow: Int(toIndex), inSection: self.section))
-        self.tableView.endUpdates()
+        self.tableView?.beginUpdates()
+        self.tableView?.moveRowAtIndexPath(NSIndexPath(forRow: Int(fromIndex), inSection: self.section), toIndexPath: NSIndexPath(forRow: Int(toIndex), inSection: self.section))
+        self.tableView?.endUpdates()
     }
     
     func cancelWithError(error: NSError) {

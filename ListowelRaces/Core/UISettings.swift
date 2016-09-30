@@ -7,3 +7,17 @@
 //
 
 import Foundation
+
+public class UISettings {
+    static func getFontName() -> String {
+        return "AromaNo2LTW01-ExtraBold";
+    }
+    
+    static func getPrimaryFont() -> UIFont {
+        return UIFont(name: "AromaNo2LTW01-ExtraBold", size: 20) ?? UIFont.systemFontOfSize(17)
+    }
+    
+    static func getPrimaryBackGroundColour() -> UIColor {
+        return UIColor(red: 0.0, green: 0.259, blue: 0.145, alpha: 1.0)
+    }
+}
