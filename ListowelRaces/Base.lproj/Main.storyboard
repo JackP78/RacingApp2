@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Main View Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" customClass="MainViewController" customModule="ListowelRaces" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
@@ -16,6 +16,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <outlet property="delegate" destination="Nm7-JY-gjC" id="ZQS-4d-y8x"/>
                         <segue destination="re1-Qf-Fxc" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                         <segue destination="jwY-5D-Yae" kind="relationship" relationship="viewControllers" id="AF6-Ej-frD"/>
                         <segue destination="clO-nh-073" kind="relationship" relationship="viewControllers" id="UZD-L7-BLh"/>
@@ -24,6 +25,7 @@
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
+                <customObject id="Nm7-JY-gjC" customClass="TabBarControllerDelegate" customModule="ListowelRaces" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
