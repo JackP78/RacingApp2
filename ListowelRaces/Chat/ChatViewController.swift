@@ -137,6 +137,10 @@ class ChatViewController: JSQMessagesViewController  {
             // 5
         finishSendingMessage()
         isTyping = false
+        
+        if self.inputToolbar.contentView.textView.isFirstResponder() {
+            self.inputToolbar.contentView.textView.resignFirstResponder()
+        }
     }
     
     private func observeTyping() {
