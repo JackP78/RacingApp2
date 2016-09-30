@@ -10,6 +10,7 @@
         <!--Best Dressed-->
         <scene sceneID="6pj-iC-OHH">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h78-b8-vwj" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="83z-Pl-DX5" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Best Dressed" id="Cc7-WC-sXD"/>
                     <toolbarItems/>
@@ -22,7 +23,6 @@
                         <segue destination="mLI-eA-SJ4" kind="relationship" relationship="rootViewController" id="kAI-nx-e6t"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="h78-b8-vwj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="777" y="9"/>
         </scene>
