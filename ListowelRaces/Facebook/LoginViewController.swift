@@ -57,7 +57,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             }
             else {
                 print("Sign in worked for", user?.displayName)
-                let req = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email,name"], tokenString: token.tokenString, version: nil, HTTPMethod: "GET")
+                let req = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email,name,picture"], tokenString: token.tokenString, version: nil, HTTPMethod: "GET")
                 req.startWithCompletionHandler({ (connection : FBSDKGraphRequestConnection!, result : AnyObject!, error : NSError!) in
                     if (error != nil) {
                         
@@ -65,9 +65,37 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                     else {
                         NSLog("\(result)")
                         self.toggleHiddenState(false)
-                        self.profilePicture.profileID = result.valueForKey("id") as! String
-                        self.lblUsername.text = result.valueForKey("name") as? String
-                        self.lblEmail.text = result.valueForKey("email") as? String
+                        let facebookID = result.valueForKey("id") as! String
+                        let displayName = result.valueForKey("name") as? String
+                        let email = result.valueForKey("email") as? String
+                        
+                        
+                        self.profilePicture.profileID = facebookID
+                        self.lblUsername.text = displayName
+                        self.lblEmail.text = email
+                        
+                        if let user = user {
+                            let changeRequest = user.profileChangeRequest()
+                            
+                            changeRequest.displayName = displayName
+                            if let pictureUrl = result.valueForKey("picture") as? String {
+                                changeRequest.photoURL = NSURL(string: pictureUrl)
+                            }
+                            changeRequest.commitChangesWithCompletion { error in
+                                if let error = error {
+                                    // An error happened.
+                                } else {
+                                    NSLog("profile updated")
+                                }
+                            }
+                            user.updateEmail(email!) { error in
+                                if let error = error {
+                                    // An error happened.
+                                } else {
+                                    NSLog("email updated")
+                                }
+                            }
+                        }
                     }
                 })
                 self.completionHandler(user: user!)
