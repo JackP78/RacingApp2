@@ -9,7 +9,7 @@ target 'ListowelRaces' do
     pod 'FBSDKLoginKit', '4.9.1'
     pod 'FBSDKShareKit', '4.9.1'
     pod 'SwiftValidator', '3.0.3'
-    pod 'Eureka', '~> 1.3'
+    pod 'Eureka'
     pod 'MBProgressHUD', '~> 1.0.0'
     pod 'SVGPath'
     pod 'Firebase/Core'
@@ -19,9 +19,6 @@ target 'ListowelRaces' do
     pod 'Firebase/Storage'
     #pod 'GeoFire', '>= 1.2'
     pod 'JSQMessagesViewController'
-    pod 'SwiftyJSON'
     pod 'SDWebImage'
     pod 'UIActivityIndicator-for-SDWebImage'
-    pod 'AWSCognito'
-    pod ‘AWSCore’
 end
