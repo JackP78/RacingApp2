@@ -14,6 +14,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocalInfoSelector 
     @IBOutlet weak var mapView: MKMapView!
     
     var results : [LocalInfoEntry] = []
+    var obj = ObjectContext()
     
     
     override func viewDidLoad() {
@@ -22,7 +23,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocalInfoSelector 
         let initialLocation = CLLocation(latitude: 52.4460488, longitude: -9.4853655)
         centerMapOnLocation(initialLocation)
         mapView.delegate = self
-        LocalInfoEntry.findAll("Listowel") { (current) in
+        obj.findLocalInfo("Listowel") { (current) in
             self.results.append(current)
             self.mapView.addAnnotation(current)
         }

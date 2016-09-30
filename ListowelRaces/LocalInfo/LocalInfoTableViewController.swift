@@ -14,6 +14,7 @@ class LocalInfoTableViewController: UITableViewController, LocalInfoSelector, UI
     var filterLocalInfos = [LocalInfoEntry]()
     var localinfos = [LocalInfoEntry]()
     var shouldShowFilteredResults: Bool = false
+    let obj = ObjectContext()
     
     var searchController = UISearchController(searchResultsController: nil)
     
@@ -28,7 +29,7 @@ class LocalInfoTableViewController: UITableViewController, LocalInfoSelector, UI
         // Place the search bar view to the tableview headerview.
         self.tableView.tableHeaderView = searchController.searchBar
         
-        LocalInfoEntry.findAll("Listowel") { (current) in
+        obj.findLocalInfo("Listowel") { (current) in
             self.tableView.beginUpdates()
             self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.localinfos.count, inSection: 0)], withRowAnimation: .Automatic)
             self.localinfos.append(current)

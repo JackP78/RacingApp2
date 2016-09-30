@@ -13,10 +13,13 @@ import Eureka
 
 //MARK: LocationRow
 
-public final class LocationRow : SelectorRow<CLLocation,PushSelectorCell<CLLocation>, MapViewPickerController>, RowType {
-    public required init(_ tag: String?, @noescape _ initializer: LocationRow -> ()) {
+public final class LocationRow2 : SelectorRow<CLLocation, PushSelectorCell<CLLocation>, MapViewPickerController>, RowType {
+    required public init(tag: String?) {
         super.init(tag: tag)
-        presentationMode = .Show(controllerProvider: ControllerProvider.Callback { return MapViewPickerController(){ _ in } }, completionCallback: { vc in vc.navigationController?.popViewControllerAnimated(true) })
+        presentationMode = .Show(controllerProvider: ControllerProvider.Callback {return MapViewPickerController()}, completionCallback: {
+            vc in
+            vc.navigationController?.popViewControllerAnimated(true)
+        })
         displayValueFor = {
             guard let location = $0 else { return "" }
             let fmt = NSNumberFormatter()

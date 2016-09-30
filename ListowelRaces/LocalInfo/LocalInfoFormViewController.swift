@@ -13,68 +13,11 @@ import MBProgressHUD
 
 class LocalInfoFormViewController: FormViewController {
     var typeSection: SelectableSection<ListCheckRow<String>, String>?
+    var objContext = ObjectContext()
     
     @IBAction func submitClicked(sender: UIButton) {
-        let info = LocalInfoEntry()
-        let values = self.form.values()
-        let localinfoRef = FIRDatabase.database().reference().child("localinfo")
-        let newLocalInfo = localinfoRef.childByAutoId()
-        var result = [String: AnyObject]()
-        NSLog("\(values)")
-        for (key, value) in values {
-            if let url = value as? NSURL {
-                result[key] = url.absoluteString
-            }
-            else if let loc = value as? CLLocation {
-                result["latitude"] = Double((loc.coordinate.latitude))
-                result["longitude"] = Double((loc.coordinate.longitude))
-            }
-            else if let loc = value as? UIImage {
-                // eat image for now
-            }
-            else if let v = value as? AnyObject {
-                result[key] = v
-            }
-        }
-        NSLog("\(result)")
-        newLocalInfo.setValue(result)
-        
-        
-        /*NSLog("\(values)")
-        if let name = values["name"] as? String {
-            info.name = name
-        }
-        if let email = values["email"] as? String {
-            info.email = email
-        }
-        if let phone = values["phone"] as? String {
-            info.phone = phone
-        }
-        if let url = values["url"] as? String {
-            info.url = url
-        }
-        if let location = values["location"] as? CLLocation {
-            info.location = location
-        }
-        if let description = values["description"] as? String {
-            info.excerptDescription = description
-        }
-        if let row = typeSection?.selectedRow() {
-            info.type = row.value
-            NSLog("\(row.value)")
-        }
-        if let image = values["image"] as? UIImage {
-            let imageUploader = ImageUpload()
-            imageUploader.uploadImage(image, parentView: self.view, completion: { (url) in
-                info.imageUrl = url
-                
-            })
-        }*/
-        
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        info.saveInBackgroundWithBlock { (result) in
-            self.navigationController?.popViewControllerAnimated(true)
-        }
+        objContext.saveLocalInfo(self, values: self.form.values())
+        self.navigationController?.popViewControllerAnimated(true)
 
     }
     
@@ -104,7 +47,7 @@ class LocalInfoFormViewController: FormViewController {
             <<< ImageRow("image"){
                 $0.title = "ImageRow"
             }
-            <<< LocationRow(){
+            <<< LocationRow2("location"){
                 $0.title = "LocationRow"
                 $0.value = CLLocation(latitude: 52.4460488, longitude: -9.4853655)
             }
