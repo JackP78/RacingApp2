@@ -12,12 +12,26 @@ class ChatInitialViewController: UIViewController {
 
     @IBOutlet weak var containerView: UIView!
     
+    var objectContext = ObjectContext()
+    var senderId : String?
+    var displayName : String?
+    
     var userId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.senderId = nil
+        self.displayName = nil
+        objectContext.ensureLoggedInWithCompletion(self) { (user) in
+            self.senderId = user.uid
+            self.displayName = user.displayName
+            self.performSegueWithIdentifier("childViewController", sender: self)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,6 +40,15 @@ class ChatInitialViewController: UIViewController {
     }
     
 
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if identifier == "childViewController" {
+            return senderId != nil;
+        }
+        else {
+            return true;
+        }
+    }
+    
     
     // MARK: - Navigation
 
@@ -33,10 +56,9 @@ class ChatInitialViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        
         if let destinationScene = segue.destinationViewController as? ChatViewController {
-            destinationScene.senderId = "3" // 3
-            destinationScene.senderDisplayName = "Jack McAuliffe" // 4
+            destinationScene.senderId = self.senderId
+            destinationScene.senderDisplayName = self.displayName
         }
     }
  

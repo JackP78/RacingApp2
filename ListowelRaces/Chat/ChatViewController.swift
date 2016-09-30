@@ -17,6 +17,7 @@ class ChatViewController: JSQMessagesViewController  {
     let rootRef = FIRDatabase.database().reference()
     var messageRef: FIRDatabaseReference!
     var usersTypingQuery: FIRDatabaseQuery!
+    var objectContext = ObjectContext()
     
     var userIsTypingRef: FIRDatabaseReference! // 1
     private var localTyping = false // 2
@@ -55,6 +56,10 @@ class ChatViewController: JSQMessagesViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        objectContext.ensureLoggedInWithCompletion(self) { (user) in
+            self.senderId = user.uid // 3
+            self.senderDisplayName = user.displayName
+        }
         
         // Do any additional setup after loading the view.
         title = "ChatChat"
