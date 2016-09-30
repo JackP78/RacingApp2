@@ -12,6 +12,7 @@ import SVGPath
 class SplashView: UIView {
     
     var animatedShapes = [CAShapeLayer]()
+    var logoRect : CGRect?
     var topText : CATextLayer?
     var bottomText : CATextLayer?
     let greenColor = UIColor(red: 0.024, green: 0.244, blue: 0.165, alpha: 1)
@@ -75,6 +76,11 @@ class SplashView: UIView {
         bottomText?.addAnimation(textAnimate2, forKey: "BottoText")
         
         CATransaction.commit()
+        
+        let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(duration * 0.4 * Double(NSEC_PER_SEC)))
+        dispatch_after(dispatchTime, dispatch_get_main_queue(), {
+            self.backgroundColor = UIColor.clearColor()
+        })
     }
     
     func createHorseHead() {
@@ -101,7 +107,7 @@ class SplashView: UIView {
         listowelTextLayer.contentsScale = UIScreen.mainScreen().scale
         listowelTextLayer.string = text
         listowelTextLayer.fontSize = 60
-        let yPos = (top) ? 10 : (CGRectGetMaxY(self.bounds) - 10 - height)
+        let yPos = (top) ? logoRect!.minY - 20 - height : logoRect!.maxY + 20
         listowelTextLayer.frame = CGRectMake(0, yPos, CGRectGetWidth(self.bounds), height)
         return listowelTextLayer
     }
@@ -153,6 +159,14 @@ class SplashView: UIView {
         shapeLayer.position = CGPointMake(CGRectGetWidth(self.bounds) / 2, CGRectGetHeight(self.bounds) / 2);
         shapeLayer.fillColor = color.CGColor
         shapeLayer.lineWidth = lineWidth
+        if logoRect == nil {
+            logoRect = shapeLayer.frame
+        }
+        else {
+            logoRect = CGRectUnion(logoRect!, shapeLayer.frame)
+        }
+        
+        
         return shapeLayer
     }
 

@@ -10,10 +10,24 @@ import UIKit
 
 class MainViewController: UITabBarController {
 
+    var splashScreen : SplashView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        NSLog("Main View Loaded")
         // Do any additional setup after loading the view.
+        splashScreen = SplashView(frame: self.view.frame)
+        splashScreen?.backgroundColor  = UIColor.whiteColor()
+        view.addSubview(splashScreen!)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            self.splashScreen?.animateLogoWithCompletion(2, onComplete: { 
+                self.splashScreen?.removeFromSuperview()
+            })
+        }
     }
 
     override func didReceiveMemoryWarning() {
