@@ -24,6 +24,7 @@ class LocalInfoTableViewController: UITableViewController, LocalInfoSelector, UI
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.sizeToFit()
+        searchController.hidesNavigationBarDuringPresentation = false
         self.definesPresentationContext = false
         
         // Place the search bar view to the tableview headerview.
