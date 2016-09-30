@@ -23,7 +23,7 @@ class Runner : NSObject {
     var numberTips: NSNumber?
     var officialRating: NSNumber?
     var ownerName: NSNumber?
-    var runnerId: NSNumber?
+    var runnerId: Int = 0
     var silksUrl: String?
     var sireName: String?
     var trainerName: String?

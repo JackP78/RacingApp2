@@ -33,4 +33,8 @@ class LocalInfoEntry : NSObject, MKAnnotation {
     @objc var subtitle: String? {
         return type
     }
+    
+    override func setValue(value: AnyObject?, forUndefinedKey key: String) {
+        NSLog("No setting for key \(key)")
+    }
 }
