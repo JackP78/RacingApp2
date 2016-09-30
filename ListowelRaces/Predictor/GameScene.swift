@@ -60,7 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let location = touch.locationInNode(self)
             
             let runner = Runner()
-            runner.name = "Katie O"
+            runner.name = "KateO"
             let speed = Int(arc4random_uniform(100)) + 1;
             runner.speed = speed
             let sprite = HorseSprite(runner: runner)
