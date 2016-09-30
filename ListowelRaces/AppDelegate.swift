@@ -8,8 +8,6 @@
 
 import UIKit
 import FBSDKCoreKit
-import AWSCore
-import AWSCognito
 import Firebase
 import FirebaseDatabase
 
@@ -21,30 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     override init() {
         super.init()
         FIRApp.configure()
+        FIRDatabase.database().persistenceEnabled = true
         // not really needed unless you really need it FIRDatabase.database().persistenceEnabled = true
     }
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        // Initialize the Amazon Cognito credentials provider
-        /*let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.EUWest1,
-            identityPoolId:"eu-west-1:3f02f2a6-5376-46b0-8edd-64503ed4adaf")*/
-        
-        //let configuration = AWSServiceConfiguration(region:.EUWest1, credentialsProvider:credentialsProvider)
-        
-        //AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
-
-        // Initialize the Cognito Sync client
-        //let syncClient = AWSCognito.defaultCognito()
-        
-        // Create a record in a dataset and synchronize with the server
-        /*let dataset = syncClient.openOrCreateDataset("myDataset")
-        dataset.setString("myValue", forKey:"myKey")
-        dataset.synchronize().continueWithBlock {(task: AWSTask!) -> AnyObject! in
-            // Your handler code here
-            return nil
-        }*/
         
         let navbarFont = UISettings.getPrimaryFont()
         let barbuttonFont = UIFont(name: UISettings.getFontName(), size: 17) ?? UIFont.systemFontOfSize(15)
