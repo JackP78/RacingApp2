@@ -1,28 +1,19 @@
 //
-//  SplashScreenViewController.swift
+//  MainViewController.swift
 //  ListowelRaces
 //
-//  Created by Jack McAuliffe on 27/09/2016.
+//  Created by Jack McAuliffe on 30/09/2016.
 //  Copyright © 2016 Jack McAuliffe. All rights reserved.
 //
 
 import UIKit
 
-class SplashScreenViewController: UIViewController {
+class MainViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        let circleView = SplashView(frame: CGRectMake(0, 0, view.frame.size.width - 10, view.frame.size.height - 200))
-        circleView.center = CGPointMake(view.frame.size.width  / 2,
-                                        view.frame.size.height / 2);
-        view.addSubview(circleView)
-        circleView.animateLogoWithCompletion(2.0) {
-            self.performSegueWithIdentifier("showMain", sender: self)
-        }
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
