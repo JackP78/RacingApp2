@@ -4,7 +4,6 @@
 //
 
 #import "DIDatepickerDateView.h"
-#import "ListowelRaces-Swift.h"
 
 
 const CGFloat kDIDatepickerItemWidth = 46.;
