@@ -7,6 +7,26 @@
 //
 
 import Foundation
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class Form  : NSObject {
     var course: String?
@@ -30,11 +50,11 @@ class Form  : NSObject {
     
     func meetingdateString() -> String {
         if meetingDate != nil {
-            let dateFormatter = NSDateFormatter()
-            let dateParser = NSDateFormatter()
+            let dateFormatter = DateFormatter()
+            let dateParser = DateFormatter()
             dateFormatter.dateFormat = "d MMM yy"
             dateParser.dateFormat = "yyyy-MM-dd"
-            return dateFormatter.stringFromDate(dateParser.dateFromString(meetingDate!)!)
+            return dateFormatter.string(from: dateParser.date(from: meetingDate!)!)
         }
         else {
             return ""
@@ -59,13 +79,13 @@ class Form  : NSObject {
         if finishPosition != nil {
             if (finishPosition! == 1) {
                 response = "Won"
-                if distanceWon != nil && distanceWon?.integerValue > 0 {
-                    response += " by \(distanceWon!.integerValue)l"
+                if distanceWon != nil && distanceWon?.intValue > 0 {
+                    response += " by \(distanceWon!.intValue)l"
                 }
             }
             else {
-                if distanceBehindWinner != nil && distanceBehindWinner?.integerValue > 0 {
-                    response = "\(distanceBehindWinner!.integerValue)l "
+                if distanceBehindWinner != nil && distanceBehindWinner?.intValue > 0 {
+                    response = "\(distanceBehindWinner!.intValue)l "
                 }
                 if winner != nil {
                     response += "to \(winner!)"

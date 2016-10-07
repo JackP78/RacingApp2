@@ -6,11 +6,11 @@
 //  Copyright © 2016 Jack McAuliffe. All rights reserved.
 //
 
-func timeString(value : NSDate?) -> String {
+func timeString(_ value : Date?) -> String {
     if let scheduledTime = value {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
-        return dateFormatter.stringFromDate(scheduledTime)
+        return dateFormatter.string(from: scheduledTime)
     }
     return ""
 }
@@ -35,7 +35,7 @@ class Race : NSObject {
     
     var runners: [Runner] = []
     
-    override func setValue(value: AnyObject?, forUndefinedKey key: String) {
+    override func setValue(_ value: Any?, forUndefinedKey key: String) {
         NSLog("undefined key \(key)")
     }
 }

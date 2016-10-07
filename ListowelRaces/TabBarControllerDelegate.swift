@@ -9,7 +9,7 @@
 import UIKit
 
 class TabBarControllerDelegate: NSObject, UITabBarControllerDelegate {
-    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController)->Bool {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController)->Bool {
         NSLog("Selected a new tab \(viewController.title)")
         return true;
     }

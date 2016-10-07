@@ -21,13 +21,13 @@ class PageRacesViewController: UIViewController, UIPageViewControllerDataSource 
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.pageController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+        self.pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         super.init(coder: aDecoder)
         
         let pageControl:UIPageControl = UIPageControl.appearance()
-        pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
-        pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
-        pageControl.backgroundColor = UIColor.whiteColor()
+        pageControl.pageIndicatorTintColor = UIColor.lightGray
+        pageControl.currentPageIndicatorTintColor = UIColor.black
+        pageControl.backgroundColor = UIColor.white
     }
     
     override func viewDidLoad() {
@@ -41,14 +41,14 @@ class PageRacesViewController: UIViewController, UIPageViewControllerDataSource 
         
         let viewControllers = [viewControllerObject];
         
-        self.pageController.setViewControllers(viewControllers, direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
+        self.pageController.setViewControllers(viewControllers, direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
         
         self.addChildViewController(self.pageController)
         self.view.addSubview(self.pageController.view)
-        self.pageController.didMoveToParentViewController(self)
+        self.pageController.didMove(toParentViewController: self)
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         var index = (viewController as! LRRunnerTableViewController).raceIndex;
         if (index == 0) {
             return nil;
@@ -57,7 +57,7 @@ class PageRacesViewController: UIViewController, UIPageViewControllerDataSource 
         return self.viewControllerAtIndex(index)
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         var index = (viewController as! LRRunnerTableViewController).raceIndex;
         if (index == totalRaces - 1) {
             return nil;
@@ -66,11 +66,11 @@ class PageRacesViewController: UIViewController, UIPageViewControllerDataSource 
         return self.viewControllerAtIndex(index)
     }
     
-    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return totalRaces;
     }
     
-    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         return raceNumber
     }
 
@@ -79,9 +79,9 @@ class PageRacesViewController: UIViewController, UIPageViewControllerDataSource 
         // Dispose of any resources that can be recreated.
     }
     
-    func viewControllerAtIndex(index: Int) -> LRRunnerTableViewController? {
+    func viewControllerAtIndex(_ index: Int) -> LRRunnerTableViewController? {
         // Get the new view controller using [segue destinationViewController].
-        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("raceInfoView") as? LRRunnerTableViewController {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "raceInfoView") as? LRRunnerTableViewController {
             // Pass the selected object to the destination view controller.
             vc.raceIndex = index
             let race = dataSource!.modelClassAtIndex(index) as! Race

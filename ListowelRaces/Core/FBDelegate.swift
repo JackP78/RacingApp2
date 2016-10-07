@@ -8,13 +8,13 @@
 import UIKit
 
 protocol FBDelegate {
-    func childAdded(object: AnyObject, atIndex: Int)
+    func childAdded(_ object: AnyObject, atIndex: Int)
     
-    func childChanged(object: AnyObject, atIndex: Int)
+    func childChanged(_ object: AnyObject, atIndex: Int)
     
-    func childRemoved(object: AnyObject, atIndex: Int)
+    func childRemoved(_ object: AnyObject, atIndex: Int)
     
-    func childMoved(object: AnyObject, fromIndex: Int, toIndex: Int)
+    func childMoved(_ object: AnyObject, fromIndex: Int, toIndex: Int)
     
-    func cancelWithError(error: NSError)
+    func cancelWithError(_ error: Error)
 }

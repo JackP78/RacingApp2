@@ -12,12 +12,12 @@ import MapKit
 import MBProgressHUD
 
 class LocalInfoFormViewController: FormViewController {
-    var typeSection: SelectableSection<ListCheckRow<String>, String>?
+    var typeSection: SelectableSection<ListCheckRow<String>>?
     var objContext = ObjectContext()
     
-    @IBAction func submitClicked(sender: UIButton) {
+    @IBAction func submitClicked(_ sender: UIButton) {
         objContext.saveLocalInfo(self, values: self.form.values())
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
 
     }
     
@@ -42,10 +42,7 @@ class LocalInfoFormViewController: FormViewController {
             }
             <<< URLRow("url") {
                 $0.title = "URL"
-                $0.value = NSURL(string: "http://www.google.ie")
-            }
-            <<< ImageRow("image"){
-                $0.title = "ImageRow"
+                $0.value = URL(string: "http://www.google.ie")
             }
             <<< LocationRow2("location"){
                 $0.title = "LocationRow"
@@ -58,7 +55,7 @@ class LocalInfoFormViewController: FormViewController {
         
         let continents = ["Music", "Accomodation", "Food", "Taxi", "Betting", "Bar"]
         
-        typeSection = SelectableSection<ListCheckRow<String>, String>() { section in
+        typeSection = SelectableSection<ListCheckRow<String>>() { section in
             section.header = HeaderFooterView(title: "Type of Business")
             section.tag = "type"
         }

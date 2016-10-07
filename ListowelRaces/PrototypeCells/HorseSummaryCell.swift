@@ -21,12 +21,12 @@ class HorseSummaryCell: UITableViewCell {
             if let currentRunner = runner {
                 self.clothLabel.text = currentRunner.clothNumber?.stringValue
                 self.nameLabel.text = currentRunner.name!
-                if let tips = currentRunner.numberTips?.integerValue {
+                if let tips = currentRunner.numberTips?.intValue {
                     if tips > 0 {
                         tipsLabel.text = "\(tips) tips"
                     }
                 }
-                self.silksImage.sd_setImageWithURL(NSURL(string: currentRunner.silksUrl!), placeholderImage: UIImage(named:"defaultSilk"))
+                self.silksImage.sd_setImage(with: URL(string: currentRunner.silksUrl!), placeholderImage: UIImage(named:"defaultSilk"))
             }
         }
     }
@@ -36,7 +36,7 @@ class HorseSummaryCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

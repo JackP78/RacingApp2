@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-func loadTextureAtlas(atlasName : String) -> [SKTexture] {
+func loadTextureAtlas(_ atlasName : String) -> [SKTexture] {
     var textureArea = [SKTexture]()
     let textureAtlas = SKTextureAtlas(named: atlasName)
     let numImages = textureAtlas.textureNames.count;
@@ -19,14 +19,14 @@ func loadTextureAtlas(atlasName : String) -> [SKTexture] {
 }
 
 class HorseSprite: SKSpriteNode {
-    static private var brownTexture = [SKTexture]()
-    static private var lightBrownTexture = [SKTexture]()
-    static private var greyTexture = [SKTexture]()
-    static private var blackTexture = [SKTexture]()
+    static fileprivate var brownTexture = [SKTexture]()
+    static fileprivate var lightBrownTexture = [SKTexture]()
+    static fileprivate var greyTexture = [SKTexture]()
+    static fileprivate var blackTexture = [SKTexture]()
     let horseCategory: UInt32 = 0x1 << 0
     let finishCategory: UInt32 = 0x1 << 1
     var myTexture : [SKTexture]
-    private var myRunner : Runner
+    fileprivate var myRunner : Runner
     
     init(runner: Runner) {
         myRunner = runner
@@ -77,15 +77,15 @@ class HorseSprite: SKSpriteNode {
         
     }
     
-    func startRunning(screenWidth : CGFloat) {
-        let animateAction = SKAction.animateWithTextures(self.myTexture, timePerFrame: 0.05)
-        let repeatAnimation = SKAction.repeatActionForever(animateAction)
+    func startRunning(_ screenWidth : CGFloat) {
+        let animateAction = SKAction.animate(with: self.myTexture, timePerFrame: 0.05)
+        let repeatAnimation = SKAction.repeatForever(animateAction)
         let timeToTravel : CGFloat = 2.5 + ((100.0 - CGFloat(myRunner.speed))/100.0 * 10.0)
         NSLog("screenWidth is \(screenWidth) runner speed is \(myRunner.speed) time to travel is \(timeToTravel)")
-        let moveAction = SKAction.moveByX(screenWidth, y: 0, duration: NSTimeInterval(timeToTravel))
-        moveAction.timingMode = .EaseInEaseOut
+        let moveAction = SKAction.moveBy(x: screenWidth, y: 0, duration: TimeInterval(timeToTravel))
+        moveAction.timingMode = .easeInEaseOut
         let combinedAction = SKAction.group([repeatAnimation,moveAction])
-        self.runAction(combinedAction)
+        self.run(combinedAction)
     }
     
     func stopRunning() {
@@ -93,8 +93,8 @@ class HorseSprite: SKSpriteNode {
         let nameLabel = SKLabelNode(fontNamed: "Arial")
         nameLabel.text = self.myRunner.name
         nameLabel.fontSize = 28
-        nameLabel.horizontalAlignmentMode = .Right;
-        nameLabel.position = CGPointMake(CGRectGetMinX(self.frame), CGRectGetMidY(self.frame));
+        nameLabel.horizontalAlignmentMode = .right;
+        nameLabel.position = CGPoint(x: self.frame.minX, y: self.frame.midY);
         self.scene?.addChild(nameLabel)
     }
     

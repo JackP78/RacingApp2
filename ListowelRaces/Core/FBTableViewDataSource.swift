@@ -14,10 +14,10 @@ class FBTableViewDataSource: NSObject, UITableViewDataSource, FBDelegate {
     var reuseIdentifier : String
     var tableView : UITableView?
     var modelClass : AnyClass?
-    var populateCell:((cell: UITableViewCell, object: NSObject) -> Void)?
+    var populateCell:((_ cell: UITableViewCell, _ object: NSObject) -> Void)?
     var section : Int = 1
     
-    func populateCellWithBlock(block : (UITableViewCell, object: NSObject) -> Void) {
+    func populateCellWithBlock(_ block : @escaping (UITableViewCell, _ object: NSObject) -> Void) {
         self.populateCell = block
     }
     
@@ -33,7 +33,7 @@ class FBTableViewDataSource: NSObject, UITableViewDataSource, FBDelegate {
         self.section = section
         if (nibNamed != nil) {
             let nib = UINib.init(nibName: nibNamed!, bundle: nil)
-            self.tableView?.registerNib(nib, forCellReuseIdentifier: self.reuseIdentifier)
+            self.tableView?.register(nib, forCellReuseIdentifier: self.reuseIdentifier)
         }
         if model == nil {
             self.modelClass = FIRDataSnapshot.self
@@ -51,54 +51,54 @@ class FBTableViewDataSource: NSObject, UITableViewDataSource, FBDelegate {
         self.init(query: query, modelClass: model, nibNamed: nibNamed, cellReuseIdentifier: cellReuseIdentifier, view : view, section : 0)
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.array!.count;
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(self.reuseIdentifier)
-        let snap = array![indexPath.row]
-        if self.modelClass != nil && !self.modelClass!.isSubclassOfClass(FIRDataSnapshot.self) {
-            let objFactory = ObjectFactory(withClass: self.modelClass)
-            let model = objFactory.createFromSnapshot(snap) as! NSObject
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier)
+        let snap = array![(indexPath as NSIndexPath).row]
+        if self.modelClass != nil && !self.modelClass!.isSubclass(of: FIRDataSnapshot.self) {
+            let objFactory = ObjectFactory(with: self.modelClass)
+            let model = objFactory?.create(from: snap) as! NSObject
             if let postDict = snap.value as? Dictionary<String, AnyObject> {
-                model.setValuesForKeysWithDictionary(postDict)
+                model.setValuesForKeys(postDict)
                 if self.populateCell != nil {
-                    self.populateCell!(cell: cell!, object: model)
+                    self.populateCell!(cell!, model)
                 }
             }
         }
         else if self.populateCell != nil {
-            self.populateCell!(cell: cell!, object: snap)
+            self.populateCell!(cell!, snap)
         }
         return cell!;
     }
 
-    func childAdded(object: AnyObject, atIndex: Int) {
+    func childAdded(_ object: AnyObject, atIndex: Int) {
         self.tableView?.beginUpdates()
-        self.tableView?.insertRowsAtIndexPaths([NSIndexPath(forRow: Int(atIndex), inSection: self.section)], withRowAnimation: .Automatic)
+        self.tableView?.insertRows(at: [IndexPath(row: Int(atIndex), section: self.section)], with: .automatic)
         self.tableView?.endUpdates()
     }
     
-    func childChanged(object: AnyObject, atIndex: Int) {
+    func childChanged(_ object: AnyObject, atIndex: Int) {
         self.tableView?.beginUpdates()
-        self.tableView?.reloadRowsAtIndexPaths([NSIndexPath(forRow: Int(atIndex), inSection: self.section)], withRowAnimation: .Automatic)
+        self.tableView?.reloadRows(at: [IndexPath(row: Int(atIndex), section: self.section)], with: .automatic)
         self.tableView?.endUpdates()
     }
     
-    func childRemoved(object: AnyObject, atIndex: Int) {
+    func childRemoved(_ object: AnyObject, atIndex: Int) {
         self.tableView?.beginUpdates()
-        self.tableView?.deleteRowsAtIndexPaths([NSIndexPath(forRow: Int(atIndex), inSection: self.section)], withRowAnimation: .Automatic)
+        self.tableView?.deleteRows(at: [IndexPath(row: Int(atIndex), section: self.section)], with: .automatic)
         self.tableView?.endUpdates()
     }
     
-    func childMoved(object: AnyObject, fromIndex: Int, toIndex: Int) {
+    func childMoved(_ object: AnyObject, fromIndex: Int, toIndex: Int) {
         self.tableView?.beginUpdates()
-        self.tableView?.moveRowAtIndexPath(NSIndexPath(forRow: Int(fromIndex), inSection: self.section), toIndexPath: NSIndexPath(forRow: Int(toIndex), inSection: self.section))
+        self.tableView?.moveRow(at: IndexPath(row: Int(fromIndex), section: self.section), to: IndexPath(row: Int(toIndex), section: self.section))
         self.tableView?.endUpdates()
     }
     
-    func cancelWithError(error: NSError) {
+    func cancelWithError(_ error: Error) {
         NSLog("Something went wrong here")
     }
 }

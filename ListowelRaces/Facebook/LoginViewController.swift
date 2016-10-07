@@ -12,6 +12,18 @@ import FBSDKShareKit
 import FBSDKLoginKit
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
+    /*!
+     @abstract Sent to the delegate when the button was used to login.
+     @param loginButton the sender
+     @param result The results of the login
+     @param error The error (if any) from the login
+     */
+    public func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if let token = result.token{
+            loadFBProfile(token)
+        }
+    }
+
 
     
     @IBOutlet weak var loginButton: FBSDKLoginButton!
@@ -21,15 +33,15 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var lblUsername: UILabel!
     @IBOutlet weak var lblEmail: UILabel!
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         var isLoggedIn = false
         
         if let user = FIRAuth.auth()?.currentUser {
-            if !user.anonymous {
+            if !user.isAnonymous {
                 isLoggedIn = true
-                loadFBProfile(FBSDKAccessToken.currentAccessToken())
+                loadFBProfile(FBSDKAccessToken.current())
             }
         }
         toggleHiddenState(!isLoggedIn)
@@ -48,85 +60,81 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    private func loadFBProfile(token: FBSDKAccessToken) {
-        let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+    fileprivate func loadFBProfile(_ token: FBSDKAccessToken) {
+        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         
-        FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
+        FIRAuth.auth()?.signIn(with: credential) { (user, error) in
             if let error = error {
                 print("Sign in failed:", error.localizedDescription)
             }
             else {
                 print("Sign in worked for", user?.displayName)
-                let req = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email,name,picture"], tokenString: token.tokenString, version: nil, HTTPMethod: "GET")
-                req.startWithCompletionHandler({ (connection : FBSDKGraphRequestConnection!, result : AnyObject!, error : NSError!) in
+                let req = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email,name,picture"], tokenString: token.tokenString, version: nil, httpMethod: "GET")
+                req?.start(completionHandler: { (connection: FBSDKGraphRequestConnection?, response: Any?, error: Error?) in
                     if (error != nil) {
                         
                     }
                     else {
-                        NSLog("\(result)")
-                        self.toggleHiddenState(false)
-                        let facebookID = result.valueForKey("id") as! String
-                        let displayName = result.valueForKey("name") as? String
-                        let email = result.valueForKey("email") as? String
-                        
-                        
-                        self.profilePicture.profileID = facebookID
-                        self.lblUsername.text = displayName
-                        self.lblEmail.text = email
-                        
-                        if let user = user {
-                            let changeRequest = user.profileChangeRequest()
+                        if let result = response as AnyObject? {
+                            NSLog("\(result)")
+                            self.toggleHiddenState(false)
+                            let facebookID = result.value(forKey: "id") as! String
+                            let displayName = result.value(forKey: "name") as? String
+                            let email = result.value(forKey: "email") as? String
                             
-                            changeRequest.displayName = displayName
-                            if let pictureUrl = result.valueForKey("picture") as? String {
-                                changeRequest.photoURL = NSURL(string: pictureUrl)
-                            }
-                            changeRequest.commitChangesWithCompletion { error in
-                                if let error = error {
-                                    // An error happened.
-                                } else {
-                                    NSLog("profile updated")
+                            
+                            self.profilePicture.profileID = facebookID
+                            self.lblUsername.text = displayName
+                            self.lblEmail.text = email
+                            
+                            if let user = user {
+                                let changeRequest = user.profileChangeRequest()
+                                
+                                changeRequest.displayName = displayName
+                                if let pictureUrl = result.value(forKey: "picture") as? String {
+                                    changeRequest.photoURL = URL(string: pictureUrl)
                                 }
-                            }
-                            user.updateEmail(email!) { error in
-                                if let error = error {
-                                    // An error happened.
-                                } else {
-                                    NSLog("email updated")
+                                changeRequest.commitChanges { error in
+                                    if let error = error {
+                                        // An error happened.
+                                    } else {
+                                        NSLog("profile updated")
+                                    }
+                                }
+                                user.updateEmail(email!) { error in
+                                    if let error = error {
+                                        // An error happened.
+                                    } else {
+                                        NSLog("email updated")
+                                    }
                                 }
                             }
                         }
                     }
                 })
-                self.completionHandler(user: user!)
-                self.navigationController?.popViewControllerAnimated(true)
+                self.completionHandler(user!)
+                self.navigationController?.popViewController(animated: true)
             }
         }
     }
     
-    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        if let token = result.token{
-            loadFBProfile(token)
-        }
-    }
-    
-    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         toggleHiddenState(true)
         try! FIRAuth.auth()!.signOut()
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
-    func toggleHiddenState(shouldHide: Bool) {
-        self.lblUsername.hidden = shouldHide;
-        self.lblEmail.hidden = shouldHide;
-        self.profilePicture.hidden = shouldHide;
+    func toggleHiddenState(_ shouldHide: Bool) {
+        self.lblUsername.isHidden = shouldHide;
+        self.lblEmail.isHidden = shouldHide;
+        self.profilePicture.isHidden = shouldHide;
     }
     
-    private var completionHandler:(user: FIRUser)->Void = {
+    fileprivate var completionHandler:(_ user: FIRUser)->Void = {
         (user: FIRUser) -> Void in
     }
     
-    func completeWithBlock(block : (user: FIRUser) -> Void) {
+    func completeWithBlock(_ block : @escaping (_ user: FIRUser) -> Void) {
         self.completionHandler = block
     }
     

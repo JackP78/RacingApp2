@@ -37,7 +37,7 @@ class SplashView: UIView {
     
     
     
-    func animateLogoWithCompletion(duration: NSTimeInterval, onComplete : (() -> Void)?) {
+    func animateLogoWithCompletion(_ duration: TimeInterval, onComplete : (() -> Void)?) {
         CATransaction.begin()
         CATransaction.setCompletionBlock { 
             onComplete?()
@@ -47,39 +47,39 @@ class SplashView: UIView {
         
         let animation = CAKeyframeAnimation(keyPath: "transform.scale")
         animation.values = [1, 0.9, 300];
-        animation.keyTimes = keyTimes;
+        animation.keyTimes = keyTimes as [NSNumber]?;
         animation.duration = duration;
-        animation.removedOnCompletion = false;
+        animation.isRemovedOnCompletion = false;
         animation.fillMode = kCAFillModeForwards;
         animation.timingFunctions = [CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseOut), CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseIn)]
         
         for layer in animatedShapes {
-            layer.addAnimation(animation, forKey: "GrowLogo")
+            layer.add(animation, forKey: "GrowLogo")
         }
         
         let textAnimate = CAKeyframeAnimation(keyPath: "position.y")
         textAnimate.values = [topText!.position.y, topText!.position.y + 5, topText!.position.y - self.bounds.height];
-        textAnimate.keyTimes = keyTimes;
+        textAnimate.keyTimes = keyTimes as [NSNumber]?;
         textAnimate.duration = duration;
-        textAnimate.removedOnCompletion = false;
+        textAnimate.isRemovedOnCompletion = false;
         textAnimate.fillMode = kCAFillModeForwards;
         textAnimate.timingFunctions = [CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseOut), CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseIn)]
-        topText?.addAnimation(textAnimate, forKey: "TopText")
+        topText?.add(textAnimate, forKey: "TopText")
         
         let textAnimate2 = CAKeyframeAnimation(keyPath: "position.y")
         textAnimate2.values = [bottomText!.position.y, bottomText!.position.y - 5, bottomText!.position.y + self.bounds.height];
-        textAnimate2.keyTimes = keyTimes;
+        textAnimate2.keyTimes = keyTimes as [NSNumber]?;
         textAnimate2.duration = duration;
-        textAnimate2.removedOnCompletion = false;
+        textAnimate2.isRemovedOnCompletion = false;
         textAnimate2.fillMode = kCAFillModeForwards;
         textAnimate2.timingFunctions = [CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseOut), CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseIn)]
-        bottomText?.addAnimation(textAnimate2, forKey: "BottoText")
+        bottomText?.add(textAnimate2, forKey: "BottoText")
         
         CATransaction.commit()
         
-        let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(duration * 0.4 * Double(NSEC_PER_SEC)))
-        dispatch_after(dispatchTime, dispatch_get_main_queue(), {
-            self.backgroundColor = UIColor.clearColor()
+        let dispatchTime: DispatchTime = DispatchTime.now() + Double(Int64(duration * 0.4 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
+            self.backgroundColor = UIColor.clear
         })
     }
     
@@ -98,17 +98,17 @@ class SplashView: UIView {
         animatedShapes.append(headlayer)
     }
     
-    func addText(text: String, color : UIColor, top : Bool) -> CATextLayer{
+    func addText(_ text: String, color : UIColor, top : Bool) -> CATextLayer{
         let listowelTextLayer = CATextLayer()
         let height = CGFloat(75)
-        listowelTextLayer.font = CTFontCreateWithName("AromaNo2LTW01-ExtraBold", 40, nil)
-        listowelTextLayer.foregroundColor = color.CGColor
+        listowelTextLayer.font = CTFontCreateWithName("AromaNo2LTW01-ExtraBold" as CFString?, 40, nil)
+        listowelTextLayer.foregroundColor = color.cgColor
         listowelTextLayer.alignmentMode = kCAAlignmentCenter
-        listowelTextLayer.contentsScale = UIScreen.mainScreen().scale
+        listowelTextLayer.contentsScale = UIScreen.main.scale
         listowelTextLayer.string = text
         listowelTextLayer.fontSize = 60
         let yPos = (top) ? logoRect!.minY - 20 - height : logoRect!.maxY + 20
-        listowelTextLayer.frame = CGRectMake(0, yPos, CGRectGetWidth(self.bounds), height)
+        listowelTextLayer.frame = CGRect(x: 0, y: yPos, width: self.bounds.width, height: height)
         return listowelTextLayer
     }
     
@@ -129,8 +129,8 @@ class SplashView: UIView {
             "c-1.4,3.6-5.1,5.3-8.5,5.3C110.3,214.3,72.8,214.3,72.8,214.3z")*/
         
         let horseShoe1 = createShapeLayerFrom([greenHorseShoe], color: greenColor, lineWidth: 4)
-        horseShoe1.strokeColor = greenColor.CGColor
-        horseShoe1.fillColor = brownColor.CGColor
+        horseShoe1.strokeColor = greenColor.cgColor
+        horseShoe1.fillColor = brownColor.cgColor
         self.layer.addSublayer(horseShoe1)
         animatedShapes.append(horseShoe1)
         
@@ -141,29 +141,29 @@ class SplashView: UIView {
     }
     
     
-    func createShapeLayerFrom(strokes: [UIBezierPath], color : UIColor, lineWidth : CGFloat) -> CAShapeLayer {
-        let combinedPath = CGPathCreateMutableCopy(strokes[0].CGPath);
+    func createShapeLayerFrom(_ strokes: [UIBezierPath], color : UIColor, lineWidth : CGFloat) -> CAShapeLayer {
+        let combinedPath = strokes[0].cgPath.mutableCopy();
         var shapeBounds = strokes[0].bounds
         if (strokes.count > 1) {
             for index in 1...(strokes.count - 1) {
-                CGPathAddPath(combinedPath, nil, strokes[index].CGPath);
-                shapeBounds = CGRectUnion(shapeBounds, strokes[index].bounds)
+                combinedPath?.addPath(strokes[index].cgPath);
+                shapeBounds = shapeBounds.union(strokes[index].bounds)
             }
         }
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = combinedPath
         NSLog("combined path bounds \(combinedPath)")
         shapeLayer.bounds = shapeBounds
-        shapeLayer.backgroundColor = UIColor.clearColor().CGColor
-        shapeLayer.anchorPoint = CGPointMake(0.5, 0.5);
-        shapeLayer.position = CGPointMake(CGRectGetWidth(self.bounds) / 2, CGRectGetHeight(self.bounds) / 2);
-        shapeLayer.fillColor = color.CGColor
+        shapeLayer.backgroundColor = UIColor.clear.cgColor
+        shapeLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5);
+        shapeLayer.position = CGPoint(x: self.bounds.width / 2, y: self.bounds.height / 2);
+        shapeLayer.fillColor = color.cgColor
         shapeLayer.lineWidth = lineWidth
         if logoRect == nil {
             logoRect = shapeLayer.frame
         }
         else {
-            logoRect = CGRectUnion(logoRect!, shapeLayer.frame)
+            logoRect = logoRect!.union(shapeLayer.frame)
         }
         
         

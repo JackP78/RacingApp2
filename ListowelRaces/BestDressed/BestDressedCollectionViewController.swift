@@ -11,9 +11,9 @@ import SDWebImage
 import MBProgressHUD
 
 class BestDressedCollectionViewController: UICollectionViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
-    private let reuseIdentifier = "PictureEntry"
-    private let objectContext = ObjectContext()
-    private let imagePicker = UIImagePickerController()
+    fileprivate let reuseIdentifier = "PictureEntry"
+    fileprivate let objectContext = ObjectContext()
+    fileprivate let imagePicker = UIImagePickerController()
     var dataSource:FBCollectionViewDataSource?
     
     override func viewDidLoad() {
@@ -29,9 +29,9 @@ class BestDressedCollectionViewController: UICollectionViewController, UIImagePi
                 myCell.nameLabel.text = snap.name
                 myCell.voteCount.text = snap.votes?.stringValue
                 if let url = snap.url {
-                    myCell.entryImage.sd_setImageWithURL(NSURL(string: url))
+                    myCell.entryImage.sd_setImage(with: URL(string: url))
                 }
-                myCell.voteButton.addTarget(self, action: #selector(BestDressedCollectionViewController.votePressed(_:)), forControlEvents: .TouchUpInside)
+                myCell.voteButton.addTarget(self, action: #selector(BestDressedCollectionViewController.votePressed(_:)), for: .touchUpInside)
 
             }
             else {
@@ -49,12 +49,12 @@ class BestDressedCollectionViewController: UICollectionViewController, UIImagePi
         // Dispose of any resources that can be recreated.
     }
 
-    func votePressed(sender:UIButton)
+    func votePressed(_ sender:UIButton)
     {
         NSLog("Vote pressed")
-        let touchPoint = collectionView!.convertPoint(CGPoint.zero, fromView: sender)
-        if let indexPath = collectionView!.indexPathForItemAtPoint(touchPoint) {
-            if let object = self.dataSource?.array![indexPath.row] {
+        let touchPoint = collectionView!.convert(CGPoint.zero, from: sender)
+        if let indexPath = collectionView!.indexPathForItem(at: touchPoint) {
+            if let object = self.dataSource?.array![(indexPath as NSIndexPath).row] {
                 NSLog("\(object.ref)")
                 let votesRef = object.ref.child("votes")
                 
@@ -65,7 +65,7 @@ class BestDressedCollectionViewController: UICollectionViewController, UIImagePi
                         value = 0
                     }
                     currentData.value = value! + 1
-                    return FIRTransactionResult.successWithValue(currentData)
+                    return FIRTransactionResult.success(withValue: currentData)
                 })
             }
         }
@@ -73,23 +73,23 @@ class BestDressedCollectionViewController: UICollectionViewController, UIImagePi
     
     func initButtons() {
         imagePicker.delegate = self
-        let tipButton = UIBarButtonItem.init(title: "Add Entry", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(BestDressedCollectionViewController.chooseImage))
+        let tipButton = UIBarButtonItem.init(title: "Add Entry", style: UIBarButtonItemStyle.plain, target: self, action: #selector(BestDressedCollectionViewController.chooseImage))
         self.navigationItem.rightBarButtonItem = tipButton;
     }
     
     func chooseImage() {
         objectContext.ensureLoggedInWithCompletion(self) { (user) in
             self.imagePicker.allowsEditing = false
-            self.imagePicker.sourceType = .PhotoLibrary
-            self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            self.imagePicker.sourceType = .photoLibrary
+            self.present(self.imagePicker, animated: true, completion: nil)
         }
     }
     
     // called when the image is picked
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String :
-        AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String :
+        Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            picker.dismissViewControllerAnimated(true, completion: nil)
+            picker.dismiss(animated: true, completion: nil)
             objectContext.enterBestDressed(self, image: pickedImage)
         }
         

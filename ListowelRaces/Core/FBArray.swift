@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseDatabase
 
-public class FBArray: NSObject {
+open class FBArray: NSObject {
     var snapShots = [FIRDataSnapshot]()
     var query : FIRDatabaseQuery
     var delegate : FBDelegate
@@ -46,22 +46,22 @@ public class FBArray: NSObject {
         }
     }
     
-    public func modelClassAtIndex(index: Int) -> NSObject? {
-        let objFactory = ObjectFactory(withClass: self.modelClass)
+    open func modelClassAtIndex(_ index: Int) -> NSObject? {
+        let objFactory = ObjectFactory(with: self.modelClass)
         let snap = snapShots[index]
-        let model = objFactory.createFromSnapshot(snap) as! NSObject
+        let model = objFactory?.create(from: snap) as! NSObject
         if let postDict = snap.value as? Dictionary<String, AnyObject> {
-            model.setValuesForKeysWithDictionary(postDict)
+            model.setValuesForKeys(postDict)
             return model
         }
         return nil
     }
     
-    public func keyForIndex(index: Int) -> String {
+    open func keyForIndex(_ index: Int) -> String {
         return snapShots[index].key
     }
     
-    private func indexForKey(key : String?) -> Int {
+    fileprivate func indexForKey(_ key : String?) -> Int {
         var index = 0
         if let cKey = key {
             for snap in self.snapShots {
@@ -74,36 +74,36 @@ public class FBArray: NSObject {
         return -1;
     }
     
-    private func initListeners() {
-        self.query.observeEventType(.ChildAdded, andPreviousSiblingKeyWithBlock: { (snapShot:FIRDataSnapshot, previousChildKey: String?) in
+    fileprivate func initListeners() {
+        self.query.observe(.childAdded, andPreviousSiblingKeyWith: { (snapShot:FIRDataSnapshot, previousChildKey: String?) in
             let index = self.indexForKey(previousChildKey) + 1
-            self.snapShots.insert(snapShot, atIndex: index)
+            self.snapShots.insert(snapShot, at: index)
             self.delegate.childAdded(snapShot, atIndex: index)
             }
-        ) { (error : NSError) in
+        ) { (error : Error) in
             self.delegate.cancelWithError(error)
         }
-        self.query.observeEventType(.ChildMoved, andPreviousSiblingKeyWithBlock: { (snapShot:FIRDataSnapshot, previousChildKey : String?) in
+        self.query.observe(.childMoved, andPreviousSiblingKeyWith: { (snapShot:FIRDataSnapshot, previousChildKey : String?) in
             let fromIndex = self.indexForKey(snapShot.key)
             let toIndex = self.indexForKey(previousChildKey) + 1
-            self.snapShots.removeAtIndex(fromIndex)
-            self.snapShots.insert(snapShot, atIndex: toIndex)
+            self.snapShots.remove(at: fromIndex)
+            self.snapShots.insert(snapShot, at: toIndex)
             self.delegate.childMoved(snapShot, fromIndex: fromIndex, toIndex: toIndex)
-        }) { (error : NSError) in
+        }) { (error : Error) in
             self.delegate.cancelWithError(error)
         }
-        self.query.observeEventType(.ChildRemoved, withBlock: { (snapShot: FIRDataSnapshot) in
+        self.query.observe(.childRemoved, with: { (snapShot: FIRDataSnapshot) in
             let index = self.indexForKey(snapShot.key)
-            self.snapShots.removeAtIndex(index)
+            self.snapShots.remove(at: index)
             self.delegate.childRemoved(snapShot, atIndex: index)
-        }) { (error : NSError) in
+        }) { (error : Error) in
             self.delegate.cancelWithError(error)
         }
-        self.query.observeEventType(.ChildChanged, withBlock: { (snapShot: FIRDataSnapshot) in
+        self.query.observe(.childChanged, with: { (snapShot: FIRDataSnapshot) in
             let index = self.indexForKey(snapShot.key)
             self.snapShots[index] = snapShot
             self.delegate.childChanged(snapShot, atIndex: index)
-        }) { (error : NSError) in
+        }) { (error : Error) in
             self.delegate.cancelWithError(error)
         }
     }

@@ -6,6 +6,6 @@
 //  Copyright © 2016 Jack McAuliffe. All rights reserved.
 //
 
-enum LoginError: ErrorType {
-    case NotLoggedIn
+enum LoginError: Error {
+    case notLoggedIn
 }

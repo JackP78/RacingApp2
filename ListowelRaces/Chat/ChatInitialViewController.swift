@@ -24,13 +24,13 @@ class ChatInitialViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         self.senderId = nil
         self.displayName = nil
         objectContext.ensureLoggedInWithCompletion(self) { (user) in
             self.senderId = user.uid
             self.displayName = user.displayName
-            self.performSegueWithIdentifier("childViewController", sender: self)
+            self.performSegue(withIdentifier: "childViewController", sender: self)
         }
     }
 
@@ -40,7 +40,7 @@ class ChatInitialViewController: UIViewController {
     }
     
 
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "childViewController" {
             return senderId != nil;
         }
@@ -53,10 +53,10 @@ class ChatInitialViewController: UIViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if let destinationScene = segue.destinationViewController as? ChatViewController {
+        if let destinationScene = segue.destination as? ChatViewController {
             destinationScene.senderId = self.senderId
             destinationScene.senderDisplayName = self.displayName
         }

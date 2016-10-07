@@ -24,33 +24,33 @@ class PredictorViewController: UIViewController {
             skView.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .aspectFill
             
             //set up notification so scene can get back to this view controller
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PredictorViewController.quitPredictor(_:)), name: "quitPredictor", object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(PredictorViewController.quitPredictor(_:)), name: NSNotification.Name(rawValue: "quitPredictor"), object: nil)
             
             skView.presentScene(scene)
         }
     }
     
     // Function to pop this view controller and go back to my Levels screen
-    func quitPredictor(notification: NSNotification) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func quitPredictor(_ notification: Notification) {
+        self.dismiss(animated: true, completion: nil)
     }
     
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return .Landscape;
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return .landscape;
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 }

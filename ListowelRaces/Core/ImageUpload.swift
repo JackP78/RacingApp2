@@ -11,14 +11,14 @@ import MBProgressHUD
 
 class ImageUpload: NSObject {
     
-    func uploaderProgress(bytesWritten: Int, totalBytesWritten: Int, totalBytesExpectedToWrite: Int, context: AnyObject!) {
+    func uploaderProgress(_ bytesWritten: Int, totalBytesWritten: Int, totalBytesExpectedToWrite: Int, context: AnyObject!) {
     }
     
-    func uploaderSuccess(result: [NSObject : AnyObject]!, context: AnyObject!) {
+    func uploaderSuccess(_ result: [AnyHashable: Any]!, context: AnyObject!) {
     }
     
-    func uploadImage (image: UIImage, parentView: UIView, completion : (url: String?) -> Void) {
-        let hud = MBProgressHUD.showHUDAddedTo(parentView, animated: true)
+    func uploadImage (_ image: UIImage, parentView: UIView, completion : (_ url: String?) -> Void) {
+        let hud = MBProgressHUD.showAdded(to: parentView, animated: true)
         
         let imageData = UIImageJPEGRepresentation(image, 0.05)
         

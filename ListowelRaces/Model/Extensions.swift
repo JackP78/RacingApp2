@@ -10,9 +10,9 @@ import Foundation
 
 extension NSNumber {
     func moneyString() -> String {
-        let currencyFormatter = NSNumberFormatter()
-        currencyFormatter.numberStyle = .CurrencyStyle
-        return currencyFormatter.stringFromNumber(self)!
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.numberStyle = .currency
+        return currencyFormatter.string(from: self)!
     }
     
     func distanceString() -> String {

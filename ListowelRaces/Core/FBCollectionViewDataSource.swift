@@ -12,14 +12,14 @@ import FirebaseDatabase
 class FBCollectionViewDataSource: NSObject, UICollectionViewDataSource, FBDelegate {
     
     var collectionView : UICollectionView?
-    var populateCell:((cell: UICollectionViewCell, object: NSObject) -> Void)?
+    var populateCell:((_ cell: UICollectionViewCell, _ object: NSObject) -> Void)?
     var array: FBArray?
     var section : Int = 1
     var reuseIdentifier : String
     var modelClass : AnyClass?
 
     
-    func populateCellWithBlock(block : (UICollectionViewCell, object: NSObject) -> Void) {
+    func populateCellWithBlock(_ block : @escaping (UICollectionViewCell, _ object: NSObject) -> Void) {
         self.populateCell = block
     }
     
@@ -34,7 +34,7 @@ class FBCollectionViewDataSource: NSObject, UICollectionViewDataSource, FBDelega
         self.section = section
         if (nibNamed != nil) {
             let nib = UINib.init(nibName: nibNamed!, bundle: nil)
-            self.collectionView?.registerNib(nib, forCellWithReuseIdentifier: self.reuseIdentifier)
+            self.collectionView?.register(nib, forCellWithReuseIdentifier: self.reuseIdentifier)
         }
         if model == nil {
             self.modelClass = FIRDataSnapshot.self
@@ -57,52 +57,52 @@ class FBCollectionViewDataSource: NSObject, UICollectionViewDataSource, FBDelega
     }
     
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        if let cell = self.collectionView?.dequeueReusableCellWithReuseIdentifier(self.reuseIdentifier, forIndexPath: indexPath) {
-            let snap = array![indexPath.row]
-            if self.modelClass != nil && !self.modelClass!.isSubclassOfClass(FIRDataSnapshot.self) {
-                let objFactory = ObjectFactory(withClass: self.modelClass)
-                let model = objFactory.createFromSnapshot(snap) as! NSObject
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = self.collectionView?.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) {
+            let snap = array![(indexPath as NSIndexPath).row]
+            if self.modelClass != nil && !self.modelClass!.isSubclass(of: FIRDataSnapshot.self) {
+                let objFactory = ObjectFactory(with: self.modelClass)
+                let model = objFactory?.create(from: snap) as! NSObject
                 if let postDict = snap.value as? Dictionary<String, AnyObject> {
-                    model.setValuesForKeysWithDictionary(postDict)
+                    model.setValuesForKeys(postDict)
                     if self.populateCell != nil {
-                        self.populateCell!(cell: cell, object: model)
+                        self.populateCell!(cell, model)
                     }
                 }
             }
             else if self.populateCell != nil {
-                self.populateCell!(cell: cell, object: snap)
+                self.populateCell!(cell, snap)
             }
             return cell;
         }
         return UICollectionViewCell()
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return array!.count
     }
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func childAdded(object: AnyObject, atIndex: Int) {
-        self.collectionView?.insertItemsAtIndexPaths([NSIndexPath(forRow: Int(atIndex), inSection: self.section)])
+    func childAdded(_ object: AnyObject, atIndex: Int) {
+        self.collectionView?.insertItems(at: [IndexPath(row: Int(atIndex), section: self.section)])
     }
     
-    func childChanged(object: AnyObject, atIndex: Int) {
-        self.collectionView?.reloadItemsAtIndexPaths([NSIndexPath(forRow: Int(atIndex), inSection: self.section)])
+    func childChanged(_ object: AnyObject, atIndex: Int) {
+        self.collectionView?.reloadItems(at: [IndexPath(row: Int(atIndex), section: self.section)])
     }
     
-    func childRemoved(object: AnyObject, atIndex: Int) {
-        self.collectionView?.deleteItemsAtIndexPaths([NSIndexPath(forRow: Int(atIndex), inSection: self.section)])
+    func childRemoved(_ object: AnyObject, atIndex: Int) {
+        self.collectionView?.deleteItems(at: [IndexPath(row: Int(atIndex), section: self.section)])
     }
     
-    func childMoved(object: AnyObject, fromIndex: Int, toIndex: Int) {
-        self.collectionView?.moveItemAtIndexPath(NSIndexPath(forRow: Int(fromIndex), inSection: self.section), toIndexPath: NSIndexPath(forRow: Int(toIndex), inSection: self.section))
+    func childMoved(_ object: AnyObject, fromIndex: Int, toIndex: Int) {
+        self.collectionView?.moveItem(at: IndexPath(row: Int(fromIndex), section: self.section), to: IndexPath(row: Int(toIndex), section: self.section))
     }
     
-    func cancelWithError(error: NSError) {
+    func cancelWithError(_ error: Error) {
         NSLog("Something went wrong here")
     }
 

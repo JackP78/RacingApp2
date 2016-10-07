@@ -20,7 +20,7 @@ class ChatViewController: JSQMessagesViewController  {
     var objectContext = ObjectContext()
     
     var userIsTypingRef: FIRDatabaseReference! // 1
-    private var localTyping = false // 2
+    fileprivate var localTyping = false // 2
     // Note: jack this is a property
     var isTyping: Bool {
         get {
@@ -36,20 +36,20 @@ class ChatViewController: JSQMessagesViewController  {
     var outgoingBubbleImageView: JSQMessagesBubbleImage!
     var incomingBubbleImageView: JSQMessagesBubbleImage!
     
-    private func setupBubbles() {
+    fileprivate func setupBubbles() {
         let factory = JSQMessagesBubbleImageFactory()
-        outgoingBubbleImageView = factory.outgoingMessagesBubbleImageWithColor(
-            UIColor.jsq_messageBubbleBlueColor())
-        incomingBubbleImageView = factory.incomingMessagesBubbleImageWithColor(
-            UIColor.jsq_messageBubbleLightGrayColor())
+        outgoingBubbleImageView = factory?.outgoingMessagesBubbleImage(
+            with: UIColor.jsq_messageBubbleBlue())
+        incomingBubbleImageView = factory?.incomingMessagesBubbleImage(
+            with: UIColor.jsq_messageBubbleLightGray())
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!,
-        messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!,
+        messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
             return messages[indexPath.item]
     }
     
-    override func collectionView(collectionView: UICollectionView,
+    override func collectionView(_ collectionView: UICollectionView,
         numberOfItemsInSection section: Int) -> Int {
             return messages.count
     }
@@ -67,8 +67,8 @@ class ChatViewController: JSQMessagesViewController  {
         messageRef = rootRef.child("messages")
         
         // Put back avatars when done
-        collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
-        collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
+        collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
+        collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
         observeMessages()
         observeTyping()
     }
@@ -78,8 +78,8 @@ class ChatViewController: JSQMessagesViewController  {
         // Dispose of any resources that can be recreated.
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!,
-        messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!,
+        messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
             let message = messages[indexPath.item] // 1
             if message.senderId == senderId { // 2
                 return outgoingBubbleImageView
@@ -88,32 +88,32 @@ class ChatViewController: JSQMessagesViewController  {
             }
     }
     
-    override func collectionView(collectionView: UICollectionView,
-        cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-            let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+    override func collectionView(_ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            let cell = super.collectionView(collectionView, cellForItemAt: indexPath)
                 as! JSQMessagesCollectionViewCell
             
-            let message = messages[indexPath.item]
+            let message = messages[(indexPath as NSIndexPath).item]
             
             if message.senderId == senderId {
-                cell.textView!.textColor = UIColor.whiteColor()
+                cell.textView!.textColor = UIColor.white
             } else {
-                cell.textView!.textColor = UIColor.blackColor()
+                cell.textView!.textColor = UIColor.black
             }
             
             return cell
     }
     
-    private func observeMessages() {
+    fileprivate func observeMessages() {
         // 1
-        let messagesQuery = messageRef.queryLimitedToLast(25)
+        let messagesQuery = messageRef.queryLimited(toLast: 25)
         // 2
-        messagesQuery.observeEventType(.ChildAdded) { (snapshot: FIRDataSnapshot!) in
+        messagesQuery.observe(.childAdded) { (snapshot: FIRDataSnapshot!) in
             NSLog("\(snapshot)")
             NSLog("\(snapshot.value)")
             // 3
-            let id = snapshot.value!.objectForKey("senderId") as! String
-            let text = snapshot.value!.objectForKey("text") as! String
+            let id = (snapshot.value! as AnyObject).object(forKey: "senderId") as! String
+            let text = (snapshot.value! as AnyObject).object(forKey: "text") as! String
             self.addMessage(id, text: text)
             
             // 5
@@ -121,13 +121,13 @@ class ChatViewController: JSQMessagesViewController  {
         }
     }
     
-    func addMessage(id: String, text: String) {
+    func addMessage(_ id: String, text: String) {
         let message = JSQMessage(senderId: id, displayName: "", text: text)
-        messages.append(message)
+        messages.append(message!)
     }
     
-    override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!,
-        senderDisplayName: String!, date: NSDate!) {
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!,
+        senderDisplayName: String!, date: Date!) {
             
         let itemRef = messageRef.childByAutoId() // 1
         let messageItem = [ // 2
@@ -143,21 +143,21 @@ class ChatViewController: JSQMessagesViewController  {
         finishSendingMessage()
         isTyping = false
         
-        if self.inputToolbar.contentView.textView.isFirstResponder() {
+        if self.inputToolbar.contentView.textView.isFirstResponder {
             self.inputToolbar.contentView.textView.resignFirstResponder()
         }
     }
     
-    private func observeTyping() {
+    fileprivate func observeTyping() {
         let typingIndicatorRef = rootRef.child("typingIndicator")
         userIsTypingRef = typingIndicatorRef.child(senderId)
         userIsTypingRef.onDisconnectRemoveValue()
         
         // 1
-        usersTypingQuery = typingIndicatorRef.queryOrderedByValue().queryEqualToValue(true)
+        usersTypingQuery = typingIndicatorRef.queryOrderedByValue().queryEqual(toValue: true)
         
         // 2
-        usersTypingQuery.observeEventType(.Value) { (data: FIRDataSnapshot!) in
+        usersTypingQuery.observe(.value) { (data: FIRDataSnapshot!) in
             
             // 3 You're the only typing, don't show the indicator
             if data.childrenCount == 1 && self.isTyping {
@@ -166,11 +166,11 @@ class ChatViewController: JSQMessagesViewController  {
             
             // 4 Are there others typing?
             self.showTypingIndicator = data.childrenCount > 0
-            self.scrollToBottomAnimated(true)
+            self.scrollToBottom(animated: true)
         }
     }
     
-    override func textViewDidChange(textView: UITextView) {
+    override func textViewDidChange(_ textView: UITextView) {
         super.textViewDidChange(textView)
         // If the text is not empty, the user is typing
         isTyping = textView.text != ""

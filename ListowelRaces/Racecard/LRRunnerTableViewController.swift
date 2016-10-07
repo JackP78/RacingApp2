@@ -10,16 +10,16 @@ import UIKit
 
 
 class LRRunnerTableViewController: UITableViewController {
-    private let reuseIdentifier = "RunnerCell"
-    private var dataSource: FBTableViewDataSource?
-    private var objectContext = ObjectContext()
+    fileprivate let reuseIdentifier = "RunnerCell"
+    fileprivate var dataSource: FBTableViewDataSource?
+    fileprivate var objectContext = ObjectContext()
     var raceIndex: Int=0
     var currentRace: Race?
     
     override func viewDidLoad() {
         self.title = "Race"
         
-        let predictorButton = UIBarButtonItem.init(title: "Predictor", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(LRRunnerTableViewController.launchPreditor(_:)))
+        let predictorButton = UIBarButtonItem.init(title: "Predictor", style: UIBarButtonItemStyle.plain, target: self, action: #selector(LRRunnerTableViewController.launchPreditor(_:)))
         self.navigationItem.rightBarButtonItem = predictorButton;
         
         super.viewDidLoad()
@@ -33,8 +33,8 @@ class LRRunnerTableViewController: UITableViewController {
         self.tableView.dataSource = self.dataSource
     }
     
-    func launchPreditor(sender: UIBarButtonItem) {
-        self.performSegueWithIdentifier("predictor", sender: self)
+    func launchPreditor(_ sender: UIBarButtonItem) {
+        self.performSegue(withIdentifier: "predictor", sender: self)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,13 +43,13 @@ class LRRunnerTableViewController: UITableViewController {
         self.title = "Race"
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 90;
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cellIdentifier = "RaceSectionHeader"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! LRSectionHeader
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! LRSectionHeader
         if let race = self.currentRace {
             cell.raceName.text = race.raceTitle
             cell.raceNumber.text = "Race \(race.raceNumber)"
@@ -60,20 +60,20 @@ class LRRunnerTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("showForm", sender: self)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "showForm", sender: self)
     }
     
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         // Get the new view controller using [segue destinationViewController].
-        if let detailScene = segue.destinationViewController as? RunnerDetailTableViewController {
+        if let detailScene = segue.destination as? RunnerDetailTableViewController {
             // Pass the selected object to the destination view controller.
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 detailScene.race = self.currentRace
-                detailScene.runner = self.dataSource!.array!.modelClassAtIndex(indexPath.row) as? Runner
+                detailScene.runner = self.dataSource!.array!.modelClassAtIndex((indexPath as NSIndexPath).row) as? Runner
             }
         }
 

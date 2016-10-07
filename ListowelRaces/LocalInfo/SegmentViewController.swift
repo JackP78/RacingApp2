@@ -19,7 +19,7 @@ class SegmentViewController: UIViewController {
         
         
         // add a button to nav bar to add new entry
-        let tipButton = UIBarButtonItem.init(title: "Add New", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SegmentViewController.addNew(_:)))
+        let tipButton = UIBarButtonItem.init(title: "Add New", style: UIBarButtonItemStyle.plain, target: self, action: #selector(SegmentViewController.addNew(_:)))
         self.navigationItem.rightBarButtonItem = tipButton;
 
         // add viewController so you can switch them later.
@@ -30,20 +30,20 @@ class SegmentViewController: UIViewController {
         self.currentViewController = vc;
     }
     
-    func addNew(sender: UIBarButtonItem) {
-        self.performSegueWithIdentifier("addNewLocalInfo", sender: self)
+    func addNew(_ sender: UIBarButtonItem) {
+        self.performSegue(withIdentifier: "addNewLocalInfo", sender: self)
     }
 
-    @IBAction func segmentChanged(sender: UISegmentedControl) {
+    @IBAction func segmentChanged(_ sender: UISegmentedControl) {
         let index = sender.selectedSegmentIndex;
         let vc = viewControllerForSegmentIndex(index)
         self.addChildViewController(vc)
-        self.transitionFromViewController(currentViewController!, toViewController: vc, duration: 0.5, options: UIViewAnimationOptions.TransitionFlipFromRight, animations: { () -> Void in
+        self.transition(from: currentViewController!, to: vc, duration: 0.5, options: UIViewAnimationOptions.transitionFlipFromRight, animations: { () -> Void in
             self.currentViewController!.view.removeFromSuperview()
             vc.view.frame = self.containerView.bounds
             self.containerView.addSubview(vc.view)
             }) { (success: Bool) -> Void in
-                vc.didMoveToParentViewController(self)
+                vc.didMove(toParentViewController: self)
                 self.currentViewController?.removeFromParentViewController()
                 self.currentViewController = vc
         }
@@ -56,14 +56,14 @@ class SegmentViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func viewControllerForSegmentIndex(index: Int) -> (UIViewController) {
+    func viewControllerForSegmentIndex(_ index: Int) -> (UIViewController) {
         var vc: UIViewController
         switch (index) {
         case 1:
-            vc = self.storyboard!.instantiateViewControllerWithIdentifier("localInfoTableView")
+            vc = self.storyboard!.instantiateViewController(withIdentifier: "localInfoTableView")
             break;
         default:
-            vc = self.storyboard!.instantiateViewControllerWithIdentifier("localInfoMapView")
+            vc = self.storyboard!.instantiateViewController(withIdentifier: "localInfoMapView")
             break
             
         }
@@ -74,11 +74,11 @@ class SegmentViewController: UIViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         // Get the new view controller using [segue destinationViewController].
-        if var destinationScene = segue.destinationViewController as? LocalInfoSelector {
+        if var destinationScene = segue.destination as? LocalInfoSelector {
             if let source = sender as? LocalInfoSelector {
                 destinationScene.selectedInfo = source.selectedInfo
             }

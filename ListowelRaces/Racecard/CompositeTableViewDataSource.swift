@@ -10,23 +10,23 @@ import UIKit
 
 class CompositeTableViewDataSource: NSObject, UITableViewDataSource {
     
-    private var sectionDataSources:[UITableViewDataSource]
+    fileprivate var sectionDataSources:[UITableViewDataSource]
     
     init(dataSources: [UITableViewDataSource]) {
         sectionDataSources = dataSources
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let dataSource = sectionDataSources[indexPath.section]
-        let newIndex = NSIndexPath(forRow: indexPath.row, inSection: 0)
-        return dataSource.tableView(tableView, cellForRowAtIndexPath: newIndex)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let dataSource = sectionDataSources[(indexPath as NSIndexPath).section]
+        let newIndex = IndexPath(row: (indexPath as NSIndexPath).row, section: 0)
+        return dataSource.tableView(tableView, cellForRowAt: newIndex)
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return sectionDataSources.count
     }
     
-    func tableView(tableView: UITableView,
+    func tableView(_ tableView: UITableView,
         numberOfRowsInSection section: Int) -> Int {
         let rows = sectionDataSources[section].tableView(tableView, numberOfRowsInSection: 0)
         return rows

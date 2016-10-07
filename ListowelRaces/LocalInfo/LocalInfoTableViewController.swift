@@ -32,7 +32,7 @@ class LocalInfoTableViewController: UITableViewController, LocalInfoSelector, UI
         
         obj.findLocalInfo("Listowel") { (current) in
             self.tableView.beginUpdates()
-            self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.localinfos.count, inSection: 0)], withRowAnimation: .Automatic)
+            self.tableView.insertRows(at: [IndexPath(row: self.localinfos.count, section: 0)], with: .automatic)
             self.localinfos.append(current)
             self.tableView.endUpdates()
         }
@@ -44,49 +44,49 @@ class LocalInfoTableViewController: UITableViewController, LocalInfoSelector, UI
     }
     
     // MARK: - Table View
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.active && searchController.searchBar.text != "" {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchController.isActive && searchController.searchBar.text != "" {
             return filterLocalInfos.count
         }
         return localinfos.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("localInfoCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "localInfoCell", for: indexPath)
         let candy: LocalInfoEntry
-        if searchController.active && searchController.searchBar.text != "" {
-            candy = filterLocalInfos[indexPath.row]
+        if searchController.isActive && searchController.searchBar.text != "" {
+            candy = filterLocalInfos[(indexPath as NSIndexPath).row]
         } else {
-            candy = localinfos[indexPath.row]
+            candy = localinfos[(indexPath as NSIndexPath).row]
         }
         cell.textLabel!.text = candy.name
         cell.detailTextLabel!.text = candy.type
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Pass the selected object to the destination view controller.
         if let indexPath = self.tableView.indexPathForSelectedRow {
-            if searchController.active && searchController.searchBar.text != "" {
-                selectedInfo = filterLocalInfos[indexPath.row]
+            if searchController.isActive && searchController.searchBar.text != "" {
+                selectedInfo = filterLocalInfos[(indexPath as NSIndexPath).row]
             } else {
-                selectedInfo = localinfos[indexPath.row]
+                selectedInfo = localinfos[(indexPath as NSIndexPath).row]
             }
         }
-        self.parentViewController?.performSegueWithIdentifier("showLocalDetail", sender: self)
+        self.parent?.performSegue(withIdentifier: "showLocalDetail", sender: self)
     }
     
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
     
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         filterLocalInfos = localinfos.filter { candy in
-            return candy.name!.lowercaseString.containsString(searchText.lowercaseString)
+            return candy.name!.lowercased().contains(searchText.lowercased())
         }
         
         tableView.reloadData()
