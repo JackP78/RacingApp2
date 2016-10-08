@@ -52,6 +52,7 @@
 		BC2E4CC41D88193C00376D95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2E4CC21D88193C00376D95 /* Main.storyboard */; };
 		BC2E4CC91D88193C00376D95 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2E4CC71D88193C00376D95 /* LaunchScreen.storyboard */; };
 		BCADE8DA1DA8025E001B7DB2 /* BestDressedEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCADE8D91DA8025E001B7DB2 /* BestDressedEntry.swift */; };
+		BCADE8DC1DA956AF001B7DB2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCADE8DB1DA956AF001B7DB2 /* MainViewController.swift */; };
 		BCB912F31D9325860069DCA9 /* BestDressedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB912F01D9325860069DCA9 /* BestDressedCollectionViewController.swift */; };
 		BCB912F51D9325860069DCA9 /* PicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB912F21D9325860069DCA9 /* PicCollectionViewCell.swift */; };
 		BCB912F71D9325CE0069DCA9 /* BestDressed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB912F61D9325CE0069DCA9 /* BestDressed.storyboard */; };
@@ -134,6 +135,7 @@
 		BC2E4CC81D88193C00376D95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC2E4CCA1D88193C00376D95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCADE8D91DA8025E001B7DB2 /* BestDressedEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BestDressedEntry.swift; sourceTree = "<group>"; };
+		BCADE8DB1DA956AF001B7DB2 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BCB912F01D9325860069DCA9 /* BestDressedCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BestDressedCollectionViewController.swift; sourceTree = "<group>"; };
 		BCB912F21D9325860069DCA9 /* PicCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicCollectionViewCell.swift; sourceTree = "<group>"; };
 		BCB912F61D9325CE0069DCA9 /* BestDressed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BestDressed.storyboard; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 		BC2E4CBB1D88193C00376D95 /* ListowelRaces */ = {
 			isa = PBXGroup;
 			children = (
+				BCADE8DB1DA956AF001B7DB2 /* MainViewController.swift */,
 				BCB913281D9C7D9A0069DCA9 /* Supporting Files */,
 				BCB9130D1D93448C0069DCA9 /* Chat */,
 				BCB912F81D9342210069DCA9 /* LocalInfo */,
@@ -552,6 +555,7 @@
 				BC166E0D1D881F7F009EC5D3 /* FBDelegate.swift in Sources */,
 				BC166E351D882C36009EC5D3 /* DIDatepicker.m in Sources */,
 				BC166E041D881F1F009EC5D3 /* FBTableViewDataSource.swift in Sources */,
+				BCADE8DC1DA956AF001B7DB2 /* MainViewController.swift in Sources */,
 				BCB913031D9342210069DCA9 /* LocalInfoSelector.swift in Sources */,
 				BC166E481D882CB9009EC5D3 /* RunnerDetailTableViewController.swift in Sources */,
 				BCB912F51D9325860069DCA9 /* PicCollectionViewCell.swift in Sources */,
