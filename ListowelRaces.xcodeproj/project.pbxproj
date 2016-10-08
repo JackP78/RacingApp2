@@ -51,6 +51,7 @@
 		BC2E4CBD1D88193C00376D95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2E4CBC1D88193C00376D95 /* AppDelegate.swift */; };
 		BC2E4CC41D88193C00376D95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2E4CC21D88193C00376D95 /* Main.storyboard */; };
 		BC2E4CC91D88193C00376D95 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2E4CC71D88193C00376D95 /* LaunchScreen.storyboard */; };
+		BCADE8DA1DA8025E001B7DB2 /* BestDressedEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCADE8D91DA8025E001B7DB2 /* BestDressedEntry.swift */; };
 		BCB912F31D9325860069DCA9 /* BestDressedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB912F01D9325860069DCA9 /* BestDressedCollectionViewController.swift */; };
 		BCB912F51D9325860069DCA9 /* PicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB912F21D9325860069DCA9 /* PicCollectionViewCell.swift */; };
 		BCB912F71D9325CE0069DCA9 /* BestDressed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB912F61D9325CE0069DCA9 /* BestDressed.storyboard */; };
@@ -69,14 +70,12 @@
 		BCB913221D9B18B00069DCA9 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB913211D9B18B00069DCA9 /* SplashView.swift */; };
 		BCB9132A1D9C7E580069DCA9 /* AromaNo2LTW01-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCB913291D9C7DC60069DCA9 /* AromaNo2LTW01-ExtraBold.ttf */; };
 		BCB9132C1D9D6CC20069DCA9 /* UISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9132B1D9D6CC20069DCA9 /* UISettings.swift */; };
-		BCB9132E1D9D998C0069DCA9 /* BestDressedEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9132D1D9D998C0069DCA9 /* BestDressedEntry.swift */; };
 		BCE6E45E1D88CD0D00949A56 /* Horse2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = BCE6E45D1D88CD0D00949A56 /* Horse2.atlas */; };
 		BCE6E4611D88CD2D00949A56 /* Horse4.atlas in Resources */ = {isa = PBXBuildFile; fileRef = BCE6E45F1D88CD2D00949A56 /* Horse4.atlas */; };
 		BCE6E4621D88CD2D00949A56 /* Horse3.atlas in Resources */ = {isa = PBXBuildFile; fileRef = BCE6E4601D88CD2D00949A56 /* Horse3.atlas */; };
 		BCE6E4641D88CFA500949A56 /* HorseSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E4631D88CFA500949A56 /* HorseSprite.swift */; };
 		BCE6E4681D89C7B700949A56 /* ListowelBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = BCE6E4671D89C7B700949A56 /* ListowelBackground.png */; };
 		BCEFDBDF1D9DD32000284036 /* TabBarControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFDBDE1D9DD32000284036 /* TabBarControllerDelegate.swift */; };
-		BCEFDBE11D9DD7AD00284036 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFDBE01D9DD7AD00284036 /* MainViewController.swift */; };
 		FD2689815BB9F95794F52E79 /* Pods_ListowelRaces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBBC3804371887833199B047 /* Pods_ListowelRaces.framework */; };
 /* End PBXBuildFile section */
 
@@ -134,6 +133,7 @@
 		BC2E4CC31D88193C00376D95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BC2E4CC81D88193C00376D95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC2E4CCA1D88193C00376D95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCADE8D91DA8025E001B7DB2 /* BestDressedEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BestDressedEntry.swift; sourceTree = "<group>"; };
 		BCB912F01D9325860069DCA9 /* BestDressedCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BestDressedCollectionViewController.swift; sourceTree = "<group>"; };
 		BCB912F21D9325860069DCA9 /* PicCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicCollectionViewCell.swift; sourceTree = "<group>"; };
 		BCB912F61D9325CE0069DCA9 /* BestDressed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BestDressed.storyboard; sourceTree = "<group>"; };
@@ -152,14 +152,12 @@
 		BCB913211D9B18B00069DCA9 /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		BCB913291D9C7DC60069DCA9 /* AromaNo2LTW01-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AromaNo2LTW01-ExtraBold.ttf"; sourceTree = "<group>"; };
 		BCB9132B1D9D6CC20069DCA9 /* UISettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISettings.swift; sourceTree = "<group>"; };
-		BCB9132D1D9D998C0069DCA9 /* BestDressedEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BestDressedEntry.swift; path = ../Core/BestDressedEntry.swift; sourceTree = "<group>"; };
 		BCE6E45D1D88CD0D00949A56 /* Horse2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Horse2.atlas; sourceTree = "<group>"; };
 		BCE6E45F1D88CD2D00949A56 /* Horse4.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Horse4.atlas; sourceTree = "<group>"; };
 		BCE6E4601D88CD2D00949A56 /* Horse3.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Horse3.atlas; sourceTree = "<group>"; };
 		BCE6E4631D88CFA500949A56 /* HorseSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorseSprite.swift; sourceTree = "<group>"; };
 		BCE6E4671D89C7B700949A56 /* ListowelBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ListowelBackground.png; sourceTree = "<group>"; };
 		BCEFDBDE1D9DD32000284036 /* TabBarControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControllerDelegate.swift; sourceTree = "<group>"; };
-		BCEFDBE01D9DD7AD00284036 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,7 +192,7 @@
 		BC166DDC1D881EFE009EC5D3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BCB9132D1D9D998C0069DCA9 /* BestDressedEntry.swift */,
+				BCADE8D91DA8025E001B7DB2 /* BestDressedEntry.swift */,
 				BC166DDE1D881EFE009EC5D3 /* Extensions.swift */,
 				BC166DE11D881EFE009EC5D3 /* Form.swift */,
 				BC166DE41D881EFE009EC5D3 /* LocalInfoEntry.swift */,
@@ -322,7 +320,6 @@
 				BC166E301D882C35009EC5D3 /* ListowelRaces-Bridging-Header.h */,
 				BCB913211D9B18B00069DCA9 /* SplashView.swift */,
 				BCEFDBDE1D9DD32000284036 /* TabBarControllerDelegate.swift */,
-				BCEFDBE01D9DD7AD00284036 /* MainViewController.swift */,
 			);
 			path = ListowelRaces;
 			sourceTree = "<group>";
@@ -525,8 +522,8 @@
 				BC166E1A1D8829B9009EC5D3 /* HorseSummaryCell.swift in Sources */,
 				BCB913071D9342210069DCA9 /* MapViewController.swift in Sources */,
 				BCB913011D9342210069DCA9 /* LocalInfoDetailController.swift in Sources */,
-				BCB9132E1D9D998C0069DCA9 /* BestDressedEntry.swift in Sources */,
 				BC166E431D882CB9009EC5D3 /* LRRunnerTableViewController.swift in Sources */,
+				BCADE8DA1DA8025E001B7DB2 /* BestDressedEntry.swift in Sources */,
 				BC166E2D1D882B1C009EC5D3 /* PredictorViewController.swift in Sources */,
 				BC166E441D882CB9009EC5D3 /* LRSectionHeader.swift in Sources */,
 				BC166DF21D881EFE009EC5D3 /* LocalInfoEntry.swift in Sources */,
@@ -536,7 +533,6 @@
 				BC166DEF1D881EFE009EC5D3 /* Form.swift in Sources */,
 				BC166E571D8897EB009EC5D3 /* ExceptionTypes.swift in Sources */,
 				BC166E461D882CB9009EC5D3 /* PageRacesViewController.swift in Sources */,
-				BCEFDBE11D9DD7AD00284036 /* MainViewController.swift in Sources */,
 				BCB913221D9B18B00069DCA9 /* SplashView.swift in Sources */,
 				BC166DF41D881EFE009EC5D3 /* Race.swift in Sources */,
 				BC166DEC1D881EFE009EC5D3 /* Extensions.swift in Sources */,
