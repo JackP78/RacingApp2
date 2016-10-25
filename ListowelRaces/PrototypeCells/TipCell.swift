@@ -17,7 +17,7 @@ class TipCell: UITableViewCell {
     var tip : Tip? {
         didSet {
             self.nameLabel.text = tip?.name
-            self.scoreLabel.text = tip?.tipsterScore?.stringValue
+            self.scoreLabel.text = String(describing: tip?.tipsterScore)
             self.correctLabel.text = "0"
         }
     }

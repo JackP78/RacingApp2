@@ -59,14 +59,14 @@ class FBTableViewDataSource: NSObject, UITableViewDataSource, FBDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier)
         let snap = array![(indexPath as NSIndexPath).row]
         if self.modelClass != nil && !self.modelClass!.isSubclass(of: FIRDataSnapshot.self) {
-            let objFactory = ObjectFactory(with: self.modelClass)
-            let model = objFactory?.create(from: snap) as! NSObject
-            if let postDict = snap.value as? Dictionary<String, AnyObject> {
-                model.setValuesForKeys(postDict)
-                if self.populateCell != nil {
-                    self.populateCell!(cell!, model)
+                let objFactory = ObjectFactory(with: self.modelClass)
+                let model = objFactory?.create(from: snap) as! NSObject
+                if let postDict = snap.value as? Dictionary<String, AnyObject> {
+                    model.setValuesForKeys(postDict)
+                    if self.populateCell != nil {
+                        self.populateCell!(cell!, model)
+                    }
                 }
-            }
         }
         else if self.populateCell != nil {
             self.populateCell!(cell!, snap)

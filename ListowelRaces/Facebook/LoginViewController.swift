@@ -19,9 +19,23 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
      @param error The error (if any) from the login
      */
     public func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        if let token = result.token{
-            loadFBProfile(token)
+        
+        if(error == nil)
+        {
+            NSLog("login complete")
+            if let token = FBSDKAccessToken.current() {
+                loadFBProfile(token);
+            }
+            else if result.isCancelled {
+                NSLog("user cancelled the login")
+                self.navigationController?.popViewController(animated: true)
+            }
         }
+        else{
+            NSLog(error.localizedDescription)
+        }
+        
+        
     }
 
 
@@ -38,10 +52,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         var isLoggedIn = false
         
-        if let user = FIRAuth.auth()?.currentUser {
+        if let token = FBSDKAccessToken.current(), let user = FIRAuth.auth()?.currentUser
+        {
             if !user.isAnonymous {
                 isLoggedIn = true
-                loadFBProfile(FBSDKAccessToken.current())
+                loadFBProfile(token)
             }
         }
         toggleHiddenState(!isLoggedIn)
@@ -96,14 +111,14 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                                 }
                                 changeRequest.commitChanges { error in
                                     if let error = error {
-                                        // An error happened.
+                                        NSLog("\(error)")
                                     } else {
                                         NSLog("profile updated")
                                     }
                                 }
                                 user.updateEmail(email!) { error in
                                     if let error = error {
-                                        // An error happened.
+                                        NSLog("\(error)")
                                     } else {
                                         NSLog("email updated")
                                     }

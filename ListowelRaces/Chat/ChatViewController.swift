@@ -130,9 +130,9 @@ class ChatViewController: JSQMessagesViewController  {
         senderDisplayName: String!, date: Date!) {
             
         let itemRef = messageRef.childByAutoId() // 1
-        let messageItem = [ // 2
-            "text": text,
-            "senderId": senderId
+        let messageItem:[String:AnyObject] = [ // 2
+            "text": text! as AnyObject,
+            "senderId": senderId! as AnyObject,
         ]
         itemRef.setValue(messageItem) // 3
             

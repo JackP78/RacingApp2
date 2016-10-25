@@ -10,10 +10,21 @@ import Foundation
 
 class Tip : NSObject {
     var name : String?
-    var tipsterScore: NSNumber?
+    var tipsterScore: Int = 0
     var userId: String?
+    var runnerId : Int = 0
+    var raceId : Int = 0
     
     override init() {
         super.init()
+    }
+    
+    override func setValue(_ value: Any?, forKey key: String) {
+        NSLog("key \(key)")
+        super.setValue(value, forKey: key)
+    }
+    
+    override func setValue(_ value: Any?, forUndefinedKey key: String) {
+        NSLog("undefined key \(key)")
     }
 }

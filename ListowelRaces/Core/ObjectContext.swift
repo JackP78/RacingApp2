@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBSDKCoreKit
 import FirebaseDatabase
 import FirebaseRemoteConfig
 import FirebaseStorage
@@ -53,31 +54,19 @@ class ObjectContext: NSObject {
     }
     
     func ensureLoggedInWithCompletion(_ parentView: UIViewController, completion : @escaping ((_ user: FIRUser) -> Void)) {
-        // make sure they are logged in
-        do {
-            if let user = FIRAuth.auth()?.currentUser {
-                if user.isAnonymous {
-                    throw LoginError.notLoggedIn
-                }
-                else {
-                    // already logged in so add the tip
-                    completion(user)
-                }
-            } else {
-                throw LoginError.notLoggedIn
+        if let token = FBSDKAccessToken.current(), let user = FIRAuth.auth()?.currentUser
+        {
+            if !user.isAnonymous {
+                completion(user)
             }
         }
-        catch LoginError.notLoggedIn {
+        else {
             let storyBoard : UIStoryboard = UIStoryboard(name: "Login", bundle:nil)
             let loginController = storyBoard.instantiateViewController(withIdentifier: "LoginView") as! LoginViewController
             loginController.completeWithBlock({ (user) in
                 completion(user)
             })
             parentView.navigationController?.pushViewController(loginController, animated: true)
-            //parentView.presentViewController(loginController, animated:true, completion:nil)
-        }
-        catch {
-            NSLog("Big Problem here")
         }
     }
     
@@ -166,11 +155,14 @@ class ObjectContext: NSObject {
             else if let loc = value as? UIImage {
                 // eat image for now
             }
-            else if let v = value as? AnyObject {
-                result[key] = v
+            else if let string = value as AnyObject? {
+                result[key] = string
+            }
+            else {
+                NSLog("Cannot set \(key) with \(value)")
             }
         }
-        NSLog("\(result)")
+        NSLog("To be saved \(result)")
         newLocalInfo.setValue(result)
     }
     
@@ -183,6 +175,7 @@ class ObjectContext: NSObject {
                 model.setValuesForKeys(postDict)
                 model.location = CLLocation(latitude: model.latitude, longitude: model.longitude)
             }
+            forEach(model)
         }) { (error : Error) in
             print(error.localizedDescription)
         }
@@ -197,7 +190,7 @@ class ObjectContext: NSObject {
                 NSLog("begin upload of \(riversRef)")
                 let loadingNotification = MBProgressHUD.showAdded(to: parentView.view, animated: true)
                 loadingNotification.mode = MBProgressHUDMode.annularDeterminate
-                loadingNotification.labelText = "Uploading"
+                loadingNotification.label.text = "Uploading"
                 
                 let uploadTask = riversRef.put(imageData, metadata: nil) { metadata, error in
                     if (error != nil) {
@@ -214,10 +207,10 @@ class ObjectContext: NSObject {
                         ] as [String : Any]
                         itemRef.setValue(messageItem) // 3
                         NSLog("Finish upload \(itemRef)")
-                        MBProgressHUD.hideAllHUDs(for: parentView.view, animated: true)
+                        MBProgressHUD.hide(for: parentView.view, animated: true)
                     }
                 }
-                let observer = uploadTask.observe(.progress) { snapshot in
+                _ = uploadTask.observe(.progress) { snapshot in
                     loadingNotification.progressObject = snapshot.progress
                 }
             }
