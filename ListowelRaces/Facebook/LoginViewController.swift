@@ -12,6 +12,8 @@ import FBSDKShareKit
 import FBSDKLoginKit
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
+    
+    var objectContext = ObjectContext()
     /*!
      @abstract Sent to the delegate when the button was used to login.
      @param loginButton the sender
@@ -25,6 +27,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             NSLog("login complete")
             if let token = FBSDKAccessToken.current() {
                 loadFBProfile(token);
+                objectContext.getFriendList()
             }
             else if result.isCancelled {
                 NSLog("user cancelled the login")

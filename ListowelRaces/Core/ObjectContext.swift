@@ -13,6 +13,8 @@ import FirebaseRemoteConfig
 import FirebaseStorage
 import MBProgressHUD
 import MapKit
+import Gloss
+import RealmSwift
 
 class ObjectContext: NSObject {
     fileprivate var urlDateFormatter = DateFormatter()
@@ -51,6 +53,42 @@ class ObjectContext: NSObject {
             }
         }
         
+    }
+    
+    func getFriendList() {
+        if((FBSDKAccessToken.current()) != nil) {
+            // TODO chane this to friends only not taggable friends
+            let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me/taggable_friends", parameters: ["fields": "id,name,picture"])
+            graphRequest.start(completionHandler: { (connection, result, error) in
+                if (error == nil){
+                    let data:[String:AnyObject] = result as! [String : AnyObject]
+                    print(result!)
+                    if let friends = [FriendJSON].from(jsonArray: data["data"] as! [JSON]) {
+                        print ("iterate over \(friends.count) json friends")
+                        let realm = try! Realm()
+                        for friend in friends {
+                            let friendObj = FriendEntity(friend: friend)
+                            try! realm.write {
+                                realm.add(friendObj)
+                            }
+                        }
+                        let friendEnts = realm.objects(FriendEntity.self) // retrieves all Dogs from the default 
+                        print ("retrieved \(friendEnts.count) realm friends")
+                        for friendEnt in friendEnts {
+                            print ("name: \(friendEnt.name)")
+                            print ("fbId: \(friendEnt.fbId)")
+                            print ("url: \(friendEnt.pictureUrl)")
+                        }
+                    }
+                    else {
+                        print("error glossing him")
+                    }
+                }
+                else {
+                    print ("error occurred: \(error)")
+                }
+            })
+        }
     }
     
     func ensureLoggedInWithCompletion(_ parentView: UIViewController, completion : @escaping ((_ user: FIRUser) -> Void)) {

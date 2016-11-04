@@ -77,6 +77,7 @@
 		BCE6E4641D88CFA500949A56 /* HorseSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E4631D88CFA500949A56 /* HorseSprite.swift */; };
 		BCE6E4681D89C7B700949A56 /* ListowelBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = BCE6E4671D89C7B700949A56 /* ListowelBackground.png */; };
 		BCEFDBDF1D9DD32000284036 /* TabBarControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFDBDE1D9DD32000284036 /* TabBarControllerDelegate.swift */; };
+		BCF405451DCBF9DD000B4F47 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF405441DCBF9DD000B4F47 /* Friend.swift */; };
 		BCFB5A911DB58E30003F4F07 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCFB5A901DB58E30003F4F07 /* MapKit.framework */; };
 		FD2689815BB9F95794F52E79 /* Pods_ListowelRaces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBBC3804371887833199B047 /* Pods_ListowelRaces.framework */; };
 /* End PBXBuildFile section */
@@ -161,6 +162,7 @@
 		BCE6E4631D88CFA500949A56 /* HorseSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorseSprite.swift; sourceTree = "<group>"; };
 		BCE6E4671D89C7B700949A56 /* ListowelBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ListowelBackground.png; sourceTree = "<group>"; };
 		BCEFDBDE1D9DD32000284036 /* TabBarControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControllerDelegate.swift; sourceTree = "<group>"; };
+		BCF405441DCBF9DD000B4F47 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		BCFB5A8F1DB58E24003F4F07 /* ListowelRaces.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ListowelRaces.entitlements; sourceTree = "<group>"; };
 		BCFB5A901DB58E30003F4F07 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -206,6 +208,7 @@
 				BC166DE61D881EFE009EC5D3 /* Race.swift */,
 				BC166DE91D881EFE009EC5D3 /* Runner.swift */,
 				BC166DEA1D881EFE009EC5D3 /* Tip.swift */,
+				BCF405441DCBF9DD000B4F47 /* Friend.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -557,6 +560,7 @@
 				BC166DF41D881EFE009EC5D3 /* Race.swift in Sources */,
 				BC166DEC1D881EFE009EC5D3 /* Extensions.swift in Sources */,
 				BC166E101D881FAA009EC5D3 /* FBArray.swift in Sources */,
+				BCF405451DCBF9DD000B4F47 /* Friend.swift in Sources */,
 				BC166E1D1D8829B9009EC5D3 /* RunnerDetailCell.swift in Sources */,
 				BC166E421D882CB9009EC5D3 /* FBRaceTableViewController.swift in Sources */,
 				BC2E4CBD1D88193C00376D95 /* AppDelegate.swift in Sources */,

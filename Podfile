@@ -22,6 +22,8 @@ target 'ListowelRaces' do
     pod 'JSQMessagesViewController'
     pod 'SDWebImage'
     pod 'UIActivityIndicator-for-SDWebImage'
+    pod 'RealmSwift'
+    pod 'Gloss'
 end
 
 post_install do |installer|
