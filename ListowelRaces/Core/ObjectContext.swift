@@ -29,13 +29,6 @@ class ObjectContext: NSObject {
         
         // load the config information
         let path = Bundle.main.path(forResource: "ListowelRaces", ofType: "plist")
-        if let dict = NSDictionary(contentsOfFile: path!) as? Dictionary<String, String> {
-            let firstDate = dict["first_date"]
-            NSLog("hi there \(firstDate)")
-        }
-        
-        
-        
         
         remoteConfig = FIRRemoteConfig.remoteConfig()
         let remoteConfigSettings = FIRRemoteConfigSettings(developerModeEnabled: true)
@@ -45,10 +38,8 @@ class ObjectContext: NSObject {
         let expirationDuration = 43200
         remoteConfig.fetch(withExpirationDuration: TimeInterval(expirationDuration)) { (status, error) -> Void in
             if (status == FIRRemoteConfigFetchStatus.success) {
-                print("Config fetched!")
                 self.remoteConfig.activateFetched()
             } else {
-                print("Config not fetched")
                 print("Error \(error!.localizedDescription)")
             }
         }

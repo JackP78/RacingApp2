@@ -18,6 +18,7 @@ target 'ListowelRaces' do
     pod 'Firebase/Auth'
     pod 'Firebase/RemoteConfig'
     pod 'Firebase/Storage'
+    pod 'Firebase/Messaging'
     #pod 'GeoFire', '>= 1.2'
     pod 'JSQMessagesViewController'
     pod 'SDWebImage'
