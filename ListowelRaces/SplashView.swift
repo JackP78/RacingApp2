@@ -152,7 +152,6 @@ class SplashView: UIView {
         }
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = combinedPath
-        NSLog("combined path bounds \(combinedPath)")
         shapeLayer.bounds = shapeBounds
         shapeLayer.backgroundColor = UIColor.clear.cgColor
         shapeLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5);

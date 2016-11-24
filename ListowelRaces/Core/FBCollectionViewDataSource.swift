@@ -13,10 +13,9 @@ class FBCollectionViewDataSource: NSObject, UICollectionViewDataSource, FBDelega
     
     var collectionView : UICollectionView?
     var populateCell:((_ cell: UICollectionViewCell, _ object: NSObject) -> Void)?
-    var array: FBArray?
+    var array: FBArray!
     var section : Int = 1
     var reuseIdentifier : String
-    var modelClass : AnyClass?
 
     
     func populateCellWithBlock(_ block : @escaping (UICollectionViewCell, _ object: NSObject) -> Void) {
@@ -27,20 +26,13 @@ class FBCollectionViewDataSource: NSObject, UICollectionViewDataSource, FBDelega
     init(query: FIRDatabaseQuery, modelClass model: AnyClass?, nibNamed: String?, cellReuseIdentifier: String, view : UICollectionView?, section : Int) {
         collectionView = view
         reuseIdentifier = cellReuseIdentifier
-        modelClass = model
         super.init()
         self.array = FBArray(withQuery: query, delegate : self, modelClass: model)
-        self.array!.delegate = self
+        self.array.delegate = self
         self.section = section
         if (nibNamed != nil) {
             let nib = UINib.init(nibName: nibNamed!, bundle: nil)
             self.collectionView?.register(nib, forCellWithReuseIdentifier: self.reuseIdentifier)
-        }
-        if model == nil {
-            self.modelClass = FIRDataSnapshot.self
-        }
-        else {
-            self.modelClass = model!
         }
     }
     
@@ -59,27 +51,15 @@ class FBCollectionViewDataSource: NSObject, UICollectionViewDataSource, FBDelega
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = self.collectionView?.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) {
-            let snap = array![(indexPath as NSIndexPath).row]
-            if self.modelClass != nil && !self.modelClass!.isSubclass(of: FIRDataSnapshot.self) {
-                let objFactory = ObjectFactory(with: self.modelClass)
-                let model = objFactory?.create(from: snap) as! NSObject
-                if let postDict = snap.value as? Dictionary<String, AnyObject> {
-                    model.setValuesForKeys(postDict)
-                    if self.populateCell != nil {
-                        self.populateCell!(cell, model)
-                    }
-                }
-            }
-            else if self.populateCell != nil {
-                self.populateCell!(cell, snap)
-            }
+            let model = array[indexPath.row]
+            self.populateCell!(cell, model)
             return cell;
         }
         return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return array!.count
+        return array.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

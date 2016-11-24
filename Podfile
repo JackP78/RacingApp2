@@ -21,6 +21,7 @@ target 'ListowelRaces' do
     pod 'Firebase/Messaging'
     #pod 'GeoFire', '>= 1.2'
     pod 'JSQMessagesViewController'
+    pod 'IQKeyboardManagerSwift'
     pod 'SDWebImage'
     pod 'UIActivityIndicator-for-SDWebImage'
     pod 'RealmSwift'

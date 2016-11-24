@@ -10,7 +10,7 @@ import UIKit
 import FirebaseDatabase
 import JSQMessagesViewController
 
-class ChatViewController: JSQMessagesViewController  {
+class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     // MARK: Properties
     var messages = [JSQMessage]()
@@ -18,6 +18,7 @@ class ChatViewController: JSQMessagesViewController  {
     var messageRef: FIRDatabaseReference!
     var usersTypingQuery: FIRDatabaseQuery!
     var objectContext = ObjectContext()
+    fileprivate let imagePicker = UIImagePickerController()
     
     var userIsTypingRef: FIRDatabaseReference! // 1
     fileprivate var localTyping = false // 2
@@ -71,6 +72,8 @@ class ChatViewController: JSQMessagesViewController  {
         collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
         observeMessages()
         observeTyping()
+        
+        imagePicker.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -126,6 +129,12 @@ class ChatViewController: JSQMessagesViewController  {
         messages.append(message!)
     }
     
+    override func didPressAccessoryButton(_ sender: UIButton!) {
+        self.imagePicker.allowsEditing = false
+        self.imagePicker.sourceType = .photoLibrary
+        self.present(self.imagePicker, animated: true, completion: nil)
+    }
+    
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!,
         senderDisplayName: String!, date: Date!) {
             
@@ -174,6 +183,24 @@ class ChatViewController: JSQMessagesViewController  {
         super.textViewDidChange(textView)
         // If the text is not empty, the user is typing
         isTyping = textView.text != ""
+    }
+    
+    
+    
+    // called when the image is picked
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String :
+        Any])
+    {
+        if let picture = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            let mediaItem = JSQPhotoMediaItem(image: nil)
+            mediaItem?.appliesMediaViewMaskAsOutgoing = true
+            mediaItem?.image = UIImage(data: UIImageJPEGRepresentation(picture, 0.5)!)
+            if let sendMessage = JSQMessage(senderId: senderId, displayName: "Jack", media: mediaItem) {
+                self.messages.append(sendMessage)
+            }
+            self.finishSendingMessage()
+        }
+        picker.dismiss(animated: true, completion: nil)
     }
     
 }

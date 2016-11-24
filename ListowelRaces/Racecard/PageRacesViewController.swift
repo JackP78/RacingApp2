@@ -8,11 +8,12 @@
 
 import UIKit
 
-class PageRacesViewController: UIViewController, UIPageViewControllerDataSource {
+class PageRacesViewController: UIViewController, UIPageViewControllerDataSource, PageTitleDelegate {
     var pageController: UIPageViewController
     var raceNumber: Int=0
     var totalRaces: Int=0
     var dataSource: FBArray?
+    var viewControllers: [UIViewController?] = []
     
     override func loadView() {
         super.loadView()
@@ -84,13 +85,18 @@ class PageRacesViewController: UIViewController, UIPageViewControllerDataSource 
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "raceInfoView") as? LRRunnerTableViewController {
             // Pass the selected object to the destination view controller.
             vc.raceIndex = index
-            let race = dataSource!.modelClassAtIndex(index) as! Race
+            let race = dataSource![index] as! Race
             vc.currentRace = race
+            vc.titleDelegate = self;
             return vc;
         }
         else {
             return nil;
         }
+    }
+    
+    func titleChanged(newTitle : String) {
+        self.title = newTitle;
     }
 
     // MARK: - Navigation
@@ -109,4 +115,8 @@ class PageRacesViewController: UIViewController, UIPageViewControllerDataSource 
         }
     }*/
 
+}
+
+protocol PageTitleDelegate {
+    func titleChanged(newTitle : String)
 }

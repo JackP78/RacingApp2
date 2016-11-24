@@ -9,55 +9,66 @@
 import UIKit
 
 
-class LRRunnerTableViewController: UITableViewController {
+class LRRunnerTableViewController: UITableViewController, FBDelegate {
     fileprivate let reuseIdentifier = "RunnerCell"
-    fileprivate var dataSource: FBTableViewDataSource?
     fileprivate var objectContext = ObjectContext()
+    var array: FBArray?
     var raceIndex: Int=0
     var currentRace: Race?
+    var titleDelegate : PageTitleDelegate?
     
     override func viewDidLoad() {
         self.title = "Race"
         
-        let predictorButton = UIBarButtonItem.init(title: "Predictor", style: UIBarButtonItemStyle.plain, target: self, action: #selector(LRRunnerTableViewController.launchPreditor(_:)))
-        self.navigationItem.rightBarButtonItem = predictorButton;
+        let headerNib = UINib.init(nibName: "RaceSummaryCellTableViewCell", bundle: nil)
+        self.tableView?.register(headerNib, forCellReuseIdentifier: "Header")
+	
+	
+        let horseNib = UINib.init(nibName: "HorseSummaryCell", bundle: nil)
+        self.tableView?.register(horseNib, forCellReuseIdentifier: "Main")
+        
         
         super.viewDidLoad()
-        self.dataSource = objectContext.getRunnersForRace(self.currentRace!, nibNamed: "HorseSummaryCell", cellReuseIdentifier: "HorseSummaryCell", tableView: self.tableView)
-        self.dataSource!.populateCellWithBlock { (rawCell: UITableViewCell, obj: NSObject) -> Void in
-            if let cell = rawCell as? HorseSummaryCell {
-                let runner = obj as! Runner
-                cell.runner = runner
+        self.array = objectContext.getRunnersForRace(self.currentRace!, delegate: self)
+        
+        self.tableView.dataSource = self;
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 2;
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return (section == 0) ? 1 : self.array!.count;
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch (indexPath.section) {
+        case 0 :
+            // return the header cell;
+            let rawCell = tableView.dequeueReusableCell(withIdentifier: "Header")
+            if let cell = rawCell as? RaceSummaryCellTableViewCell {
+                cell.race = self.currentRace
+                return cell
             }
+            return rawCell!;
+        default :
+            let rawCell = tableView.dequeueReusableCell(withIdentifier: "Main")
+            if let cell = rawCell as? HorseSummaryCell {
+                cell.runner = self.array?[indexPath.row] as! Runner
+                return cell
+            }
+            return rawCell!;
         }
-        self.tableView.dataSource = self.dataSource
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        titleDelegate?.titleChanged(newTitle: (currentRace?.scheduledTime)!)
     }
     
     func launchPreditor(_ sender: UIBarButtonItem) {
         self.performSegue(withIdentifier: "predictor", sender: self)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        // Configure the PFQueryTableView
-        self.title = "Race"
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 90;
-    }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cellIdentifier = "RaceSectionHeader"
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! LRSectionHeader
-        if let race = self.currentRace {
-            cell.raceName.text = race.raceTitle
-            cell.raceNumber.text = "Race \(race.raceNumber)"
-            cell.time.text = race.scheduledTime
-            cell.prizeMoney.text = race.prizeMoney.moneyString()
-            cell.distance.text = race.distanceYards.distanceString()
-        }
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -73,10 +84,39 @@ class LRRunnerTableViewController: UITableViewController {
             // Pass the selected object to the destination view controller.
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 detailScene.race = self.currentRace
-                detailScene.runner = self.dataSource!.array!.modelClassAtIndex((indexPath as NSIndexPath).row) as? Runner
+                detailScene.runner = self.array![indexPath.row] as? Runner
             }
         }
 
+    }
+    
+    // FB Delegate cells
+    func childAdded(_ object: AnyObject, atIndex: Int) {
+        self.tableView?.beginUpdates()
+        self.tableView?.insertRows(at: [IndexPath(row: Int(atIndex), section: 1)], with: .automatic)
+        self.tableView?.endUpdates()
+    }
+    
+    func childChanged(_ object: AnyObject, atIndex: Int) {
+        self.tableView?.beginUpdates()
+        self.tableView?.reloadRows(at: [IndexPath(row: Int(atIndex), section: 1)], with: .automatic)
+        self.tableView?.endUpdates()
+    }
+    
+    func childRemoved(_ object: AnyObject, atIndex: Int) {
+        self.tableView?.beginUpdates()
+        self.tableView?.deleteRows(at: [IndexPath(row: Int(atIndex), section: 1)], with: .automatic)
+        self.tableView?.endUpdates()
+    }
+    
+    func childMoved(_ object: AnyObject, fromIndex: Int, toIndex: Int) {
+        self.tableView?.beginUpdates()
+        self.tableView?.moveRow(at: IndexPath(row: Int(fromIndex), section: 1), to: IndexPath(row: Int(toIndex), section: 1))
+        self.tableView?.endUpdates()
+    }
+    
+    func cancelWithError(_ error: Error) {
+        NSLog("Something went wrong here")
     }
     
     

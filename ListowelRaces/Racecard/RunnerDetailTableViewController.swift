@@ -57,7 +57,6 @@ class RunnerDetailTableViewController: UITableViewController {
             }*/
         }
         self.dataSource = CompositeTableViewDataSource(dataSources: [runnerSectionDS, tipsSection, formSection])
-        //self.dataSource = runnerSectionDS
         self.tableView.dataSource = self.dataSource
     }
     

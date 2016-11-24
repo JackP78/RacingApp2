@@ -23,7 +23,6 @@
 		BC166E1A1D8829B9009EC5D3 /* HorseSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E131D8829B9009EC5D3 /* HorseSummaryCell.swift */; };
 		BC166E1B1D8829B9009EC5D3 /* HorseSummaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC166E141D8829B9009EC5D3 /* HorseSummaryCell.xib */; };
 		BC166E1C1D8829B9009EC5D3 /* RaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E151D8829B9009EC5D3 /* RaceCell.swift */; };
-		BC166E1D1D8829B9009EC5D3 /* RunnerDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E161D8829B9009EC5D3 /* RunnerDetailCell.swift */; };
 		BC166E1E1D8829B9009EC5D3 /* RunnerFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E171D8829B9009EC5D3 /* RunnerFormCell.swift */; };
 		BC166E1F1D8829B9009EC5D3 /* TipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E181D8829B9009EC5D3 /* TipCell.swift */; };
 		BC166E201D8829B9009EC5D3 /* TipCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC166E191D8829B9009EC5D3 /* TipCell.xib */; };
@@ -39,7 +38,6 @@
 		BC166E411D882CB9009EC5D3 /* CompositeTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E381D882CB9009EC5D3 /* CompositeTableViewDataSource.swift */; };
 		BC166E421D882CB9009EC5D3 /* FBRaceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E391D882CB9009EC5D3 /* FBRaceTableViewController.swift */; };
 		BC166E431D882CB9009EC5D3 /* LRRunnerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E3A1D882CB9009EC5D3 /* LRRunnerTableViewController.swift */; };
-		BC166E441D882CB9009EC5D3 /* LRSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E3B1D882CB9009EC5D3 /* LRSectionHeader.swift */; };
 		BC166E451D882CB9009EC5D3 /* ObjectFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = BC166E3D1D882CB9009EC5D3 /* ObjectFactory.m */; };
 		BC166E461D882CB9009EC5D3 /* PageRacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E3E1D882CB9009EC5D3 /* PageRacesViewController.swift */; };
 		BC166E471D882CB9009EC5D3 /* Racecard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC166E3F1D882CB9009EC5D3 /* Racecard.storyboard */; };
@@ -48,6 +46,9 @@
 		BC166E531D887D40009EC5D3 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC166E521D887D40009EC5D3 /* Login.storyboard */; };
 		BC166E551D887EC4009EC5D3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E541D887EC4009EC5D3 /* LoginViewController.swift */; };
 		BC166E571D8897EB009EC5D3 /* ExceptionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E561D8897EB009EC5D3 /* ExceptionTypes.swift */; };
+		BC1D7DAC1DDBDD150099E085 /* SegmentSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1D7DAB1DDBDD150099E085 /* SegmentSourceDelegate.swift */; };
+		BC1D7DB11DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1D7DAF1DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.swift */; };
+		BC1D7DB21DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC1D7DB01DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.xib */; };
 		BC2E4CBD1D88193C00376D95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2E4CBC1D88193C00376D95 /* AppDelegate.swift */; };
 		BC2E4CC41D88193C00376D95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2E4CC21D88193C00376D95 /* Main.storyboard */; };
 		BC2E4CC91D88193C00376D95 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2E4CC71D88193C00376D95 /* LaunchScreen.storyboard */; };
@@ -102,7 +103,6 @@
 		BC166E131D8829B9009EC5D3 /* HorseSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorseSummaryCell.swift; sourceTree = "<group>"; };
 		BC166E141D8829B9009EC5D3 /* HorseSummaryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HorseSummaryCell.xib; sourceTree = "<group>"; };
 		BC166E151D8829B9009EC5D3 /* RaceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaceCell.swift; sourceTree = "<group>"; };
-		BC166E161D8829B9009EC5D3 /* RunnerDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunnerDetailCell.swift; sourceTree = "<group>"; };
 		BC166E171D8829B9009EC5D3 /* RunnerFormCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunnerFormCell.swift; sourceTree = "<group>"; };
 		BC166E181D8829B9009EC5D3 /* TipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipCell.swift; sourceTree = "<group>"; };
 		BC166E191D8829B9009EC5D3 /* TipCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TipCell.xib; sourceTree = "<group>"; };
@@ -121,7 +121,6 @@
 		BC166E381D882CB9009EC5D3 /* CompositeTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompositeTableViewDataSource.swift; sourceTree = "<group>"; };
 		BC166E391D882CB9009EC5D3 /* FBRaceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBRaceTableViewController.swift; sourceTree = "<group>"; };
 		BC166E3A1D882CB9009EC5D3 /* LRRunnerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRRunnerTableViewController.swift; sourceTree = "<group>"; };
-		BC166E3B1D882CB9009EC5D3 /* LRSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRSectionHeader.swift; sourceTree = "<group>"; };
 		BC166E3C1D882CB9009EC5D3 /* ObjectFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectFactory.h; sourceTree = "<group>"; };
 		BC166E3D1D882CB9009EC5D3 /* ObjectFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectFactory.m; sourceTree = "<group>"; };
 		BC166E3E1D882CB9009EC5D3 /* PageRacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageRacesViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +130,9 @@
 		BC166E521D887D40009EC5D3 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		BC166E541D887EC4009EC5D3 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BC166E561D8897EB009EC5D3 /* ExceptionTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionTypes.swift; sourceTree = "<group>"; };
+		BC1D7DAB1DDBDD150099E085 /* SegmentSourceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentSourceDelegate.swift; sourceTree = "<group>"; };
+		BC1D7DAF1DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaceSummaryCellTableViewCell.swift; sourceTree = "<group>"; };
+		BC1D7DB01DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RaceSummaryCellTableViewCell.xib; sourceTree = "<group>"; };
 		BC2E4CB91D88193C00376D95 /* ListowelRaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ListowelRaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC2E4CBC1D88193C00376D95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC2E4CC31D88193C00376D95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -234,10 +236,11 @@
 				BC166E131D8829B9009EC5D3 /* HorseSummaryCell.swift */,
 				BC166E141D8829B9009EC5D3 /* HorseSummaryCell.xib */,
 				BC166E151D8829B9009EC5D3 /* RaceCell.swift */,
-				BC166E161D8829B9009EC5D3 /* RunnerDetailCell.swift */,
 				BC166E171D8829B9009EC5D3 /* RunnerFormCell.swift */,
 				BC166E181D8829B9009EC5D3 /* TipCell.swift */,
 				BC166E191D8829B9009EC5D3 /* TipCell.xib */,
+				BC1D7DAF1DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.swift */,
+				BC1D7DB01DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.xib */,
 			);
 			path = PrototypeCells;
 			sourceTree = "<group>";
@@ -266,7 +269,6 @@
 				BC166E381D882CB9009EC5D3 /* CompositeTableViewDataSource.swift */,
 				BC166E391D882CB9009EC5D3 /* FBRaceTableViewController.swift */,
 				BC166E3A1D882CB9009EC5D3 /* LRRunnerTableViewController.swift */,
-				BC166E3B1D882CB9009EC5D3 /* LRSectionHeader.swift */,
 				BC166E3C1D882CB9009EC5D3 /* ObjectFactory.h */,
 				BC166E3D1D882CB9009EC5D3 /* ObjectFactory.m */,
 				BC166E3E1D882CB9009EC5D3 /* PageRacesViewController.swift */,
@@ -358,6 +360,7 @@
 				BCB912FF1D9342210069DCA9 /* MapViewController.swift */,
 				BCB913001D9342210069DCA9 /* SegmentViewController.swift */,
 				BCB913091D9342700069DCA9 /* LocalInfo.storyboard */,
+				BC1D7DAB1DDBDD150099E085 /* SegmentSourceDelegate.swift */,
 			);
 			path = LocalInfo;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				BC166E4D1D883119009EC5D3 /* ListowelRaces.plist in Resources */,
 				BCB912F71D9325CE0069DCA9 /* BestDressed.storyboard in Resources */,
 				BCE6E4621D88CD2D00949A56 /* Horse3.atlas in Resources */,
+				BC1D7DB21DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.xib in Resources */,
 				BC166DDB1D881E58009EC5D3 /* GoogleService-Info.plist in Resources */,
 				BC166E2C1D882B1C009EC5D3 /* Predictor.storyboard in Resources */,
 				BC166E2F1D882B77009EC5D3 /* Images.xcassets in Resources */,
@@ -551,20 +555,19 @@
 				BC166E431D882CB9009EC5D3 /* LRRunnerTableViewController.swift in Sources */,
 				BCADE8DA1DA8025E001B7DB2 /* BestDressedEntry.swift in Sources */,
 				BC166E2D1D882B1C009EC5D3 /* PredictorViewController.swift in Sources */,
-				BC166E441D882CB9009EC5D3 /* LRSectionHeader.swift in Sources */,
 				BC166DF21D881EFE009EC5D3 /* LocalInfoEntry.swift in Sources */,
 				BCE6E4641D88CFA500949A56 /* HorseSprite.swift in Sources */,
 				BC166E551D887EC4009EC5D3 /* LoginViewController.swift in Sources */,
 				BCB913021D9342210069DCA9 /* LocalInfoFormViewController.swift in Sources */,
 				BC166DEF1D881EFE009EC5D3 /* Form.swift in Sources */,
 				BC166E571D8897EB009EC5D3 /* ExceptionTypes.swift in Sources */,
+				BC1D7DAC1DDBDD150099E085 /* SegmentSourceDelegate.swift in Sources */,
 				BC166E461D882CB9009EC5D3 /* PageRacesViewController.swift in Sources */,
 				BCB913221D9B18B00069DCA9 /* SplashView.swift in Sources */,
 				BC166DF41D881EFE009EC5D3 /* Race.swift in Sources */,
 				BC166DEC1D881EFE009EC5D3 /* Extensions.swift in Sources */,
 				BC166E101D881FAA009EC5D3 /* FBArray.swift in Sources */,
 				BCF405451DCBF9DD000B4F47 /* Friend.swift in Sources */,
-				BC166E1D1D8829B9009EC5D3 /* RunnerDetailCell.swift in Sources */,
 				BC166E421D882CB9009EC5D3 /* FBRaceTableViewController.swift in Sources */,
 				BC2E4CBD1D88193C00376D95 /* AppDelegate.swift in Sources */,
 				BC166DF61D881EFE009EC5D3 /* Runner.swift in Sources */,
@@ -578,6 +581,7 @@
 				BCB913061D9342210069DCA9 /* LRMapView.swift in Sources */,
 				BC166E0D1D881F7F009EC5D3 /* FBDelegate.swift in Sources */,
 				BC166E351D882C36009EC5D3 /* DIDatepicker.m in Sources */,
+				BC1D7DB11DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.swift in Sources */,
 				BC166E041D881F1F009EC5D3 /* FBTableViewDataSource.swift in Sources */,
 				BCADE8DC1DA956AF001B7DB2 /* MainViewController.swift in Sources */,
 				BCB913031D9342210069DCA9 /* LocalInfoSelector.swift in Sources */,

@@ -54,9 +54,9 @@ class BestDressedCollectionViewController: UICollectionViewController, UIImagePi
         NSLog("Vote pressed")
         let touchPoint = collectionView!.convert(CGPoint.zero, from: sender)
         if let indexPath = collectionView!.indexPathForItem(at: touchPoint) {
-            if let object = self.dataSource?.array![(indexPath as NSIndexPath).row] {
-                NSLog("\(object.ref)")
-                let votesRef = object.ref.child("votes")
+            if let object = self.dataSource?.array.refAtIndex(indexPath.row) {
+                NSLog("\(object)")
+                let votesRef = object.child("votes")
                 
                 votesRef.runTransactionBlock({
                     (currentData:FIRMutableData!) in

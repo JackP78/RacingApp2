@@ -10,10 +10,10 @@ import UIKit
 import FirebaseDatabase
 
 open class FBArray: NSObject {
-    var snapShots = [FIRDataSnapshot]()
+    fileprivate var snapShots = [FIRDataSnapshot]()
     var query : FIRDatabaseQuery
     var delegate : FBDelegate
-    var modelClass : AnyClass?
+    var objectFactory : ObjectFactory?
     
     convenience init(withReference reference: FIRDatabaseReference, delegate : FBDelegate, modelClass : AnyClass?) {
         self.init(withReference: reference, delegate: delegate, modelClass: modelClass)
@@ -22,17 +22,30 @@ open class FBArray: NSObject {
     init(withQuery initQuery: FIRDatabaseQuery, delegate initDelegate : FBDelegate, modelClass initModelClass : AnyClass?) {
         query = initQuery
         delegate = initDelegate
-        modelClass = initModelClass
+        if (initModelClass != nil) {
+            objectFactory = ObjectFactory(with: initModelClass)
+        }
         super.init()
         self.initListeners()
     }
     
-    subscript(index: Int) -> FIRDataSnapshot {
+    subscript(index: Int) -> NSObject {
         get {
-            return snapShots[index]
-        }
-        set {
-            snapShots[index] = newValue
+            let snapShot = snapShots[index];
+            if let objFactory = self.objectFactory {
+                if let postDict = snapShot.value as? Dictionary<String, AnyObject> {
+                    NSLog("cast succeeded \(snapShot.value)")
+                    let model = objFactory.create(from: snapShot) as! NSObject
+                    model.setValuesForKeys(postDict)
+                    return model
+                } else {
+                    NSLog("cast to dictionary failed \(snapShot.value)")
+                }
+            }
+            else {
+                NSLog("object factory is null")
+            }
+            return snapShot;
         }
     }
     
@@ -46,17 +59,9 @@ open class FBArray: NSObject {
         }
     }
     
-    open func modelClassAtIndex(_ index: Int) -> NSObject? {
-        let objFactory = ObjectFactory(with: self.modelClass)
-        let snap = snapShots[index]
-        let model = objFactory?.create(from: snap) as! NSObject
-        if let postDict = snap.value as? Dictionary<String, AnyObject> {
-            model.setValuesForKeys(postDict)
-            return model
-        }
-        return nil
+    open func refAtIndex(_ index: Int) -> FIRDatabaseReference {
+        return snapShots[index].ref
     }
-    
     open func keyForIndex(_ index: Int) -> String {
         return snapShots[index].key
     }

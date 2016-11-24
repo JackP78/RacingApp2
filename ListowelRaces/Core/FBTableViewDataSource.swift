@@ -10,10 +10,9 @@ import UIKit
 import FirebaseDatabase
 
 class FBTableViewDataSource: NSObject, UITableViewDataSource, FBDelegate {
-    var array: FBArray?
+    var array: FBArray!
     var reuseIdentifier : String
     var tableView : UITableView?
-    var modelClass : AnyClass?
     var populateCell:((_ cell: UITableViewCell, _ object: NSObject) -> Void)?
     var section : Int = 1
     
@@ -24,22 +23,14 @@ class FBTableViewDataSource: NSObject, UITableViewDataSource, FBDelegate {
     init(query: FIRDatabaseQuery, modelClass model: AnyClass?, nibNamed: String?, cellReuseIdentifier: String, view : UITableView, section : Int) {
         reuseIdentifier = cellReuseIdentifier
         tableView = view
-        modelClass = model
         super.init()
-        self.array = FBArray(withQuery: query, delegate : self, modelClass: model)
-        self.array!.delegate = self
+        array = FBArray(withQuery: query, delegate : self, modelClass: model)
         self.reuseIdentifier = cellReuseIdentifier
         self.tableView = view
         self.section = section
         if (nibNamed != nil) {
             let nib = UINib.init(nibName: nibNamed!, bundle: nil)
             self.tableView?.register(nib, forCellReuseIdentifier: self.reuseIdentifier)
-        }
-        if model == nil {
-            self.modelClass = FIRDataSnapshot.self
-        }
-        else {
-            self.modelClass = model!
         }
     }
     
@@ -52,25 +43,13 @@ class FBTableViewDataSource: NSObject, UITableViewDataSource, FBDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.array!.count;
+        return self.array.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier)
-        let snap = array![(indexPath as NSIndexPath).row]
-        if self.modelClass != nil && !self.modelClass!.isSubclass(of: FIRDataSnapshot.self) {
-                let objFactory = ObjectFactory(with: self.modelClass)
-                let model = objFactory?.create(from: snap) as! NSObject
-                if let postDict = snap.value as? Dictionary<String, AnyObject> {
-                    model.setValuesForKeys(postDict)
-                    if self.populateCell != nil {
-                        self.populateCell!(cell!, model)
-                    }
-                }
-        }
-        else if self.populateCell != nil {
-            self.populateCell!(cell!, snap)
-        }
+        let model = array[(indexPath as NSIndexPath).row]
+        self.populateCell!(cell!, model)
         return cell!;
     }
 

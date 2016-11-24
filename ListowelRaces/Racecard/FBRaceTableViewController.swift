@@ -21,13 +21,12 @@ class FBRaceTableViewController: UITableViewController {
     
     var initialDate:Date?
     
-    var populateCellHandler: (_ cell: UITableViewCell, _ object: NSObject) -> Void = { (cell: UITableViewCell, object: NSObject) -> Void in
-        if let snap = object as? Race {
-            cell.textLabel?.text = snap.scheduledTime
-            cell.detailTextLabel?.text = snap.raceTitle
+    func populateCellWithBlock(rawCell: UITableViewCell, obj: NSObject) -> Void {
+        if let cell = rawCell as? RaceSummaryCellTableViewCell {
+            let race = obj as! Race
+            cell.race = race
         }
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
@@ -37,7 +36,7 @@ class FBRaceTableViewController: UITableViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         titleDateFormatter.dateFormat = "EEE d"
@@ -48,16 +47,16 @@ class FBRaceTableViewController: UITableViewController {
         
         
         // get a datasource contain the races for the day
-        self.dataSource = context.findRacesFor(nil, cellReuseIdentifier: reuseIdentifier, tableView: self.tableView)
-        self.dataSource!.populateCell = populateCellHandler
+        self.dataSource = context.findRacesFor(nil, nibNamed: "RaceSummaryCellTableViewCell", cellReuseIdentifier: "HorseSummaryCell", tableView: self.tableView)
+        self.dataSource!.populateCell = self.populateCellWithBlock
         self.tableView.dataSource = self.dataSource
     }
 
     func dateSelected() {
         self.dataSource!.tableView = nil;
         self.title = titleDateFormatter.string(from: self.datePicker.selectedDate)
-        self.dataSource = context.findRacesFor(self.datePicker.selectedDate, cellReuseIdentifier: reuseIdentifier, tableView: self.tableView)
-        self.dataSource!.populateCell = populateCellHandler
+        self.dataSource = context.findRacesFor(self.datePicker.selectedDate, nibNamed: "RaceSummaryCellTableViewCell", cellReuseIdentifier: "HorseSummaryCell", tableView: self.tableView)
+        self.dataSource!.populateCell = self.populateCellWithBlock
         self.tableView.dataSource = self.dataSource
         self.tableView.reloadData()
     }

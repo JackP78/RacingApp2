@@ -34,6 +34,12 @@ class HorseSummaryCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        silksImage.layer.shadowColor = UIColor.black.cgColor;
+        silksImage.layer.shadowOffset = CGSize(width: 2, height: 2)
+        silksImage.layer.shadowOpacity = 0.3;
+        silksImage.layer.shadowRadius = 5.0;
+        silksImage.clipsToBounds = false;
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

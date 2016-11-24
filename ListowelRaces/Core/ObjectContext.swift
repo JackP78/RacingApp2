@@ -146,17 +146,17 @@ class ObjectContext: NSObject {
     }
     
     
-    func getRunnersForRace(_ race: Race, nibNamed : String, cellReuseIdentifier : String, tableView : UITableView) -> FBTableViewDataSource {
+    func getRunnersForRace(_ race: Race, delegate : FBDelegate) -> FBArray {
         let currentRaceRef = FIRDatabase.database().reference().child("races").child(race.meetingDate).child(String(race.raceNumber)).child("runners")
-        return FBTableViewDataSource(query: currentRaceRef, modelClass: Runner.self, nibNamed: "HorseSummaryCell", cellReuseIdentifier: "HorseSummaryCell", view: tableView)
+        return FBArray(withQuery: currentRaceRef, delegate : delegate, modelClass: Runner.self)
     }
     
-    func findRacesFor(_ date : Date?, cellReuseIdentifier : String, tableView : UITableView) -> FBTableViewDataSource {
+    func findRacesFor(_ date : Date?, nibNamed : String, cellReuseIdentifier : String, tableView : UITableView) -> FBTableViewDataSource {
         let baseRef = FIRDatabase.database().reference().child("races")
         let firstDateStr = remoteConfig["first_date"].stringValue!
         let url = (date != nil) ? urlDateFormatter.string(from: date!) : firstDateStr
         let currentRaceRef = baseRef.child(url)
-        return FBTableViewDataSource(query: currentRaceRef, modelClass: Race.self, cellReuseIdentifier: cellReuseIdentifier, view: tableView)
+        return FBTableViewDataSource(query: currentRaceRef, modelClass: Race.self, nibNamed: nibNamed, cellReuseIdentifier: cellReuseIdentifier, view: tableView)
     }
     
     func getFirstRaceDate() -> Date? {

@@ -12,6 +12,7 @@ import FBSDKCoreKit
 import Firebase
 import FirebaseDatabase
 import FirebaseMessaging
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -58,6 +59,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // end register for push notifications
         
+        // keyboard manager
+        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
+        
         let navbarFont = UISettings.getPrimaryFont()
         let barbuttonFont = UIFont(name: UISettings.getFontName(), size: 17) ?? UIFont.systemFont(ofSize: 15)
         
@@ -66,6 +71,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().barTintColor = UISettings.getPrimaryBackGroundColour()
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
+        
+        UISegmentedControl.appearance().tintColor = UIColor.white;
         
         // Add observer for InstanceID token refresh callback.
         NotificationCenter.default.addObserver(self,
