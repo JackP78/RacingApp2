@@ -9,43 +9,33 @@
 import UIKit
 import FirebaseDatabase
 
-open class FBArray: NSObject {
+open class FBArray<T>: NSObject where T: ModelBase {
     fileprivate var snapShots = [FIRDataSnapshot]()
     var query : FIRDatabaseQuery
     var delegate : FBDelegate
-    var objectFactory : ObjectFactory?
     
-    convenience init(withReference reference: FIRDatabaseReference, delegate : FBDelegate, modelClass : AnyClass?) {
-        self.init(withReference: reference, delegate: delegate, modelClass: modelClass)
+    convenience init(withReference reference: FIRDatabaseReference, delegate : FBDelegate) {
+        self.init(withReference: reference, delegate: delegate)
     }
     
-    init(withQuery initQuery: FIRDatabaseQuery, delegate initDelegate : FBDelegate, modelClass initModelClass : AnyClass?) {
+    init(withQuery initQuery: FIRDatabaseQuery, delegate initDelegate : FBDelegate) {
         query = initQuery
         delegate = initDelegate
-        if (initModelClass != nil) {
-            objectFactory = ObjectFactory(with: initModelClass)
-        }
         super.init()
         self.initListeners()
     }
     
-    subscript(index: Int) -> NSObject {
+    subscript(index: Int) -> T? {
         get {
             let snapShot = snapShots[index];
-            if let objFactory = self.objectFactory {
-                if let postDict = snapShot.value as? Dictionary<String, AnyObject> {
-                    NSLog("cast succeeded \(snapShot.value)")
-                    let model = objFactory.create(from: snapShot) as! NSObject
-                    model.setValuesForKeys(postDict)
-                    return model
-                } else {
-                    NSLog("cast to dictionary failed \(snapShot.value)")
-                }
+            if let postDict = snapShot.value as? Dictionary<String, AnyObject> {
+                let model = T()
+                model.setValuesForKeys(postDict)
+                return model
+            } else {
+                NSLog("cast to dictionary failed \(snapShot.value)")
             }
-            else {
-                NSLog("object factory is null")
-            }
-            return snapShot;
+            return nil;
         }
     }
     

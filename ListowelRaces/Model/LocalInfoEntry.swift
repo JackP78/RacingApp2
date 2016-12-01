@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-class LocalInfoEntry : NSObject, MKAnnotation {
+class LocalInfoEntry : ModelBase, MKAnnotation {
     var name: String?
     var type: String?
     var excerptDescription: String?

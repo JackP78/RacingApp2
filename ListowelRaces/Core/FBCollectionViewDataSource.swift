@@ -9,11 +9,11 @@
 import UIKit
 import FirebaseDatabase
 
-class FBCollectionViewDataSource: NSObject, UICollectionViewDataSource, FBDelegate {
+class FBCollectionViewDataSource<T>: NSObject, UICollectionViewDataSource, FBDelegate where T: ModelBase {
     
     var collectionView : UICollectionView?
     var populateCell:((_ cell: UICollectionViewCell, _ object: NSObject) -> Void)?
-    var array: FBArray!
+    var array: FBArray<T>!
     var section : Int = 1
     var reuseIdentifier : String
 
@@ -23,11 +23,11 @@ class FBCollectionViewDataSource: NSObject, UICollectionViewDataSource, FBDelega
     }
     
     
-    init(query: FIRDatabaseQuery, modelClass model: AnyClass?, nibNamed: String?, cellReuseIdentifier: String, view : UICollectionView?, section : Int) {
+    init(query: FIRDatabaseQuery, nibNamed: String?, cellReuseIdentifier: String, view : UICollectionView?, section : Int) {
         collectionView = view
         reuseIdentifier = cellReuseIdentifier
         super.init()
-        self.array = FBArray(withQuery: query, delegate : self, modelClass: model)
+        self.array = FBArray<T>(withQuery: query, delegate : self)
         self.array.delegate = self
         self.section = section
         if (nibNamed != nil) {
@@ -36,23 +36,11 @@ class FBCollectionViewDataSource: NSObject, UICollectionViewDataSource, FBDelega
         }
     }
     
-    convenience init(query: FIRDatabaseQuery, modelClass model: AnyClass?, cellReuseIdentifier: String, view : UICollectionView?) {
-        self.init(query: query, modelClass: model, nibNamed: nil, cellReuseIdentifier: cellReuseIdentifier, view : view, section : 0)
-    }
-    
-    convenience init(query: FIRDatabaseQuery, modelClass model: AnyClass?, nibNamed: String, cellReuseIdentifier: String, view : UICollectionView?) {
-        self.init(query: query, modelClass: model, nibNamed: nibNamed, cellReuseIdentifier: cellReuseIdentifier, view : view, section : 0)
-    }
-    
-    convenience init(query: FIRDatabaseQuery, cellReuseIdentifier: String, view : UICollectionView?) {
-        self.init(query: query, modelClass: nil, nibNamed: nil, cellReuseIdentifier: cellReuseIdentifier, view : view, section : 0)
-    }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = self.collectionView?.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) {
             let model = array[indexPath.row]
-            self.populateCell!(cell, model)
+            self.populateCell!(cell, model!)
             return cell;
         }
         return UICollectionViewCell()

@@ -9,8 +9,8 @@
 import UIKit
 import FirebaseDatabase
 
-class FBTableViewDataSource: NSObject, UITableViewDataSource, FBDelegate {
-    var array: FBArray!
+class FBTableViewDataSource<T>: NSObject, UITableViewDataSource, FBDelegate where T: ModelBase {
+    var array: FBArray<T>!
     var reuseIdentifier : String
     var tableView : UITableView?
     var populateCell:((_ cell: UITableViewCell, _ object: NSObject) -> Void)?
@@ -20,11 +20,11 @@ class FBTableViewDataSource: NSObject, UITableViewDataSource, FBDelegate {
         self.populateCell = block
     }
     
-    init(query: FIRDatabaseQuery, modelClass model: AnyClass?, nibNamed: String?, cellReuseIdentifier: String, view : UITableView, section : Int) {
+    init(query: FIRDatabaseQuery, nibNamed: String?, cellReuseIdentifier: String, view : UITableView, section : Int) {
         reuseIdentifier = cellReuseIdentifier
         tableView = view
         super.init()
-        array = FBArray(withQuery: query, delegate : self, modelClass: model)
+        array = FBArray(withQuery: query, delegate : self)
         self.reuseIdentifier = cellReuseIdentifier
         self.tableView = view
         self.section = section
@@ -34,12 +34,12 @@ class FBTableViewDataSource: NSObject, UITableViewDataSource, FBDelegate {
         }
     }
     
-    convenience init(query: FIRDatabaseQuery, modelClass model: AnyClass?, cellReuseIdentifier: String, view : UITableView) {
-        self.init(query: query, modelClass: model, nibNamed: nil, cellReuseIdentifier: cellReuseIdentifier, view : view, section : 0)
+    convenience init(query: FIRDatabaseQuery, cellReuseIdentifier: String, view : UITableView) {
+        self.init(query: query, nibNamed: nil, cellReuseIdentifier: cellReuseIdentifier, view : view, section : 0)
     }
     
-    convenience init(query: FIRDatabaseQuery, modelClass model: AnyClass?, nibNamed: String, cellReuseIdentifier: String, view : UITableView) {
-        self.init(query: query, modelClass: model, nibNamed: nibNamed, cellReuseIdentifier: cellReuseIdentifier, view : view, section : 0)
+    convenience init(query: FIRDatabaseQuery, nibNamed: String, cellReuseIdentifier: String, view : UITableView) {
+        self.init(query: query, nibNamed: nibNamed, cellReuseIdentifier: cellReuseIdentifier, view : view, section : 0)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,7 +49,7 @@ class FBTableViewDataSource: NSObject, UITableViewDataSource, FBDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier)
         let model = array[(indexPath as NSIndexPath).row]
-        self.populateCell!(cell!, model)
+        self.populateCell!(cell!, model!)
         return cell!;
     }
 

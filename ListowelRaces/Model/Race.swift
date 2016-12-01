@@ -15,7 +15,7 @@ func timeString(_ value : Date?) -> String {
     return ""
 }
 
-class Race : NSObject {
+class Race : ModelBase {
     
     var distanceYards: NSNumber = 0
     
@@ -37,5 +37,9 @@ class Race : NSObject {
     
     override func setValue(_ value: Any?, forUndefinedKey key: String) {
         NSLog("undefined key \(key)")
+    }
+    
+    required init() {
+        super.init()
     }
 }

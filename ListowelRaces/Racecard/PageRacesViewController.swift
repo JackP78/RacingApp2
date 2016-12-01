@@ -9,16 +9,19 @@
 import UIKit
 
 class PageRacesViewController: UIViewController, UIPageViewControllerDataSource, PageTitleDelegate {
+    
+    
+    @IBOutlet weak var containerView: UIView!
+    
+    
     var pageController: UIPageViewController
     var raceNumber: Int=0
     var totalRaces: Int=0
-    var dataSource: FBArray?
+    var dataSource: FBArray<Race>?
     var viewControllers: [UIViewController?] = []
     
     override func loadView() {
         super.loadView()
-        /*let tipButton = UIBarButtonItem.init(title: "Sort", style: UIBarButtonItemStyle.Plain, target: self, action: "changeSort:")
-        self.navigationItem.rightBarButtonItem = tipButton;*/
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -35,7 +38,7 @@ class PageRacesViewController: UIViewController, UIPageViewControllerDataSource,
         super.viewDidLoad()
         self.title = "Race \(raceNumber + 1)"
         self.pageController.dataSource = self
-        self.pageController.view.frame = self.view.bounds
+        self.pageController.view.frame = self.containerView.bounds
         let viewControllerObject = self.viewControllerAtIndex(raceNumber)!
         
         
@@ -45,7 +48,7 @@ class PageRacesViewController: UIViewController, UIPageViewControllerDataSource,
         self.pageController.setViewControllers(viewControllers, direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
         
         self.addChildViewController(self.pageController)
-        self.view.addSubview(self.pageController.view)
+        self.containerView.addSubview(self.pageController.view)
         self.pageController.didMove(toParentViewController: self)
     }
     
@@ -85,7 +88,7 @@ class PageRacesViewController: UIViewController, UIPageViewControllerDataSource,
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "raceInfoView") as? LRRunnerTableViewController {
             // Pass the selected object to the destination view controller.
             vc.raceIndex = index
-            let race = dataSource![index] as! Race
+            let race = dataSource![index]
             vc.currentRace = race
             vc.titleDelegate = self;
             return vc;
@@ -100,20 +103,13 @@ class PageRacesViewController: UIViewController, UIPageViewControllerDataSource,
     }
 
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    /*override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "changeSort" {
-            let destination = segue.destinationViewController as! PickerViewController
-            destination.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-            destination.view.frame = self.view.frame.insetBy(dx: 20, dy: 20)
-            destination.providesPresentationContextTransitionStyle = true
-            destination.definesPresentationContext = true
-            destination.view.backgroundColor = UIColor.clearColor()
+        if segue.identifier == "showPredictor" {
+            print("show predictor for race \(raceNumber)")
         }
-    }*/
+    }
 
 }
 

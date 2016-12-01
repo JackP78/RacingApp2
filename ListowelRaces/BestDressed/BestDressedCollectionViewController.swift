@@ -14,7 +14,7 @@ class BestDressedCollectionViewController: UICollectionViewController, UIImagePi
     fileprivate let reuseIdentifier = "PictureEntry"
     fileprivate let objectContext = ObjectContext()
     fileprivate let imagePicker = UIImagePickerController()
-    var dataSource:FBCollectionViewDataSource?
+    var dataSource:FBCollectionViewDataSource<BestDressedEntry>?
     
     override func viewDidLoad() {
         super.viewDidLoad()

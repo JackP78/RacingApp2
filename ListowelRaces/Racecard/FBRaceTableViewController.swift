@@ -15,7 +15,7 @@ class FBRaceTableViewController: UITableViewController {
     let context = ObjectContext()
     fileprivate let reuseIdentifier = "raceInfoCell"
     let titleDateFormatter = DateFormatter()
-    var dataSource:FBTableViewDataSource?
+    var dataSource:FBTableViewDataSource<Race>?
     
     @IBOutlet weak var datePicker: DIDatepicker!
     

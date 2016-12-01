@@ -8,7 +8,7 @@
 
 import Foundation
 
-class BestDressedEntry : NSObject {
+class BestDressedEntry : ModelBase {
     var email : String?
     var userId: String?
     var name: String?

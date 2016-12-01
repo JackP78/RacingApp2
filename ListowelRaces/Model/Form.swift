@@ -28,7 +28,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class Form  : NSObject {
+class Form  : ModelBase {
     var course: String?
     var distanceBeaten: NSNumber? // distance behind next horse
     var distanceBehindWinner: NSNumber? // distance behind winning horse
@@ -44,7 +44,7 @@ class Form  : NSObject {
     var startingPriceDecimal: NSNumber? // number of runners
     var winner: String?
 
-    override init() {
+    required init() {
         super.init()
     }
     

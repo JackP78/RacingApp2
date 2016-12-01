@@ -40,7 +40,7 @@ class ObjectContext: NSObject {
             if (status == FIRRemoteConfigFetchStatus.success) {
                 self.remoteConfig.activateFetched()
             } else {
-                print("Error \(error!.localizedDescription)")
+                print("Error \(status) \(error?.localizedDescription)")
             }
         }
         
@@ -129,34 +129,34 @@ class ObjectContext: NSObject {
         }
     }
     
-    func getRunnerDetails(_ runner: Runner, race: Race, tableView: UITableView) -> FBTableViewDataSource {
+    func getRunnerDetails(_ runner: Runner, race: Race, tableView: UITableView) -> FBTableViewDataSource<Runner> {
         let currentRunnerRef = FIRDatabase.database().reference().child("races").child(race.meetingDate).child(String(race.raceNumber)).child("runners").queryOrdered(byChild: "runnerId").queryEqual(toValue: runner.runnerId)
-        return FBTableViewDataSource(query: currentRunnerRef, modelClass: Runner.self, nibNamed: "HorseSummaryCell", cellReuseIdentifier: "HorseSummaryCell", view: tableView)
+        return FBTableViewDataSource<Runner>(query: currentRunnerRef, nibNamed: "HorseSummaryCell", cellReuseIdentifier: "HorseSummaryCell", view: tableView)
     }
     
     
-    func getFormFor(_ runner: Runner, tableView: UITableView, prototypeReuseIdentifier: String) -> FBTableViewDataSource {
+    func getFormFor(_ runner: Runner, tableView: UITableView, prototypeReuseIdentifier: String) -> FBTableViewDataSource<Form> {
         let formRef = FIRDatabase.database().reference().child("form").child((String(runner.runnerId)))
-        return FBTableViewDataSource(query: formRef, modelClass: Form.self, cellReuseIdentifier: prototypeReuseIdentifier, view: tableView)
+        return FBTableViewDataSource<Form>(query: formRef, cellReuseIdentifier: prototypeReuseIdentifier, view: tableView)
     }
     
-    func getTipsFor(_ runner: Runner, tableView: UITableView) -> FBTableViewDataSource {
+    func getTipsFor(_ runner: Runner, tableView: UITableView) -> FBTableViewDataSource<Tip> {
         let tipsRef = FIRDatabase.database().reference().child("tips").child((String(runner.runnerId)))
-        return FBTableViewDataSource(query: tipsRef, modelClass: Tip.self, nibNamed: "TipCell", cellReuseIdentifier: "TipCell", view: tableView, section: 1)
+        return FBTableViewDataSource<Tip>(query: tipsRef, nibNamed: "TipCell", cellReuseIdentifier: "TipCell", view: tableView, section: 1)
     }
     
     
-    func getRunnersForRace(_ race: Race, delegate : FBDelegate) -> FBArray {
+    func getRunnersForRace(_ race: Race, delegate : FBDelegate) -> FBArray<Runner> {
         let currentRaceRef = FIRDatabase.database().reference().child("races").child(race.meetingDate).child(String(race.raceNumber)).child("runners")
-        return FBArray(withQuery: currentRaceRef, delegate : delegate, modelClass: Runner.self)
+        return FBArray(withQuery: currentRaceRef, delegate : delegate)
     }
     
-    func findRacesFor(_ date : Date?, nibNamed : String, cellReuseIdentifier : String, tableView : UITableView) -> FBTableViewDataSource {
+    func findRacesFor(_ date : Date?, nibNamed : String, cellReuseIdentifier : String, tableView : UITableView) -> FBTableViewDataSource<Race> {
         let baseRef = FIRDatabase.database().reference().child("races")
         let firstDateStr = remoteConfig["first_date"].stringValue!
         let url = (date != nil) ? urlDateFormatter.string(from: date!) : firstDateStr
         let currentRaceRef = baseRef.child(url)
-        return FBTableViewDataSource(query: currentRaceRef, modelClass: Race.self, nibNamed: nibNamed, cellReuseIdentifier: cellReuseIdentifier, view: tableView)
+        return FBTableViewDataSource<Race>(query: currentRaceRef, nibNamed: nibNamed, cellReuseIdentifier: cellReuseIdentifier, view: tableView)
     }
     
     func getFirstRaceDate() -> Date? {
@@ -164,8 +164,8 @@ class ObjectContext: NSObject {
         return urlDateFormatter.date(from: firstDateStr!)
     }
     
-    func getBestDressedLadies(_ reuseIdentifier : String, collectionView : UICollectionView?) -> FBCollectionViewDataSource {
-        return FBCollectionViewDataSource(query: ladiesRef, modelClass: BestDressedEntry.self, cellReuseIdentifier: reuseIdentifier, view: collectionView)
+    func getBestDressedLadies(_ reuseIdentifier : String, collectionView : UICollectionView?) -> FBCollectionViewDataSource<BestDressedEntry> {
+        return FBCollectionViewDataSource<BestDressedEntry>(query: ladiesRef, nibNamed: nil, cellReuseIdentifier: reuseIdentifier, view: collectionView, section: 0)
     }
     
     

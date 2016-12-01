@@ -8,14 +8,14 @@
 
 import Foundation
 
-class Tip : NSObject {
+class Tip : ModelBase {
     var name : String?
     var tipsterScore: Int = 0
     var userId: String?
     var runnerId : Int = 0
     var raceId : Int = 0
     
-    override init() {
+    required init() {
         super.init()
     }
     

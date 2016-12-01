@@ -12,9 +12,51 @@
         <scene sceneID="y6X-Re-hBP">
             <objects>
                 <viewController storyboardIdentifier="UIViewController-LYH-Bw-KUg" id="LYH-Bw-KUg" customClass="PageRacesViewController" customModule="ListowelRaces" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OXX-cg-Inz"/>
+                        <viewControllerLayoutGuide type="bottom" id="8BJ-JG-aa7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ajg-rc-Hfz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BR4-3z-9pR" userLabel="Header">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7HJ-rf-xvw">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="DME-qs-xVJ"/>
+                                        </constraints>
+                                        <state key="normal" title="Top Predictor"/>
+                                        <connections>
+                                            <segue destination="bpT-Nx-Taf" kind="presentation" identifier="showPredictor" id="tTy-kr-SgD"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.32779699000000001" green="0.74566915759999997" blue="0.068558275079999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="7HJ-rf-xvw" firstAttribute="height" secondItem="BR4-3z-9pR" secondAttribute="height" constant="-5" id="T7q-Uv-OJf"/>
+                                    <constraint firstAttribute="height" constant="50" id="ZZn-uh-GvF"/>
+                                    <constraint firstItem="7HJ-rf-xvw" firstAttribute="leading" secondItem="BR4-3z-9pR" secondAttribute="leading" constant="20" id="cGB-rB-U3e"/>
+                                    <constraint firstItem="7HJ-rf-xvw" firstAttribute="centerY" secondItem="BR4-3z-9pR" secondAttribute="centerY" id="hdJ-tl-Om0"/>
+                                </constraints>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oip-u6-bgz"/>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="BR4-3z-9pR" firstAttribute="centerX" secondItem="ajg-rc-Hfz" secondAttribute="centerX" id="OAo-C1-w2D"/>
+                            <constraint firstItem="8BJ-JG-aa7" firstAttribute="top" secondItem="oip-u6-bgz" secondAttribute="bottom" id="Qyy-cp-PYG"/>
+                            <constraint firstItem="oip-u6-bgz" firstAttribute="top" secondItem="BR4-3z-9pR" secondAttribute="bottom" id="RaM-Vd-PAt"/>
+                            <constraint firstItem="BR4-3z-9pR" firstAttribute="top" secondItem="OXX-cg-Inz" secondAttribute="bottom" id="Vlc-wo-s3B"/>
+                            <constraint firstItem="oip-u6-bgz" firstAttribute="centerX" secondItem="ajg-rc-Hfz" secondAttribute="centerX" id="Vt1-Ta-wCN"/>
+                            <constraint firstItem="oip-u6-bgz" firstAttribute="width" secondItem="ajg-rc-Hfz" secondAttribute="width" id="kJM-sq-79r"/>
+                            <constraint firstItem="BR4-3z-9pR" firstAttribute="width" secondItem="ajg-rc-Hfz" secondAttribute="width" id="xkc-iT-fKR"/>
+                        </constraints>
+                    </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="containerView" destination="oip-u6-bgz" id="KZz-L9-q83"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZgS-Rd-FLK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -28,25 +70,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="TLO-IM-qGB" userLabel="Header">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sFW-k4-JRS" userLabel="Predictor">
-                                    <frame key="frameInset" minX="20" minY="7" width="360" height="30"/>
-                                    <state key="normal" title="Predictor"/>
-                                    <connections>
-                                        <segue destination="bpT-Nx-Taf" kind="presentation" identifier="showPredictor" id="qXe-Wb-Qfh"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstItem="sFW-k4-JRS" firstAttribute="leading" secondItem="TLO-IM-qGB" secondAttribute="leading" constant="20" id="Ndl-1Y-sfT"/>
-                                <constraint firstItem="sFW-k4-JRS" firstAttribute="centerY" secondItem="TLO-IM-qGB" secondAttribute="centerY" id="hob-Mv-1qi"/>
-                                <constraint firstAttribute="trailing" secondItem="sFW-k4-JRS" secondAttribute="trailing" constant="20" id="lUP-nG-9T3"/>
-                            </constraints>
-                        </view>
                         <connections>
                             <outlet property="dataSource" destination="9Tb-kO-DG9" id="tgc-u0-yD3"/>
                             <outlet property="delegate" destination="9Tb-kO-DG9" id="Gg2-JK-vxZ"/>
@@ -313,7 +336,7 @@
                 <viewControllerPlaceholder storyboardName="Predictor" id="bpT-Nx-Taf" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hmh-cb-6DL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2786" y="-1631"/>
+            <point key="canvasLocation" x="2092" y="-1064"/>
         </scene>
         <!--Race Table View Controller-->
         <scene sceneID="mWo-VT-wEg">
@@ -336,7 +359,7 @@
                     <navigationItem key="navigationItem" id="xtJ-5E-MBz"/>
                     <connections>
                         <outlet property="datePicker" destination="iKr-ng-miN" id="j1D-JN-AdJ"/>
-                        <segue destination="LYH-Bw-KUg" kind="show" identifier="ShowRunner" id="8wI-uc-vQl"/>
+                        <segue destination="LYH-Bw-KUg" kind="showDetail" identifier="ShowRunner" action="showViewController:sender:" id="8wI-uc-vQl"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5G2-2s-lK2" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -10,9 +10,8 @@ import UIKit
 
 
 class LRRunnerTableViewController: UITableViewController, FBDelegate {
-    fileprivate let reuseIdentifier = "RunnerCell"
     fileprivate var objectContext = ObjectContext()
-    var array: FBArray?
+    var array: FBArray<Runner>?
     var raceIndex: Int=0
     var currentRace: Race?
     var titleDelegate : PageTitleDelegate?
@@ -20,8 +19,11 @@ class LRRunnerTableViewController: UITableViewController, FBDelegate {
     override func viewDidLoad() {
         self.title = "Race"
         
-        let headerNib = UINib.init(nibName: "RaceSummaryCellTableViewCell", bundle: nil)
-        self.tableView?.register(headerNib, forCellReuseIdentifier: "Header")
+        //let headerNib = UINib.init(nibName: "RaceSummaryCellTableViewCell", bundle: nil)
+        //self.tableView?.register(headerNib, forCellReuseIdentifier: "Header")
+        
+        let headerNib = UINib(nibName: "RaceSummaryHeader", bundle: nil)
+        self.tableView?.register(headerNib, forHeaderFooterViewReuseIdentifier: "Header")
 	
 	
         let horseNib = UINib.init(nibName: "HorseSummaryCell", bundle: nil)
@@ -34,41 +36,31 @@ class LRRunnerTableViewController: UITableViewController, FBDelegate {
         self.tableView.dataSource = self;
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2;
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.array!.count;
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (section == 0) ? 1 : self.array!.count;
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let rawCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "Header")
+        if let cell = rawCell as? RaceSummaryHeader {
+            cell.race = self.currentRace
+            return cell
+        }
+        return nil;
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch (indexPath.section) {
-        case 0 :
-            // return the header cell;
-            let rawCell = tableView.dequeueReusableCell(withIdentifier: "Header")
-            if let cell = rawCell as? RaceSummaryCellTableViewCell {
-                cell.race = self.currentRace
-                return cell
-            }
-            return rawCell!;
-        default :
-            let rawCell = tableView.dequeueReusableCell(withIdentifier: "Main")
-            if let cell = rawCell as? HorseSummaryCell {
-                cell.runner = self.array?[indexPath.row] as! Runner
-                return cell
-            }
-            return rawCell!;
+        let rawCell = tableView.dequeueReusableCell(withIdentifier: "Main")
+        if let cell = rawCell as? HorseSummaryCell {
+            cell.runner = self.array?[indexPath.row]
+            return cell
         }
+        return rawCell!;
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         titleDelegate?.titleChanged(newTitle: (currentRace?.scheduledTime)!)
-    }
-    
-    func launchPreditor(_ sender: UIBarButtonItem) {
-        self.performSegue(withIdentifier: "predictor", sender: self)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -84,34 +76,42 @@ class LRRunnerTableViewController: UITableViewController, FBDelegate {
             // Pass the selected object to the destination view controller.
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 detailScene.race = self.currentRace
-                detailScene.runner = self.array![indexPath.row] as? Runner
+                detailScene.runner = self.array![indexPath.row]
             }
         }
 
     }
     
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40;
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+    
     // FB Delegate cells
     func childAdded(_ object: AnyObject, atIndex: Int) {
         self.tableView?.beginUpdates()
-        self.tableView?.insertRows(at: [IndexPath(row: Int(atIndex), section: 1)], with: .automatic)
+        self.tableView?.insertRows(at: [IndexPath(row: Int(atIndex), section: 0)], with: .automatic)
         self.tableView?.endUpdates()
     }
     
     func childChanged(_ object: AnyObject, atIndex: Int) {
         self.tableView?.beginUpdates()
-        self.tableView?.reloadRows(at: [IndexPath(row: Int(atIndex), section: 1)], with: .automatic)
+        self.tableView?.reloadRows(at: [IndexPath(row: Int(atIndex), section: 0)], with: .automatic)
         self.tableView?.endUpdates()
     }
     
     func childRemoved(_ object: AnyObject, atIndex: Int) {
         self.tableView?.beginUpdates()
-        self.tableView?.deleteRows(at: [IndexPath(row: Int(atIndex), section: 1)], with: .automatic)
+        self.tableView?.deleteRows(at: [IndexPath(row: Int(atIndex), section: 0)], with: .automatic)
         self.tableView?.endUpdates()
     }
     
     func childMoved(_ object: AnyObject, fromIndex: Int, toIndex: Int) {
         self.tableView?.beginUpdates()
-        self.tableView?.moveRow(at: IndexPath(row: Int(fromIndex), section: 1), to: IndexPath(row: Int(toIndex), section: 1))
+        self.tableView?.moveRow(at: IndexPath(row: Int(fromIndex), section: 0), to: IndexPath(row: Int(toIndex), section: 1))
         self.tableView?.endUpdates()
     }
     

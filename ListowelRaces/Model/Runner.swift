@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-class Runner : NSObject {
+class Runner : ModelBase {
     var age: NSNumber?
     var clothNumber: NSNumber?
     var countryBred: String?
@@ -29,7 +29,7 @@ class Runner : NSObject {
     var trainerName: String?
     var speed: Int = 50
     
-    override init() {
+    required init() {
         super.init()
     }
 }
