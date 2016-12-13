@@ -40,7 +40,7 @@ class FBCollectionViewDataSource<T>: NSObject, UICollectionViewDataSource, FBDel
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = self.collectionView?.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) {
             let model = array[indexPath.row]
-            self.populateCell!(cell, model!)
+            self.populateCell?(cell, model)
             return cell;
         }
         return UICollectionViewCell()

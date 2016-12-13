@@ -9,64 +9,38 @@
 import UIKit
 
 
-class RunnerDetailTableViewController: UITableViewController {
-    fileprivate let reuseIdentifier = "RunnerDetailCell"
-    fileprivate var dataSource: UITableViewDataSource?
-    fileprivate var runnerId: NSNumber?
+class RunnerDetailTableViewController: UITableViewController, FBDelegate {
     var runner: Runner?
-    var race: Race?
-    let objectContext = ObjectContext()
+    var race : Race?
+    fileprivate var horseList : FBArray<Runner>?
+    fileprivate var formList : FBArray<Form>?
+    fileprivate var tipList : FBArray<Tip>?
+    fileprivate let objectContext = ObjectContext()
+    
+    fileprivate func hasTips() -> Bool {
+        return (tipList?.count)! > 0
+    }
     
     override func loadView() {
         super.loadView()
+        
+        let horseNib = UINib.init(nibName: "HorseSummaryCell", bundle: nil)
+        self.tableView?.register(horseNib, forCellReuseIdentifier: "HorseSummaryCell")
+        
+        let tipNib = UINib.init(nibName: "TipCell", bundle: nil)
+        self.tableView?.register(tipNib, forCellReuseIdentifier: "TipCell")
+        
         let tipButton = UIBarButtonItem.init(title: "Add Tip", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RunnerDetailTableViewController.addTip(_:)))
         self.navigationItem.rightBarButtonItem = tipButton;
         
         
-        let runnerSectionDS = objectContext.getRunnerDetails(self.runner!, race: self.race!, tableView: self.tableView)
-            
-        //FBTableViewDataSource(query: runnerRef!.ref, modelClass: Runner.self, nibNamed: "HorseSummaryCell", cellReuseIdentifier: "HorseSummaryCell", view: self.tableView, section: 0)
-        runnerSectionDS.populateCellWithBlock { (rawCell: UITableViewCell, obj: NSObject) -> Void in
-            if let cell = rawCell as? HorseSummaryCell {
-                let runner = obj as! Runner
-                cell.runner = runner
-            }
-        }
-        runnerSectionDS.section = 0
-        
-        let tipsSection = objectContext.getTipsFor(self.runner!, tableView: self.tableView)
-        tipsSection.section = 1
-        
-        let formSection = objectContext.getFormFor(self.runner!, tableView: self.tableView, prototypeReuseIdentifier: "FormEntryCell")
-        formSection.section = 2
-        formSection.populateCellWithBlock { (rawCell: UITableViewCell, obj: NSObject) -> Void in
-            let cell = rawCell as! RunnerFormCell
-            let form = obj as! Form
-            cell.raceDate.text = form.meetingdateString()
-            cell.courseName.text = form.course!.substring(to: form.course!.characters.index(form.course!.startIndex, offsetBy: 3))
-            cell.distance.text = form.distanceYards?.distanceString()
-            cell.startingPrice.text = form.startingPrice!
-            cell.positionLabel.text = form.finishpositionString()
-            cell.comment.text = form.briefcommentString()
-            // TODO put this back
-            /*if(indexPath.row % 2 == 0) {
-                cell.backgroundColor = UIColor.whiteColor()
-            }
-            else {
-                cell.backgroundColor = UIColor.lightGrayColor()
-            }*/
-        }
-        self.dataSource = CompositeTableViewDataSource(dataSources: [runnerSectionDS, tipsSection, formSection])
-        self.tableView.dataSource = self.dataSource
+        self.horseList = objectContext.getRunnerDetails(self.runner!, race: self.race!, delegate: self)
+        self.tipList = objectContext.getTipsFor(self.runner!, delegate: self)
+        self.formList = objectContext.getFormFor(self.runner!, delegate: self)
     }
     
     func addTip(_ sender: UIBarButtonItem) {
         objectContext.addTip(self.runner!, race: self.race!, parentView: self)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.title = "Runner Detail"
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,7 +48,7 @@ class RunnerDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if (section == 0 || self.dataSource?.tableView(self.tableView, numberOfRowsInSection: section) == 0) {
+        if (section == 0) {
             return 0
         }
         else {
@@ -83,7 +57,7 @@ class RunnerDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if ((indexPath as NSIndexPath).section == 0) {
+        if (indexPath.section == 0) {
             return 100
         }
         else {
@@ -91,44 +65,109 @@ class RunnerDetailTableViewController: UITableViewController {
         }
     }
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        if (hasTips()) {
+            return 3;
+        }
+        return 2;
+    }
+    
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch (section) {
-        case 1 :
+        if (section == 1 && hasTips()) {
             let cellIdentifier = "TipsHeaderCell"
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
             return cell?.contentView
-        case 2 :
+        }
+        else if (section >= 1) {
             let cellIdentifier = "FormHeaderCell"
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
             return cell?.contentView
-        default :
+        }
+        else {
             return nil
         }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4;
+        if (section == 0) {
+            return horseList!.count;
+        }
+        else if (section == 1 && hasTips()) {
+            return tipList!.count;
+        }
+        else {
+            return formList!.count;
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "FormEntryCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! RunnerFormCell
-        //if let form = object as? Form {
-            cell.raceDate.text = "16 June"
-            cell.courseName.text = "GAL"
-            cell.distance.text = "3m"
-            cell.startingPrice.text = "13/7"
-            cell.positionLabel.text = "5/9"
-            cell.comment.text = "Section header"
-            if((indexPath as NSIndexPath).row % 2 == 0) {
-                cell.backgroundColor = UIColor.white
-            }
-            else {
-                cell.backgroundColor = UIColor.lightGray
-            }
-        //}
-        return cell
+        if (indexPath.section == 0) {
+            let horseCell = tableView.dequeueReusableCell(withIdentifier: "HorseSummaryCell") as! HorseSummaryCell
+            horseCell.runner = self.horseList?[indexPath.row]
+            return horseCell;
+        }
+        else if (indexPath.section == 1 && hasTips()) {
+            let tipCell = tableView.dequeueReusableCell(withIdentifier: "TipCell") as! TipCell
+            tipCell.tip = self.tipList?[indexPath.row]
+            return tipCell;
+        }
+        else {
+            let formCell = tableView.dequeueReusableCell(withIdentifier: "FormEntryCell") as! RunnerFormCell
+            formCell.form = self.formList?[indexPath.row]
+            return formCell;
+        }
+    }
+    
+    func getSectionFor(object: AnyObject) -> Int {
+        if object is Runner {
+            return 0;
+        }
+        else if object is Tip {
+            return 1;
+        }
+        else if object is Form {
+            return hasTips() ? 2 : 1;
+        }
+        return -1;
+    }
+    
+    // FB Delegate cells
+    func childAdded(_ object: AnyObject, atIndex: Int) {
+        let section = getSectionFor(object: object)
+        NSLog("update came in for \(object) at section \(section) row \(atIndex)")
+        self.tableView?.beginUpdates()
+        if (object is Tip && atIndex == 0) {
+            // inserting our first tip
+            NSLog("insering first tip in at section \(section) row \(atIndex)");
+            let indexSet = IndexSet([1])
+            self.tableView?.moveSection(1, toSection: 2)
+            self.tableView?.insertSections(indexSet, with: .automatic)
+        }
+        self.tableView?.insertRows(at: [IndexPath(row: Int(atIndex), section: section)], with: .automatic)
+        self.tableView?.endUpdates()
+    }
+    
+    func childChanged(_ object: AnyObject, atIndex: Int) {
+        self.tableView?.beginUpdates()
+        self.tableView?.reloadRows(at: [IndexPath(row: Int(atIndex), section: getSectionFor(object: object))], with: .automatic)
+        self.tableView?.endUpdates()
+    }
+    
+    func childRemoved(_ object: AnyObject, atIndex: Int) {
+        self.tableView?.beginUpdates()
+        self.tableView?.deleteRows(at: [IndexPath(row: Int(atIndex), section: getSectionFor(object: object))], with: .automatic)
+        self.tableView?.endUpdates()
+    }
+    
+    func childMoved(_ object: AnyObject, fromIndex: Int, toIndex: Int) {
+        self.tableView?.beginUpdates()
+        self.tableView?.moveRow(at: IndexPath(row: Int(fromIndex), section: getSectionFor(object: object)), to: IndexPath(row: Int(toIndex), section: 1))
+        self.tableView?.endUpdates()
+    }
+    
+    func cancelWithError(_ error: Error) {
+        NSLog("Something went wrong here")
     }
 
 }

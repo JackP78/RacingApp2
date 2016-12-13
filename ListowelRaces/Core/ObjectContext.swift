@@ -129,26 +129,26 @@ class ObjectContext: NSObject {
         }
     }
     
-    func getRunnerDetails(_ runner: Runner, race: Race, tableView: UITableView) -> FBTableViewDataSource<Runner> {
+    func getRunnerDetails(_ runner: Runner, race: Race, delegate : FBDelegate) -> FBArray<Runner> {
         let currentRunnerRef = FIRDatabase.database().reference().child("races").child(race.meetingDate).child(String(race.raceNumber)).child("runners").queryOrdered(byChild: "runnerId").queryEqual(toValue: runner.runnerId)
-        return FBTableViewDataSource<Runner>(query: currentRunnerRef, nibNamed: "HorseSummaryCell", cellReuseIdentifier: "HorseSummaryCell", view: tableView)
+        return FBArray<Runner>(withQuery: currentRunnerRef, delegate : delegate)
     }
     
     
-    func getFormFor(_ runner: Runner, tableView: UITableView, prototypeReuseIdentifier: String) -> FBTableViewDataSource<Form> {
+    func getFormFor(_ runner: Runner, delegate: FBDelegate) -> FBArray<Form> {
         let formRef = FIRDatabase.database().reference().child("form").child((String(runner.runnerId)))
-        return FBTableViewDataSource<Form>(query: formRef, cellReuseIdentifier: prototypeReuseIdentifier, view: tableView)
+        return FBArray<Form>(withQuery: formRef, delegate : delegate)
     }
     
-    func getTipsFor(_ runner: Runner, tableView: UITableView) -> FBTableViewDataSource<Tip> {
+    func getTipsFor(_ runner: Runner, delegate: FBDelegate) -> FBArray<Tip> {
         let tipsRef = FIRDatabase.database().reference().child("tips").child((String(runner.runnerId)))
-        return FBTableViewDataSource<Tip>(query: tipsRef, nibNamed: "TipCell", cellReuseIdentifier: "TipCell", view: tableView, section: 1)
+        return FBArray<Tip>(withQuery: tipsRef, delegate : delegate)
     }
     
     
     func getRunnersForRace(_ race: Race, delegate : FBDelegate) -> FBArray<Runner> {
         let currentRaceRef = FIRDatabase.database().reference().child("races").child(race.meetingDate).child(String(race.raceNumber)).child("runners")
-        return FBArray(withQuery: currentRaceRef, delegate : delegate)
+        return FBArray<Runner>(withQuery: currentRaceRef, delegate : delegate)
     }
     
     func findRacesFor(_ date : Date?, nibNamed : String, cellReuseIdentifier : String, tableView : UITableView) -> FBTableViewDataSource<Race> {

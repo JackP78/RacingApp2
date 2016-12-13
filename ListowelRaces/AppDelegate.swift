@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         super.init()
         // not really needed unless you really need it FIRDatabase.database().persistenceEnabled = true
         FIRApp.configure()
-        FIRDatabase.database().persistenceEnabled = true
+        FIRDatabase.database().persistenceEnabled = false
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

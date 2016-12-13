@@ -25,17 +25,18 @@ open class FBArray<T>: NSObject where T: ModelBase {
         self.initListeners()
     }
     
-    subscript(index: Int) -> T? {
+    fileprivate func getModelFrom(snapShot: FIRDataSnapshot) -> T {
+        let model = T()
+        if let postDict = snapShot.value as? Dictionary<String, AnyObject> {
+            model.setValuesForKeys(postDict)
+            return model
+        }
+        return model;
+    }
+    
+    subscript(index: Int) -> T {
         get {
-            let snapShot = snapShots[index];
-            if let postDict = snapShot.value as? Dictionary<String, AnyObject> {
-                let model = T()
-                model.setValuesForKeys(postDict)
-                return model
-            } else {
-                NSLog("cast to dictionary failed \(snapShot.value)")
-            }
-            return nil;
+            return getModelFrom(snapShot: snapShots[index]);
         }
     }
     
@@ -52,6 +53,7 @@ open class FBArray<T>: NSObject where T: ModelBase {
     open func refAtIndex(_ index: Int) -> FIRDatabaseReference {
         return snapShots[index].ref
     }
+    
     open func keyForIndex(_ index: Int) -> String {
         return snapShots[index].key
     }
@@ -73,7 +75,7 @@ open class FBArray<T>: NSObject where T: ModelBase {
         self.query.observe(.childAdded, andPreviousSiblingKeyWith: { (snapShot:FIRDataSnapshot, previousChildKey: String?) in
             let index = self.indexForKey(previousChildKey) + 1
             self.snapShots.insert(snapShot, at: index)
-            self.delegate.childAdded(snapShot, atIndex: index)
+            self.delegate.childAdded(self.getModelFrom(snapShot: snapShot), atIndex: index)
             }
         ) { (error : Error) in
             self.delegate.cancelWithError(error)
@@ -83,21 +85,21 @@ open class FBArray<T>: NSObject where T: ModelBase {
             let toIndex = self.indexForKey(previousChildKey) + 1
             self.snapShots.remove(at: fromIndex)
             self.snapShots.insert(snapShot, at: toIndex)
-            self.delegate.childMoved(snapShot, fromIndex: fromIndex, toIndex: toIndex)
+            self.delegate.childMoved(self.getModelFrom(snapShot: snapShot), fromIndex: fromIndex, toIndex: toIndex)
         }) { (error : Error) in
             self.delegate.cancelWithError(error)
         }
         self.query.observe(.childRemoved, with: { (snapShot: FIRDataSnapshot) in
             let index = self.indexForKey(snapShot.key)
             self.snapShots.remove(at: index)
-            self.delegate.childRemoved(snapShot, atIndex: index)
+            self.delegate.childRemoved(self.getModelFrom(snapShot: snapShot), atIndex: index)
         }) { (error : Error) in
             self.delegate.cancelWithError(error)
         }
         self.query.observe(.childChanged, with: { (snapShot: FIRDataSnapshot) in
             let index = self.indexForKey(snapShot.key)
             self.snapShots[index] = snapShot
-            self.delegate.childChanged(snapShot, atIndex: index)
+            self.delegate.childChanged(self.getModelFrom(snapShot: snapShot), atIndex: index)
         }) { (error : Error) in
             self.delegate.cancelWithError(error)
         }

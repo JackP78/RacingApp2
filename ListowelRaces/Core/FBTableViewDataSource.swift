@@ -47,10 +47,12 @@ class FBTableViewDataSource<T>: NSObject, UITableViewDataSource, FBDelegate wher
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier)
-        let model = array[(indexPath as NSIndexPath).row]
-        self.populateCell!(cell!, model!)
-        return cell!;
+        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier) {
+            let model = array[(indexPath as NSIndexPath).row]
+            self.populateCell?(cell, model)
+            return cell
+        }
+        return UITableViewCell()
     }
 
     func childAdded(_ object: AnyObject, atIndex: Int) {

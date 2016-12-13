@@ -16,6 +16,19 @@ class RunnerFormCell: UITableViewCell {
     @IBOutlet weak var startingPrice: UILabel!
     @IBOutlet weak var comment: UILabel!
     
+    var form : Form? {
+        didSet {
+            if let myForm = form {
+                self.raceDate.text = myForm.meetingdateString()
+                self.courseName.text = myForm.course!.substring(to: myForm.course!.characters.index(myForm.course!.startIndex, offsetBy: 3))
+                self.distance.text = myForm.distanceYards?.distanceString()
+                self.startingPrice.text = myForm.startingPrice!
+                self.positionLabel.text = myForm.finishpositionString()
+                self.comment.text = myForm.briefcommentString()
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
