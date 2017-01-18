@@ -33,7 +33,6 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
         let tipButton = UIBarButtonItem.init(title: "Add Tip", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RunnerDetailTableViewController.addTip(_:)))
         self.navigationItem.rightBarButtonItem = tipButton;
         
-        
         self.horseList = objectContext.getRunnerDetails(self.runner!, race: self.race!, delegate: self)
         self.tipList = objectContext.getTipsFor(self.runner!, delegate: self)
         self.formList = objectContext.getFormFor(self.runner!, delegate: self)
@@ -80,9 +79,22 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
             return cell?.contentView
         }
         else if (section >= 1) {
-            let cellIdentifier = "FormHeaderCell"
+            /*let cellIdentifier = "FormHeaderCell"
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
-            return cell?.contentView
+            return cell?.contentView*/
+            if let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ColumnarTableViewHeader {
+                header.sectionLabel.text = "Form"
+                header.contentView.backgroundColor = UIColor.cyan
+                return header
+            }
+            else {
+                // construct a new header
+                NSLog("constructing a new section header");
+                let newHeader = ColumnarTableViewHeader(reuseIdentifier: "header", headers: ["Date","CRS","SP","Pos","Comment"])
+                newHeader.sectionLabel.text = "Form"
+                newHeader.contentView.backgroundColor = UIColor.cyan
+                return newHeader
+            }
         }
         else {
             return nil
