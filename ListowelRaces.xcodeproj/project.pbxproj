@@ -55,6 +55,7 @@
 		BC2E4CBD1D88193C00376D95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2E4CBC1D88193C00376D95 /* AppDelegate.swift */; };
 		BC2E4CC41D88193C00376D95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2E4CC21D88193C00376D95 /* Main.storyboard */; };
 		BC2E4CC91D88193C00376D95 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2E4CC71D88193C00376D95 /* LaunchScreen.storyboard */; };
+		BC51D4801E3039D50098FBF2 /* ColumnarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC51D47F1E3039D50098FBF2 /* ColumnarView.swift */; };
 		BCA2A8B41E020FF40016FA0C /* ColumnarTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA2A8B31E020FF40016FA0C /* ColumnarTableViewHeader.swift */; };
 		BCADE8DA1DA8025E001B7DB2 /* BestDressedEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCADE8D91DA8025E001B7DB2 /* BestDressedEntry.swift */; };
 		BCADE8DC1DA956AF001B7DB2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCADE8DB1DA956AF001B7DB2 /* MainViewController.swift */; };
@@ -145,6 +146,7 @@
 		BC2E4CC31D88193C00376D95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BC2E4CC81D88193C00376D95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC2E4CCA1D88193C00376D95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC51D47F1E3039D50098FBF2 /* ColumnarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnarView.swift; sourceTree = "<group>"; };
 		BCA2A8B31E020FF40016FA0C /* ColumnarTableViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnarTableViewHeader.swift; sourceTree = "<group>"; };
 		BCADE8D91DA8025E001B7DB2 /* BestDressedEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BestDressedEntry.swift; sourceTree = "<group>"; };
 		BCADE8DB1DA956AF001B7DB2 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				BC1D7DAF1DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.swift */,
 				BC1D7DB01DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.xib */,
 				BCA2A8B31E020FF40016FA0C /* ColumnarTableViewHeader.swift */,
+				BC51D47F1E3039D50098FBF2 /* ColumnarView.swift */,
 			);
 			path = PrototypeCells;
 			sourceTree = "<group>";
@@ -602,6 +605,7 @@
 				BCADE8DC1DA956AF001B7DB2 /* MainViewController.swift in Sources */,
 				BCB913031D9342210069DCA9 /* LocalInfoSelector.swift in Sources */,
 				BC166E481D882CB9009EC5D3 /* RunnerDetailTableViewController.swift in Sources */,
+				BC51D4801E3039D50098FBF2 /* ColumnarView.swift in Sources */,
 				BCB912F51D9325860069DCA9 /* PicCollectionViewCell.swift in Sources */,
 				BC166E2A1D882B1C009EC5D3 /* GameScene.swift in Sources */,
 				BCB9130F1D93448C0069DCA9 /* ChatViewController.swift in Sources */,
