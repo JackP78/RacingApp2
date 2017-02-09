@@ -8,34 +8,42 @@
 
 import UIKit
 
-@IBDesignable class ColumnarView: UIView {
+class ColumnarView: UIView {
 
-    @IBInspectable var columnList: String = ""
+    var columnList: String = ""
     
     var columns = [UILabel]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        // Initialization code
+        addSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        addSubviews()
     }
     
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    func addSubviews() {
+        NSLog("adding headers")
+        let headers = ["Date","CRS","SP","Pos","Comment"];
+        for headerText in headers {
+            let columnHeader = UILabel();
+            columnHeader.text = headerText;
+            columns.append(columnHeader);
+        }
     }
-    */
+    
     
     override func layoutSubviews() {
-        super.layoutSubviews()
-        
+        for columnHeader in columns {
+            columnHeader.translatesAutoresizingMaskIntoConstraints = false
+            columnHeader.textAlignment = .center
+            self.addSubview(columnHeader)
+        }
         if (columns.count > 0) {
-            let numColumns = columns.count
+            var lastColumn = columns[0];
+	    let numColumns = columns.count
             let multiplier = CGFloat(1.0/Double(numColumns))
             
             let vertical = NSLayoutConstraint.constraints(
@@ -54,10 +62,9 @@ import UIKit
             self.addConstraints(vertical);
             self.addConstraints(horizontal);
             
-            var lastColumn = columns[0];
             for i in 0..<numColumns {
                 let thisColumn = columns[i];
-                let width = NSLayoutConstraint.init(
+                let proportionalWidth = NSLayoutConstraint.init(
                     item: thisColumn,
                     attribute: .width,
                     relatedBy: .equal,
@@ -66,9 +73,41 @@ import UIKit
                     multiplier: multiplier,
                     constant: 0
                 )
+                let hAlign = NSLayoutConstraint.init(
+                    item: thisColumn,
+                    attribute: .centerY,
+                    relatedBy: .equal,
+                    toItem: self,
+                    attribute: .centerY,
+                    multiplier: 1,
+                    constant: 0
+                )
+                let equalHeight = NSLayoutConstraint.init(
+                    item: thisColumn,
+                    attribute: .height,
+                    relatedBy: .equal,
+                    toItem: self,
+                    attribute: .height,
+                    multiplier: 1,
+                    constant: 0
+                )
+                self.addConstraints([proportionalWidth, hAlign, equalHeight]);
+                if (i > 0) {
+                    let horizontalSpace = NSLayoutConstraint.init(
+                        item: thisColumn,
+                        attribute: .leading,
+                        relatedBy: .equal,
+                        toItem: lastColumn,
+                        attribute: .trailing,
+                        multiplier: 1,
+                        constant: 0
+                    )
+                    self.addConstraint(horizontalSpace)
+                }
                 lastColumn = thisColumn;
             }
         }
+        super.layoutSubviews()
     }
 
 }

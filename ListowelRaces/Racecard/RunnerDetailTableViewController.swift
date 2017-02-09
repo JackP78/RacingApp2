@@ -24,6 +24,10 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
     override func loadView() {
         super.loadView()
         
+        let formHeaderNib = UINib(nibName: "ColumnarHeader", bundle: nil)
+        self.tableView?.register(formHeaderNib, forHeaderFooterViewReuseIdentifier: "FormHeader")
+        
+        
         let horseNib = UINib.init(nibName: "HorseSummaryCell", bundle: nil)
         self.tableView?.register(horseNib, forCellReuseIdentifier: "HorseSummaryCell")
         
@@ -51,7 +55,7 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
             return 0
         }
         else {
-            return 70
+            return 85
         }
     }
     
@@ -79,10 +83,17 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
             return cell?.contentView
         }
         else if (section >= 1) {
+            let rawCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "FormHeader")
+            if let cell = rawCell as? ColumnarHeader {
+                cell.sectionTitleLabel.text = "Form"
+                return cell
+            }
+            return nil;
+            
             /*let cellIdentifier = "FormHeaderCell"
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
             return cell?.contentView*/
-            if let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ColumnarTableViewHeader {
+            /*if let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ColumnarTableViewHeader {
                 header.sectionLabel.text = "Form"
                 header.contentView.backgroundColor = UIColor.cyan
                 return header
@@ -94,7 +105,7 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
                 newHeader.sectionLabel.text = "Form"
                 newHeader.contentView.backgroundColor = UIColor.cyan
                 return newHeader
-            }
+            }*/
         }
         else {
             return nil

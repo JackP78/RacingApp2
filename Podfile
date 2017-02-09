@@ -12,7 +12,7 @@ target 'ListowelRaces' do
     #pod 'Eureka', '2.0.0-beta.1'
     pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git'
     pod 'MBProgressHUD', '~> 1.0.0'
-    pod 'SVGPath', :git => 'https://github.com/timrwood/SVGPath.git', :branch => 'swift/3.0'
+    pod 'SVGPath'
     pod 'Firebase/Core'
     pod 'Firebase/Database'
     pod 'Firebase/Auth'

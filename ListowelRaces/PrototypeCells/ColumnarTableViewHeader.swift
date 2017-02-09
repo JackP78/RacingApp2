@@ -11,31 +11,37 @@ import UIKit
 class ColumnarTableViewHeader: UITableViewHeaderFooterView {
 
     let sectionLabel = UILabel()
+    var headers = [String]()
     var columnHeaders = [UILabel]()
     
     required init(reuseIdentifier: String?, headers: [String]) {
         super.init(reuseIdentifier: reuseIdentifier)
+        self.headers = headers;
+        addSubviews();
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        addSubviews()
+    }
+    
+    func addSubviews() {
         contentView.addSubview(sectionLabel)
         for headerText in headers {
             let columnHeader = UILabel();
             columnHeader.text = headerText;
-            columnHeader.translatesAutoresizingMaskIntoConstraints = false
-            columnHeader.textAlignment = .center
             columnHeaders.append(columnHeader);
-            contentView.addSubview(columnHeader)
         }
-        
-        sectionLabel.translatesAutoresizingMaskIntoConstraints = false
-        sectionLabel.textAlignment = .center
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func layoutSubviews() {
-        super.layoutSubviews()
-        
+        for columnHeader in columnHeaders {
+            columnHeader.translatesAutoresizingMaskIntoConstraints = false
+            columnHeader.textAlignment = .center
+            contentView.addSubview(columnHeader)
+        }
+        sectionLabel.translatesAutoresizingMaskIntoConstraints = false
+        sectionLabel.textAlignment = .center
         
         // layout the form header first
         let centerHorizontally = NSLayoutConstraint(
@@ -131,7 +137,7 @@ class ColumnarTableViewHeader: UITableViewHeaderFooterView {
                 lastColumn = thisColumn;
             }
         }
-    
+        super.layoutSubviews()
     }
     
     /*

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		783444281E416CB5007A534D /* ColumnarHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 783444271E416CB5007A534D /* ColumnarHeader.xib */; };
+		7834442A1E4BE7F1007A534D /* ColumnarHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783444291E4BE7F1007A534D /* ColumnarHeader.swift */; };
 		BC166DDB1D881E58009EC5D3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC166DDA1D881E58009EC5D3 /* GoogleService-Info.plist */; };
 		BC166DEC1D881EFE009EC5D3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DDE1D881EFE009EC5D3 /* Extensions.swift */; };
 		BC166DEF1D881EFE009EC5D3 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DE11D881EFE009EC5D3 /* Form.swift */; };
@@ -91,6 +93,8 @@
 /* Begin PBXFileReference section */
 		12F1160F587CB904E27F1383 /* Pods-ListowelRaces.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListowelRaces.release.xcconfig"; path = "Pods/Target Support Files/Pods-ListowelRaces/Pods-ListowelRaces.release.xcconfig"; sourceTree = "<group>"; };
 		1E77A4BA1CE21E9AB313D0E5 /* Pods-ListowelRaces.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListowelRaces.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ListowelRaces/Pods-ListowelRaces.debug.xcconfig"; sourceTree = "<group>"; };
+		783444271E416CB5007A534D /* ColumnarHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColumnarHeader.xib; sourceTree = "<group>"; };
+		783444291E4BE7F1007A534D /* ColumnarHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnarHeader.swift; sourceTree = "<group>"; };
 		BBBC3804371887833199B047 /* Pods_ListowelRaces.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ListowelRaces.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC166DDA1D881E58009EC5D3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BC166DDE1D881EFE009EC5D3 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -256,6 +260,8 @@
 				BC1D7DB01DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.xib */,
 				BCA2A8B31E020FF40016FA0C /* ColumnarTableViewHeader.swift */,
 				BC51D47F1E3039D50098FBF2 /* ColumnarView.swift */,
+				783444271E416CB5007A534D /* ColumnarHeader.xib */,
+				783444291E4BE7F1007A534D /* ColumnarHeader.swift */,
 			);
 			path = PrototypeCells;
 			sourceTree = "<group>";
@@ -480,6 +486,7 @@
 				BC2E4CC91D88193C00376D95 /* LaunchScreen.storyboard in Resources */,
 				BC166E4D1D883119009EC5D3 /* ListowelRaces.plist in Resources */,
 				BCB912F71D9325CE0069DCA9 /* BestDressed.storyboard in Resources */,
+				783444281E416CB5007A534D /* ColumnarHeader.xib in Resources */,
 				BC1D7DB81DEF9D7B0099E085 /* RaceSummaryHeader.xib in Resources */,
 				BCE6E4621D88CD2D00949A56 /* Horse3.atlas in Resources */,
 				BC1D7DB21DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.xib in Resources */,
@@ -531,7 +538,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		D2B561E577CE26AED6AD9B90 /* [CP] Copy Pods Resources */ = {
@@ -566,6 +573,7 @@
 				BCB913041D9342210069DCA9 /* LocalInfoTableViewController.swift in Sources */,
 				BCB913051D9342210069DCA9 /* LocationRow.swift in Sources */,
 				BC166E1A1D8829B9009EC5D3 /* HorseSummaryCell.swift in Sources */,
+				7834442A1E4BE7F1007A534D /* ColumnarHeader.swift in Sources */,
 				BCA2A8B41E020FF40016FA0C /* ColumnarTableViewHeader.swift in Sources */,
 				BCB913071D9342210069DCA9 /* MapViewController.swift in Sources */,
 				BCB913011D9342210069DCA9 /* LocalInfoDetailController.swift in Sources */,
