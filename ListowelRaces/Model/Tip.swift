@@ -20,7 +20,6 @@ class Tip : ModelBase {
     }
     
     override func setValue(_ value: Any?, forKey key: String) {
-        NSLog("key \(key)")
         super.setValue(value, forKey: key)
     }
     

@@ -24,15 +24,15 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
     override func loadView() {
         super.loadView()
         
-        let formHeaderNib = UINib(nibName: "ColumnarHeader", bundle: nil)
+        let formHeaderNib = UINib(nibName: "FormSectionHeaderView", bundle: nil)
         self.tableView?.register(formHeaderNib, forHeaderFooterViewReuseIdentifier: "FormHeader")
+        
+        let tipHeaderNib = UINib(nibName: "TipSectionHeaderView", bundle: nil)
+        self.tableView?.register(tipHeaderNib, forHeaderFooterViewReuseIdentifier: "TipHeader")
         
         
         let horseNib = UINib.init(nibName: "HorseSummaryCell", bundle: nil)
         self.tableView?.register(horseNib, forCellReuseIdentifier: "HorseSummaryCell")
-        
-        let tipNib = UINib.init(nibName: "TipCell", bundle: nil)
-        self.tableView?.register(tipNib, forCellReuseIdentifier: "TipCell")
         
         let tipButton = UIBarButtonItem.init(title: "Add Tip", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RunnerDetailTableViewController.addTip(_:)))
         self.navigationItem.rightBarButtonItem = tipButton;
@@ -55,7 +55,7 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
             return 0
         }
         else {
-            return 85
+            return 60
         }
     }
     
@@ -78,34 +78,18 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if (section == 1 && hasTips()) {
-            let cellIdentifier = "TipsHeaderCell"
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
-            return cell?.contentView
+            let rawCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "TipHeader")
+            if let tipHeader = rawCell as? TipSectionHeaderView {
+                return tipHeader
+            }
+            return nil;
         }
         else if (section >= 1) {
             let rawCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "FormHeader")
-            if let cell = rawCell as? ColumnarHeader {
-                cell.sectionTitleLabel.text = "Form"
-                return cell
+            if let formHeader = rawCell as? FormSectionHeaderView {
+                return formHeader
             }
             return nil;
-            
-            /*let cellIdentifier = "FormHeaderCell"
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
-            return cell?.contentView*/
-            /*if let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ColumnarTableViewHeader {
-                header.sectionLabel.text = "Form"
-                header.contentView.backgroundColor = UIColor.cyan
-                return header
-            }
-            else {
-                // construct a new header
-                NSLog("constructing a new section header");
-                let newHeader = ColumnarTableViewHeader(reuseIdentifier: "header", headers: ["Date","CRS","SP","Pos","Comment"])
-                newHeader.sectionLabel.text = "Form"
-                newHeader.contentView.backgroundColor = UIColor.cyan
-                return newHeader
-            }*/
         }
         else {
             return nil
@@ -131,13 +115,15 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
             return horseCell;
         }
         else if (indexPath.section == 1 && hasTips()) {
-            let tipCell = tableView.dequeueReusableCell(withIdentifier: "TipCell") as! TipCell
+            let tipCell = tableView.dequeueReusableCell(withIdentifier: "TipEntry") as! TipRowCell
             tipCell.tip = self.tipList?[indexPath.row]
+            tipCell.contentView.backgroundColor = (indexPath.row % 2 == 0) ? UIColor.white : UIColor.lightGray;
             return tipCell;
         }
         else {
-            let formCell = tableView.dequeueReusableCell(withIdentifier: "FormEntryCell") as! RunnerFormCell
+            let formCell = tableView.dequeueReusableCell(withIdentifier: "FormEntry") as! FormRowCell
             formCell.form = self.formList?[indexPath.row]
+            formCell.contentView.backgroundColor = (indexPath.row % 2 == 0) ? UIColor.white : UIColor.lightGray;
             return formCell;
         }
     }
@@ -158,11 +144,9 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
     // FB Delegate cells
     func childAdded(_ object: AnyObject, atIndex: Int) {
         let section = getSectionFor(object: object)
-        NSLog("update came in for \(object) at section \(section) row \(atIndex)")
         self.tableView?.beginUpdates()
         if (object is Tip && atIndex == 0) {
             // inserting our first tip
-            NSLog("insering first tip in at section \(section) row \(atIndex)");
             let indexSet = IndexSet([1])
             self.tableView?.moveSection(1, toSection: 2)
             self.tableView?.insertSections(indexSet, with: .automatic)

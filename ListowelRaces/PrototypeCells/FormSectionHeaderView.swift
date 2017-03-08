@@ -1,16 +1,18 @@
 //
-//  ColumnarHeader.swift
+//  FormSectionHeaderView.swift
 //  ListowelRaces
 //
-//  Created by Jack McAuliffe on 2/8/17.
+//  Created by Jack McAuliffe on 3/6/17.
 //  Copyright © 2017 Jack McAuliffe. All rights reserved.
 //
 
 import UIKit
 
-class ColumnarHeader: UITableViewHeaderFooterView {
+class FormSectionHeaderView: UITableViewHeaderFooterView {
 
-    @IBOutlet weak var sectionTitleLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var columnsView: FormXibView!
     
     /*
     // Only override draw() if you perform custom drawing.

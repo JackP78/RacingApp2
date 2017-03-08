@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TipXibView" customModule="ListowelRaces" customModuleProvider="target">
+            <connections>
+                <outlet property="nameLabel" destination="EMb-0A-qls" id="LWB-Be-91n"/>
+                <outlet property="scoreLabel" destination="LuF-K1-wXj" id="x78-Xy-joR"/>
+                <outlet property="typeLabel" destination="9sT-LJ-q35" id="ubT-5P-Dkf"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="Content View">
+            <rect key="frame" x="0.0" y="0.0" width="514" height="48"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jack McAuliffe" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMb-0A-qls" userLabel="Name">
+                    <rect key="frame" x="2" y="0.0" width="257" height="48"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LuF-K1-wXj">
+                    <rect key="frame" x="264" y="0.0" width="129" height="48"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bet Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9sT-LJ-q35" userLabel="Type">
+                    <rect key="frame" x="398" y="0.0" width="114" height="48"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="9sT-LJ-q35" secondAttribute="trailing" constant="2" id="1qA-gS-4pe"/>
+                <constraint firstItem="LuF-K1-wXj" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="4JT-QG-ziQ"/>
+                <constraint firstItem="LuF-K1-wXj" firstAttribute="height" secondItem="EMb-0A-qls" secondAttribute="height" id="EQZ-iQ-OGd"/>
+                <constraint firstItem="9sT-LJ-q35" firstAttribute="height" secondItem="EMb-0A-qls" secondAttribute="height" id="IEV-Nt-SPx"/>
+                <constraint firstItem="EMb-0A-qls" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="KqT-To-T7d"/>
+                <constraint firstItem="9sT-LJ-q35" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="TWm-K2-rIR"/>
+                <constraint firstItem="EMb-0A-qls" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="2" id="Yv7-Js-rky"/>
+                <constraint firstItem="LuF-K1-wXj" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.25" id="bbr-rU-VjA"/>
+                <constraint firstItem="9sT-LJ-q35" firstAttribute="leading" secondItem="LuF-K1-wXj" secondAttribute="trailing" constant="5" id="hEh-8m-r1f"/>
+                <constraint firstItem="LuF-K1-wXj" firstAttribute="leading" secondItem="EMb-0A-qls" secondAttribute="trailing" constant="5" id="ims-2g-z26"/>
+                <constraint firstItem="EMb-0A-qls" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.5" id="v1m-Nk-KIk"/>
+                <constraint firstItem="EMb-0A-qls" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="vY3-tg-HDf"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="103" y="363"/>
+        </view>
+    </objects>
+</document>

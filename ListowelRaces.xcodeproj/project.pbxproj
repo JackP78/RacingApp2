@@ -7,8 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		783444281E416CB5007A534D /* ColumnarHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 783444271E416CB5007A534D /* ColumnarHeader.xib */; };
-		7834442A1E4BE7F1007A534D /* ColumnarHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783444291E4BE7F1007A534D /* ColumnarHeader.swift */; };
+		7848A2181E6635100054981C /* FormXibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7848A2171E6635100054981C /* FormXibView.swift */; };
+		7848A21A1E66353A0054981C /* FormXibView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7848A2191E66353A0054981C /* FormXibView.xib */; };
+		7848A21C1E6640B10054981C /* Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7848A21B1E6640B10054981C /* Rainbow.swift */; };
+		7899E6D51E6E0F6400CFC76F /* FormSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7899E6D41E6E0F6400CFC76F /* FormSectionHeaderView.xib */; };
+		7899E6D71E6E162500CFC76F /* FormSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7899E6D61E6E162500CFC76F /* FormSectionHeaderView.swift */; };
+		7899E6D91E6E2A6900CFC76F /* TipRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7899E6D81E6E2A6900CFC76F /* TipRowCell.swift */; };
+		7899E6DC1E6E380200CFC76F /* TipXibView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7899E6DA1E6E380200CFC76F /* TipXibView.xib */; };
+		7899E6DD1E6E380200CFC76F /* TipXibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7899E6DB1E6E380200CFC76F /* TipXibView.swift */; };
+		7899E6E01E6E3E4400CFC76F /* TipSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7899E6DE1E6E3E4400CFC76F /* TipSectionHeaderView.xib */; };
+		7899E6E11E6E3E4400CFC76F /* TipSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7899E6DF1E6E3E4400CFC76F /* TipSectionHeaderView.swift */; };
+		7899E6E31E6E422700CFC76F /* FormRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7899E6E21E6E422700CFC76F /* FormRowCell.swift */; };
 		BC166DDB1D881E58009EC5D3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC166DDA1D881E58009EC5D3 /* GoogleService-Info.plist */; };
 		BC166DEC1D881EFE009EC5D3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DDE1D881EFE009EC5D3 /* Extensions.swift */; };
 		BC166DEF1D881EFE009EC5D3 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DE11D881EFE009EC5D3 /* Form.swift */; };
@@ -24,10 +33,6 @@
 		BC166E111D881FAA009EC5D3 /* FBCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E0F1D881FAA009EC5D3 /* FBCollectionViewDataSource.swift */; };
 		BC166E1A1D8829B9009EC5D3 /* HorseSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E131D8829B9009EC5D3 /* HorseSummaryCell.swift */; };
 		BC166E1B1D8829B9009EC5D3 /* HorseSummaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC166E141D8829B9009EC5D3 /* HorseSummaryCell.xib */; };
-		BC166E1C1D8829B9009EC5D3 /* RaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E151D8829B9009EC5D3 /* RaceCell.swift */; };
-		BC166E1E1D8829B9009EC5D3 /* RunnerFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E171D8829B9009EC5D3 /* RunnerFormCell.swift */; };
-		BC166E1F1D8829B9009EC5D3 /* TipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E181D8829B9009EC5D3 /* TipCell.swift */; };
-		BC166E201D8829B9009EC5D3 /* TipCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC166E191D8829B9009EC5D3 /* TipCell.xib */; };
 		BC166E281D882B1C009EC5D3 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BC166E221D882B1C009EC5D3 /* bg.png */; };
 		BC166E291D882B1C009EC5D3 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = BC166E231D882B1C009EC5D3 /* GameScene.sks */; };
 		BC166E2A1D882B1C009EC5D3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E241D882B1C009EC5D3 /* GameScene.swift */; };
@@ -57,8 +62,6 @@
 		BC2E4CBD1D88193C00376D95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2E4CBC1D88193C00376D95 /* AppDelegate.swift */; };
 		BC2E4CC41D88193C00376D95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2E4CC21D88193C00376D95 /* Main.storyboard */; };
 		BC2E4CC91D88193C00376D95 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2E4CC71D88193C00376D95 /* LaunchScreen.storyboard */; };
-		BC51D4801E3039D50098FBF2 /* ColumnarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC51D47F1E3039D50098FBF2 /* ColumnarView.swift */; };
-		BCA2A8B41E020FF40016FA0C /* ColumnarTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA2A8B31E020FF40016FA0C /* ColumnarTableViewHeader.swift */; };
 		BCADE8DA1DA8025E001B7DB2 /* BestDressedEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCADE8D91DA8025E001B7DB2 /* BestDressedEntry.swift */; };
 		BCADE8DC1DA956AF001B7DB2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCADE8DB1DA956AF001B7DB2 /* MainViewController.swift */; };
 		BCB912F31D9325860069DCA9 /* BestDressedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB912F01D9325860069DCA9 /* BestDressedCollectionViewController.swift */; };
@@ -93,8 +96,17 @@
 /* Begin PBXFileReference section */
 		12F1160F587CB904E27F1383 /* Pods-ListowelRaces.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListowelRaces.release.xcconfig"; path = "Pods/Target Support Files/Pods-ListowelRaces/Pods-ListowelRaces.release.xcconfig"; sourceTree = "<group>"; };
 		1E77A4BA1CE21E9AB313D0E5 /* Pods-ListowelRaces.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListowelRaces.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ListowelRaces/Pods-ListowelRaces.debug.xcconfig"; sourceTree = "<group>"; };
-		783444271E416CB5007A534D /* ColumnarHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColumnarHeader.xib; sourceTree = "<group>"; };
-		783444291E4BE7F1007A534D /* ColumnarHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnarHeader.swift; sourceTree = "<group>"; };
+		7848A2171E6635100054981C /* FormXibView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormXibView.swift; sourceTree = "<group>"; };
+		7848A2191E66353A0054981C /* FormXibView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormXibView.xib; sourceTree = "<group>"; };
+		7848A21B1E6640B10054981C /* Rainbow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rainbow.swift; sourceTree = "<group>"; };
+		7899E6D41E6E0F6400CFC76F /* FormSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormSectionHeaderView.xib; sourceTree = "<group>"; };
+		7899E6D61E6E162500CFC76F /* FormSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormSectionHeaderView.swift; sourceTree = "<group>"; };
+		7899E6D81E6E2A6900CFC76F /* TipRowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipRowCell.swift; sourceTree = "<group>"; };
+		7899E6DA1E6E380200CFC76F /* TipXibView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TipXibView.xib; sourceTree = "<group>"; };
+		7899E6DB1E6E380200CFC76F /* TipXibView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipXibView.swift; sourceTree = "<group>"; };
+		7899E6DE1E6E3E4400CFC76F /* TipSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TipSectionHeaderView.xib; sourceTree = "<group>"; };
+		7899E6DF1E6E3E4400CFC76F /* TipSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipSectionHeaderView.swift; sourceTree = "<group>"; };
+		7899E6E21E6E422700CFC76F /* FormRowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormRowCell.swift; sourceTree = "<group>"; };
 		BBBC3804371887833199B047 /* Pods_ListowelRaces.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ListowelRaces.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC166DDA1D881E58009EC5D3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BC166DDE1D881EFE009EC5D3 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -111,10 +123,6 @@
 		BC166E0F1D881FAA009EC5D3 /* FBCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		BC166E131D8829B9009EC5D3 /* HorseSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorseSummaryCell.swift; sourceTree = "<group>"; };
 		BC166E141D8829B9009EC5D3 /* HorseSummaryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HorseSummaryCell.xib; sourceTree = "<group>"; };
-		BC166E151D8829B9009EC5D3 /* RaceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaceCell.swift; sourceTree = "<group>"; };
-		BC166E171D8829B9009EC5D3 /* RunnerFormCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunnerFormCell.swift; sourceTree = "<group>"; };
-		BC166E181D8829B9009EC5D3 /* TipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipCell.swift; sourceTree = "<group>"; };
-		BC166E191D8829B9009EC5D3 /* TipCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TipCell.xib; sourceTree = "<group>"; };
 		BC166E221D882B1C009EC5D3 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		BC166E231D882B1C009EC5D3 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		BC166E241D882B1C009EC5D3 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -150,8 +158,6 @@
 		BC2E4CC31D88193C00376D95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BC2E4CC81D88193C00376D95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC2E4CCA1D88193C00376D95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BC51D47F1E3039D50098FBF2 /* ColumnarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnarView.swift; sourceTree = "<group>"; };
-		BCA2A8B31E020FF40016FA0C /* ColumnarTableViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnarTableViewHeader.swift; sourceTree = "<group>"; };
 		BCADE8D91DA8025E001B7DB2 /* BestDressedEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BestDressedEntry.swift; sourceTree = "<group>"; };
 		BCADE8DB1DA956AF001B7DB2 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BCB912F01D9325860069DCA9 /* BestDressedCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BestDressedCollectionViewController.swift; sourceTree = "<group>"; };
@@ -248,20 +254,23 @@
 		BC166E121D8829B9009EC5D3 /* PrototypeCells */ = {
 			isa = PBXGroup;
 			children = (
+				7899E6DE1E6E3E4400CFC76F /* TipSectionHeaderView.xib */,
+				7899E6DF1E6E3E4400CFC76F /* TipSectionHeaderView.swift */,
+				7899E6DA1E6E380200CFC76F /* TipXibView.xib */,
+				7899E6DB1E6E380200CFC76F /* TipXibView.swift */,
+				7848A21B1E6640B10054981C /* Rainbow.swift */,
 				BC1D7DB51DEF9CDB0099E085 /* RaceSummaryHeader.swift */,
 				BC1D7DB71DEF9D7B0099E085 /* RaceSummaryHeader.xib */,
 				BC166E131D8829B9009EC5D3 /* HorseSummaryCell.swift */,
 				BC166E141D8829B9009EC5D3 /* HorseSummaryCell.xib */,
-				BC166E151D8829B9009EC5D3 /* RaceCell.swift */,
-				BC166E171D8829B9009EC5D3 /* RunnerFormCell.swift */,
-				BC166E181D8829B9009EC5D3 /* TipCell.swift */,
-				BC166E191D8829B9009EC5D3 /* TipCell.xib */,
 				BC1D7DAF1DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.swift */,
 				BC1D7DB01DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.xib */,
-				BCA2A8B31E020FF40016FA0C /* ColumnarTableViewHeader.swift */,
-				BC51D47F1E3039D50098FBF2 /* ColumnarView.swift */,
-				783444271E416CB5007A534D /* ColumnarHeader.xib */,
-				783444291E4BE7F1007A534D /* ColumnarHeader.swift */,
+				7848A2171E6635100054981C /* FormXibView.swift */,
+				7848A2191E66353A0054981C /* FormXibView.xib */,
+				7899E6D41E6E0F6400CFC76F /* FormSectionHeaderView.xib */,
+				7899E6D61E6E162500CFC76F /* FormSectionHeaderView.swift */,
+				7899E6D81E6E2A6900CFC76F /* TipRowCell.swift */,
+				7899E6E21E6E422700CFC76F /* FormRowCell.swift */,
 			);
 			path = PrototypeCells;
 			sourceTree = "<group>";
@@ -486,10 +495,11 @@
 				BC2E4CC91D88193C00376D95 /* LaunchScreen.storyboard in Resources */,
 				BC166E4D1D883119009EC5D3 /* ListowelRaces.plist in Resources */,
 				BCB912F71D9325CE0069DCA9 /* BestDressed.storyboard in Resources */,
-				783444281E416CB5007A534D /* ColumnarHeader.xib in Resources */,
 				BC1D7DB81DEF9D7B0099E085 /* RaceSummaryHeader.xib in Resources */,
 				BCE6E4621D88CD2D00949A56 /* Horse3.atlas in Resources */,
+				7899E6D51E6E0F6400CFC76F /* FormSectionHeaderView.xib in Resources */,
 				BC1D7DB21DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.xib in Resources */,
+				7899E6DC1E6E380200CFC76F /* TipXibView.xib in Resources */,
 				BC166DDB1D881E58009EC5D3 /* GoogleService-Info.plist in Resources */,
 				BC166E2C1D882B1C009EC5D3 /* Predictor.storyboard in Resources */,
 				BC166E2F1D882B77009EC5D3 /* Images.xcassets in Resources */,
@@ -500,9 +510,10 @@
 				BC166E471D882CB9009EC5D3 /* Racecard.storyboard in Resources */,
 				BC166E291D882B1C009EC5D3 /* GameScene.sks in Resources */,
 				BCE6E45E1D88CD0D00949A56 /* Horse2.atlas in Resources */,
+				7848A21A1E66353A0054981C /* FormXibView.xib in Resources */,
+				7899E6E01E6E3E4400CFC76F /* TipSectionHeaderView.xib in Resources */,
 				BC166E281D882B1C009EC5D3 /* bg.png in Resources */,
 				BC166E1B1D8829B9009EC5D3 /* HorseSummaryCell.xib in Resources */,
-				BC166E201D8829B9009EC5D3 /* TipCell.xib in Resources */,
 				BCB913111D93449E0069DCA9 /* Chat.storyboard in Resources */,
 				BCE6E4681D89C7B700949A56 /* ListowelBackground.png in Resources */,
 			);
@@ -566,24 +577,23 @@
 				BCB913081D9342210069DCA9 /* SegmentViewController.swift in Sources */,
 				BC166E111D881FAA009EC5D3 /* FBCollectionViewDataSource.swift in Sources */,
 				BC166E0B1D881F1F009EC5D3 /* ObjectContext.swift in Sources */,
-				BC166E1F1D8829B9009EC5D3 /* TipCell.swift in Sources */,
 				BC166DF71D881EFE009EC5D3 /* Tip.swift in Sources */,
 				BC166E451D882CB9009EC5D3 /* ObjectFactory.m in Sources */,
 				BC166E081D881F1F009EC5D3 /* ImageUpload.swift in Sources */,
 				BCB913041D9342210069DCA9 /* LocalInfoTableViewController.swift in Sources */,
 				BCB913051D9342210069DCA9 /* LocationRow.swift in Sources */,
 				BC166E1A1D8829B9009EC5D3 /* HorseSummaryCell.swift in Sources */,
-				7834442A1E4BE7F1007A534D /* ColumnarHeader.swift in Sources */,
-				BCA2A8B41E020FF40016FA0C /* ColumnarTableViewHeader.swift in Sources */,
 				BCB913071D9342210069DCA9 /* MapViewController.swift in Sources */,
 				BCB913011D9342210069DCA9 /* LocalInfoDetailController.swift in Sources */,
 				BC166E431D882CB9009EC5D3 /* LRRunnerTableViewController.swift in Sources */,
 				BCADE8DA1DA8025E001B7DB2 /* BestDressedEntry.swift in Sources */,
 				BC166E2D1D882B1C009EC5D3 /* PredictorViewController.swift in Sources */,
+				7899E6E31E6E422700CFC76F /* FormRowCell.swift in Sources */,
 				BC166DF21D881EFE009EC5D3 /* LocalInfoEntry.swift in Sources */,
 				BCE6E4641D88CFA500949A56 /* HorseSprite.swift in Sources */,
 				BC1D7DB61DEF9CDB0099E085 /* RaceSummaryHeader.swift in Sources */,
 				BC166E551D887EC4009EC5D3 /* LoginViewController.swift in Sources */,
+				7848A2181E6635100054981C /* FormXibView.swift in Sources */,
 				BCB913021D9342210069DCA9 /* LocalInfoFormViewController.swift in Sources */,
 				BC166DEF1D881EFE009EC5D3 /* Form.swift in Sources */,
 				BC166E571D8897EB009EC5D3 /* ExceptionTypes.swift in Sources */,
@@ -593,30 +603,32 @@
 				BC166DF41D881EFE009EC5D3 /* Race.swift in Sources */,
 				BC1D7DBA1DEFA6460099E085 /* ModelBase.swift in Sources */,
 				BC166DEC1D881EFE009EC5D3 /* Extensions.swift in Sources */,
+				7899E6D91E6E2A6900CFC76F /* TipRowCell.swift in Sources */,
 				BC166E101D881FAA009EC5D3 /* FBArray.swift in Sources */,
 				BCF405451DCBF9DD000B4F47 /* Friend.swift in Sources */,
 				BC166E421D882CB9009EC5D3 /* FBRaceTableViewController.swift in Sources */,
 				BC2E4CBD1D88193C00376D95 /* AppDelegate.swift in Sources */,
+				7848A21C1E6640B10054981C /* Rainbow.swift in Sources */,
 				BC166DF61D881EFE009EC5D3 /* Runner.swift in Sources */,
 				BC166E411D882CB9009EC5D3 /* CompositeTableViewDataSource.swift in Sources */,
-				BC166E1E1D8829B9009EC5D3 /* RunnerFormCell.swift in Sources */,
 				BCB9132C1D9D6CC20069DCA9 /* UISettings.swift in Sources */,
 				BCB912F31D9325860069DCA9 /* BestDressedCollectionViewController.swift in Sources */,
-				BC166E1C1D8829B9009EC5D3 /* RaceCell.swift in Sources */,
+				7899E6D71E6E162500CFC76F /* FormSectionHeaderView.swift in Sources */,
 				BCEFDBDF1D9DD32000284036 /* TabBarControllerDelegate.swift in Sources */,
 				BCB913131D9348940069DCA9 /* ChatInitialViewController.swift in Sources */,
 				BCB913061D9342210069DCA9 /* LRMapView.swift in Sources */,
 				BC166E0D1D881F7F009EC5D3 /* FBDelegate.swift in Sources */,
 				BC166E351D882C36009EC5D3 /* DIDatepicker.m in Sources */,
+				7899E6E11E6E3E4400CFC76F /* TipSectionHeaderView.swift in Sources */,
 				BC1D7DB11DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.swift in Sources */,
 				BC166E041D881F1F009EC5D3 /* FBTableViewDataSource.swift in Sources */,
 				BCADE8DC1DA956AF001B7DB2 /* MainViewController.swift in Sources */,
 				BCB913031D9342210069DCA9 /* LocalInfoSelector.swift in Sources */,
 				BC166E481D882CB9009EC5D3 /* RunnerDetailTableViewController.swift in Sources */,
-				BC51D4801E3039D50098FBF2 /* ColumnarView.swift in Sources */,
 				BCB912F51D9325860069DCA9 /* PicCollectionViewCell.swift in Sources */,
 				BC166E2A1D882B1C009EC5D3 /* GameScene.swift in Sources */,
 				BCB9130F1D93448C0069DCA9 /* ChatViewController.swift in Sources */,
+				7899E6DD1E6E380200CFC76F /* TipXibView.swift in Sources */,
 				BC166E361D882C36009EC5D3 /* DIDatepickerDateView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
