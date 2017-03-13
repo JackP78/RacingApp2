@@ -15,17 +15,25 @@ class HorseSummaryCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var clothLabel: UILabel!
     @IBOutlet weak var silksImage: UIImageView!
+    @IBOutlet weak var jockeyLabel: UILabel!
+    @IBOutlet weak var trainerLabel: UILabel!
+    @IBOutlet weak var spLabel: UILabel!
+    @IBOutlet weak var formLabel: UILabel!
     
     var runner: Runner? {
         didSet {
             if let currentRunner = runner {
                 self.clothLabel.text = currentRunner.clothNumber?.stringValue
                 self.nameLabel.text = currentRunner.name!
-                if let tips = currentRunner.numberTips?.intValue {
+                /*if let tips = currentRunner.numberTips?.intValue {
                     if tips > 0 {
                         tipsLabel.text = "\(tips) tips"
                     }
-                }
+                }*/
+                self.jockeyLabel.text = currentRunner.jockeyName
+                self.trainerLabel.text = currentRunner.trainerName
+                self.spLabel.text = currentRunner.forecastPrice
+                self.formLabel.text = currentRunner.formFigures
                 self.silksImage.sd_setImage(with: URL(string: currentRunner.silksUrl!), placeholderImage: UIImage(named:"defaultSilk"))
             }
         }

@@ -103,17 +103,17 @@ class ObjectContext: NSObject {
     func addTip(_ runner: Runner, race: Race, parentView: UIViewController) {
         self.ensureLoggedInWithCompletion(parentView) { (user) in
             let tipsRef = FIRDatabase.database().reference().child("tips").child(String(runner.runnerId))
-            let currentRunnerRef = FIRDatabase.database().reference().child("races").child(race.meetingDate).child(String(race.raceNumber)).child("runners").queryOrdered(byChild: "runnerId").queryEqual(toValue: runner.runnerId)
-            
-            let numberTipsRef = currentRunnerRef.ref.child("numberTips")
-            numberTipsRef.runTransactionBlock({
-                (currentData:FIRMutableData!) in
-                var value = currentData.value as? Int
-                if (value == nil) {
-                    value = 0
-                }
-                currentData.value = value! + 1
-                return FIRTransactionResult.success(withValue: currentData)
+            let currentRunnerRef = FIRDatabase.database().reference().child("races").child(race.meetingDate).child(String(race.raceNumber)).child("runners").queryOrdered(byChild: "runnerId").queryEqual(toValue: runner.runnerId).observe(.childAdded, with: { snapshot in
+            	let numberTipsRef = snapshot.ref.child("numberTips")
+            	numberTipsRef.runTransactionBlock({
+                    (currentData:FIRMutableData!) in
+                    var value = currentData.value as? Int
+                    if (value == nil) {
+                        value = 0
+                    }
+                    currentData.value = value! + 1
+                    return FIRTransactionResult.success(withValue: currentData)
+                })
             })
             
             // add a tip entry
