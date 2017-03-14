@@ -30,10 +30,6 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
         let tipHeaderNib = UINib(nibName: "TipSectionHeaderView", bundle: nil)
         self.tableView?.register(tipHeaderNib, forHeaderFooterViewReuseIdentifier: "TipHeader")
         
-        
-        let horseNib = UINib.init(nibName: "HorseSummaryCell", bundle: nil)
-        self.tableView?.register(horseNib, forCellReuseIdentifier: "HorseSummaryCell")
-        
         let tipButton = UIBarButtonItem.init(title: "Add Tip", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RunnerDetailTableViewController.addTip(_:)))
         self.navigationItem.rightBarButtonItem = tipButton;
         
@@ -61,7 +57,7 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.section == 0) {
-            return 100
+            return 80
         }
         else {
             return 40
