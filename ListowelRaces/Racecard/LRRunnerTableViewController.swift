@@ -19,17 +19,9 @@ class LRRunnerTableViewController: UITableViewController, FBDelegate {
     override func viewDidLoad() {
         self.title = "Race"
         
-        //let headerNib = UINib.init(nibName: "RaceSummaryCellTableViewCell", bundle: nil)
-        //self.tableView?.register(headerNib, forCellReuseIdentifier: "Header")
-        
         let headerNib = UINib(nibName: "RaceSummaryHeader", bundle: nil)
         self.tableView?.register(headerNib, forHeaderFooterViewReuseIdentifier: "Header")
 	
-	
-        let horseNib = UINib.init(nibName: "HorseSummaryCell", bundle: nil)
-        self.tableView?.register(horseNib, forCellReuseIdentifier: "Main")
-        
-        
         super.viewDidLoad()
         self.array = objectContext.getRunnersForRace(self.currentRace!, delegate: self)
         
@@ -50,7 +42,7 @@ class LRRunnerTableViewController: UITableViewController, FBDelegate {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let rawCell = tableView.dequeueReusableCell(withIdentifier: "Main")
+        let rawCell = tableView.dequeueReusableCell(withIdentifier: "HorseSummaryCell")
         if let cell = rawCell as? HorseSummaryCell {
             cell.runner = self.array?[indexPath.row]
             return cell
