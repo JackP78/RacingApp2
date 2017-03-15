@@ -15,6 +15,7 @@ import MBProgressHUD
 import MapKit
 import Gloss
 import RealmSwift
+import FCAlertView
 
 class ObjectContext: NSObject {
     fileprivate var urlDateFormatter = DateFormatter()
@@ -100,32 +101,61 @@ class ObjectContext: NSObject {
     }
     
     
+    fileprivate func doAddTip(_ runner: Runner, race: Race, tipsRef: FIRDatabaseReference, user: FIRUser) {
+        let currentRunnerRef = FIRDatabase.database().reference().child("races").child(race.meetingDate).child(String(race.raceNumber)).child("runners").queryOrdered(byChild: "runnerId").queryEqual(toValue: runner.runnerId).observe(.childAdded, with: { snapshot in
+            let numberTipsRef = snapshot.ref.child("numberTips")
+            numberTipsRef.runTransactionBlock({
+                (currentData:FIRMutableData!) in
+                var value = currentData.value as? Int
+                if (value == nil) {
+                    value = 0
+                }
+                currentData.value = value! + 1
+                return FIRTransactionResult.success(withValue: currentData)
+            })
+        })
+        // add a tip entry
+        let newTip = tipsRef
+        let tip:[String:AnyObject] = [ // 2
+            "name": user.displayName! as AnyObject,
+            "userId": user.uid as AnyObject,
+            "runnerId" : runner.runnerId as AnyObject,
+            "horseName" : runner.name as AnyObject,
+            "raceId" : race.raceId as AnyObject,
+            "tipsterScore" : 10 as AnyObject,
+            ]
+        newTip.setValue(tip)
+    }
+    
+    
     func addTip(_ runner: Runner, race: Race, parentView: UIViewController) {
         self.ensureLoggedInWithCompletion(parentView) { (user) in
-            let tipsRef = FIRDatabase.database().reference().child("tips").child(String(runner.runnerId))
-            let currentRunnerRef = FIRDatabase.database().reference().child("races").child(race.meetingDate).child(String(race.raceNumber)).child("runners").queryOrdered(byChild: "runnerId").queryEqual(toValue: runner.runnerId).observe(.childAdded, with: { snapshot in
-            	let numberTipsRef = snapshot.ref.child("numberTips")
-            	numberTipsRef.runTransactionBlock({
-                    (currentData:FIRMutableData!) in
-                    var value = currentData.value as? Int
-                    if (value == nil) {
-                        value = 0
-                    }
-                    currentData.value = value! + 1
-                    return FIRTransactionResult.success(withValue: currentData)
-                })
+            let key = "\(race.raceId)_\(user.uid)"
+            let tipsRef = FIRDatabase.database().reference().child("tips").child(key)
+            tipsRef.observeSingleEvent(of: .value, with: { (snapShot: FIRDataSnapshot) in
+                if let horseName = snapShot.childSnapshot(forPath: "horseName").value as? String {
+                    // we already have a tip for this race
+                    NSLog("You already tipped \(horseName) in this race.  This tip for will replace that tip")
+                    let alert = UIAlertController(title: "Replace Tip", message: "You already tipped \(horseName) in this race.  Are you sure you want to replace that tip with \(runner.name!)", preferredStyle: .alert)
+                    
+                    let confirmAction = UIAlertAction(title: "Overwrite", style: UIAlertActionStyle.default, handler: { (action : UIAlertAction) in
+                        self.doAddTip(runner, race: race, tipsRef: tipsRef, user: user)
+                        alert.dismiss(animated: true, completion: nil)
+                    })
+                    
+                    let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { (action : UIAlertAction) in
+                        alert.dismiss(animated: true, completion: nil)
+                    })
+                    
+                    alert.addAction(confirmAction)
+                    alert.addAction(cancelAction)
+                    
+                    parentView.present(alert, animated: true, completion: nil)
+                }
+                else {
+                    self.doAddTip(runner, race: race, tipsRef: tipsRef, user: user)
+                }
             })
-            
-            // add a tip entry
-            let newTip = tipsRef.childByAutoId()
-            let tip:[String:AnyObject] = [ // 2
-                "name": user.displayName! as AnyObject,
-                "userId": user.uid as AnyObject,
-                "runnerId" : runner.runnerId as AnyObject,
-                "raceId" : race.raceId as AnyObject,
-                "tipsterScore" : 10 as AnyObject,
-                ]
-            newTip.setValue(tip)
         }
     }
     
@@ -141,7 +171,7 @@ class ObjectContext: NSObject {
     }
     
     func getTipsFor(_ runner: Runner, delegate: FBDelegate) -> FBArray<Tip> {
-        let tipsRef = FIRDatabase.database().reference().child("tips").child((String(runner.runnerId)))
+        let tipsRef = FIRDatabase.database().reference().child("tips").queryOrdered(byChild: "runnerId").queryEqual(toValue: runner.runnerId)
         return FBArray<Tip>(withQuery: tipsRef, delegate : delegate)
     }
     

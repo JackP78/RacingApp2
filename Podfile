@@ -19,6 +19,8 @@ target 'ListowelRaces' do
     pod 'Firebase/RemoteConfig'
     pod 'Firebase/Storage'
     pod 'Firebase/Messaging'
+    pod 'FCAlertView'
+    pod 'SendBirdSDK'
     #pod 'GeoFire', '>= 1.2'
     pod 'JSQMessagesViewController'
     pod 'IQKeyboardManagerSwift'

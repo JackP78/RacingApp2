@@ -238,7 +238,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="khq-9d-Gqt" customClass="FormXibView" customModule="ListowelRaces" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="45.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="headerCsv" value="28 Aug 14,Gal,16/16,5m 7f,11/4F,40L to Blackjack Ketcher"/>
                                             </userDefinedRuntimeAttributes>
@@ -263,7 +263,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtG-vF-Med" customClass="TipXibView" customModule="ListowelRaces" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="42.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="headerCsv" value="Brendan Brennan,9/10,Win"/>
                                             </userDefinedRuntimeAttributes>
@@ -455,7 +455,7 @@
             <objects>
                 <navigationController id="nZR-sK-8sn" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Races" id="PcA-rt-eXN"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Seu-MC-M95">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Seu-MC-M95">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

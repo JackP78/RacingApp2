@@ -158,8 +158,15 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
     }
     
     func childRemoved(_ object: AnyObject, atIndex: Int) {
+        let section = getSectionFor(object: object)
         self.tableView?.beginUpdates()
-        self.tableView?.deleteRows(at: [IndexPath(row: Int(atIndex), section: getSectionFor(object: object))], with: .automatic)
+        self.tableView?.deleteRows(at: [IndexPath(row: Int(atIndex), section: section)], with: .automatic)
+        if (object is Tip && tipList!.count == 0) {
+            // removing our last tip
+            let indexSet = IndexSet([1])
+            //self.tableView?.moveSection(1, toSection: 2)
+            self.tableView?.deleteSections(indexSet, with: .automatic)
+        }
         self.tableView?.endUpdates()
     }
     
