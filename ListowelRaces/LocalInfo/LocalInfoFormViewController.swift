@@ -44,7 +44,7 @@ class LocalInfoFormViewController: FormViewController {
                 $0.title = "URL"
                 $0.value = URL(string: "http://www.google.ie")
             }
-            <<< LocationRow2("location"){
+            <<< LocationRow("location"){
                 $0.title = "LocationRow"
                 $0.value = CLLocation(latitude: 52.4460488, longitude: -9.4853655)
             }

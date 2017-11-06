@@ -89,7 +89,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func createGround() {
         for i in 0 ... 1 {
-            let bg = SKSpriteNode(imageNamed: "ListowelBackground")
+            let bg = SKSpriteNode(imageNamed: "Grass")
             bg.size.height = self.size.height
             bg.size.width = self.size.width
             bg.zPosition = -10

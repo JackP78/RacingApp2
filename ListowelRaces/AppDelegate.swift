@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     override init() {
         super.init()
         // not really needed unless you really need it FIRDatabase.database().persistenceEnabled = true
-        FIRApp.configure()
-        FIRDatabase.database().persistenceEnabled = false
+        FirebaseApp.configure()
+        Database.database().isPersistenceEnabled = false
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // For iOS 10 display notification (sent via APNS)
             UNUserNotificationCenter.current().delegate = self
             // For iOS 10 data message (sent via FCM)
-            FIRMessaging.messaging().remoteMessageDelegate = self
+            Messaging.messaging().remoteMessageDelegate = self
             
         } else {
             let settings: UIUserNotificationSettings =
@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Add observer for InstanceID token refresh callback.
         NotificationCenter.default.addObserver(self,
             selector: #selector(self.tokenRefreshNotification),
-            name: .firInstanceIDTokenRefresh,
+            name: Notification.Name.MessagingRegistrationTokenRefreshed,
             object: nil)
         
         
@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Add observer for InstanceID token refresh callback.
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.tokenRefreshNotification),
-                                               name: .firInstanceIDTokenRefresh,
+                                               name: Notification.Name.MessagingRegistrationTokenRefreshed,
                                                object: nil)
         
         //Change status bar color
@@ -99,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        FIRMessaging.messaging().disconnect()
+        Messaging.messaging().disconnect()
         print("Disconnected from FCM.")
     }
 
@@ -109,7 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // [START connect_to_fcm]
     func connectToFcm() {
-        FIRMessaging.messaging().connect { (error) in
+        Messaging.messaging().connect { (error) in
             if error != nil {
                 print("Unable to connect with FCM. \(error)")
             } else {
@@ -149,7 +149,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // [START refresh_token]
     func tokenRefreshNotification(_ notification: Notification) {
-        if let refreshedToken = FIRInstanceID.instanceID().token() {
+        if let refreshedToken = InstanceID.instanceID().token() {
             print("InstanceID token: \(refreshedToken)")
         }
         // Connect to FCM since connection may have failed when attempted before having a token.
@@ -161,11 +161,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         // for development
         print("didRegisterForNotifications \(deviceToken)")
-        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.sandbox)
+        InstanceID.instanceID().setAPNSToken(deviceToken, type: InstanceIDAPNSTokenType.sandbox)
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        FIRMessaging.messaging().appDidReceiveMessage(userInfo)
+        Messaging.messaging().appDidReceiveMessage(userInfo)
         print(userInfo)
     }
 
@@ -186,9 +186,9 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         print("%@", userInfo)
     }
 }
-extension AppDelegate : FIRMessagingDelegate {
+extension AppDelegate : MessagingDelegate {
     // Receive data message on iOS 10 devices.
-    func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
+    func application(received remoteMessage: MessagingRemoteMessage) {
         print("%@", remoteMessage.appData)
     }
 }

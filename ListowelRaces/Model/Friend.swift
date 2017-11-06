@@ -16,7 +16,7 @@ protocol Friend {
     var pictureUrl : String? { get set }
 }
 
-class FriendJSON : Friend, Decodable {
+class FriendJSON : Friend, JSONDecodable {
     var name : String?
     var fbId : String?
     var pictureUrl : String?

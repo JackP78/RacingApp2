@@ -55,7 +55,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         var isLoggedIn = false
         
-        if let token = FBSDKAccessToken.current(), let user = FIRAuth.auth()?.currentUser
+        if let token = FBSDKAccessToken.current(), let user = Auth.auth().currentUser
         {
             if !user.isAnonymous {
                 isLoggedIn = true
@@ -79,9 +79,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     fileprivate func loadFBProfile(_ token: FBSDKAccessToken) {
-        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         
-        FIRAuth.auth()?.signIn(with: credential) { (user, error) in
+        Auth.auth().signIn(with: credential) { (user, error) in
             if let error = error {
                 print("Sign in failed:", error.localizedDescription)
             }
@@ -106,7 +106,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                             self.lblEmail.text = email
                             
                             if let user = user {
-                                let changeRequest = user.profileChangeRequest()
+                                let changeRequest = user.createProfileChangeRequest()
                                 
                                 changeRequest.displayName = displayName
                                 if let pictureUrl = result.value(forKey: "picture") as? String {
@@ -119,7 +119,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                                         NSLog("profile updated")
                                     }
                                 }
-                                user.updateEmail(email!) { error in
+                                user.updateEmail(to: email!) { (error) in
                                     if let error = error {
                                         NSLog("\(error)")
                                     } else {
@@ -138,7 +138,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         toggleHiddenState(true)
-        try! FIRAuth.auth()!.signOut()
+        try! Auth.auth().signOut()
         self.navigationController?.popToRootViewController(animated: true)
     }
     
@@ -148,11 +148,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         self.profilePicture.isHidden = shouldHide;
     }
     
-    fileprivate var completionHandler:(_ user: FIRUser)->Void = {
-        (user: FIRUser) -> Void in
+    fileprivate var completionHandler:(_ user: User)->Void = {
+        (user: User) -> Void in
     }
     
-    func completeWithBlock(_ block : @escaping (_ user: FIRUser) -> Void) {
+    func completeWithBlock(_ block : @escaping (_ user: User) -> Void) {
         self.completionHandler = block
     }
     

@@ -5,12 +5,11 @@ workspace 'ListowelRaces'
 xcodeproj 'ListowelRaces.xcodeproj'
 target 'ListowelRaces' do
     pod 'Bolts'
-    pod 'FBSDKCoreKit', '4.16.1'
-    pod 'FBSDKLoginKit', '4.16.1'
-    pod 'FBSDKShareKit', '4.16.1'
+    pod 'FBSDKCoreKit', '4.27.1'
+    pod 'FBSDKLoginKit', '4.27.1'
+    pod 'FBSDKShareKit', '4.27.1'
     #pod 'SwiftValidator', '3.0.3'
-    #pod 'Eureka', '2.0.0-beta.1'
-    pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git'
+    pod 'Eureka'
     pod 'MBProgressHUD', '~> 1.0.0'
     pod 'SVGPath'
     pod 'Firebase/Core'
@@ -27,14 +26,13 @@ target 'ListowelRaces' do
     pod 'SDWebImage'
     pod 'UIActivityIndicator-for-SDWebImage'
     pod 'RealmSwift'
-    pod 'Gloss'
+    pod 'Gloss', '2.0.0-beta.2'
 end
 
 post_install do |installer|
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
-            config.build_settings['SWIFT_VERSION'] = '3.0'
-            config.build_settings['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'] = 'NO'
+            config.build_settings['SWIFT_VERSION'] = '4.0'
         end
     end
 end

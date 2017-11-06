@@ -10,22 +10,22 @@ import UIKit
 import FirebaseDatabase
 
 open class FBArray<T>: NSObject where T: ModelBase {
-    fileprivate var snapShots = [FIRDataSnapshot]()
-    var query : FIRDatabaseQuery
+    fileprivate var snapShots = [DataSnapshot]()
+    var query : DatabaseQuery
     var delegate : FBDelegate
     
-    convenience init(withReference reference: FIRDatabaseReference, delegate : FBDelegate) {
+    convenience init(withReference reference: DatabaseReference, delegate : FBDelegate) {
         self.init(withReference: reference, delegate: delegate)
     }
     
-    init(withQuery initQuery: FIRDatabaseQuery, delegate initDelegate : FBDelegate) {
+    init(withQuery initQuery: DatabaseQuery, delegate initDelegate : FBDelegate) {
         query = initQuery
         delegate = initDelegate
         super.init()
         self.initListeners()
     }
     
-    fileprivate func getModelFrom(snapShot: FIRDataSnapshot) -> T? {
+    fileprivate func getModelFrom(snapShot: DataSnapshot) -> T? {
         if let postDict = snapShot.value as? Dictionary<String, AnyObject> {
             let model = T()
             model.setValuesForKeys(postDict)
@@ -53,7 +53,7 @@ open class FBArray<T>: NSObject where T: ModelBase {
         }
     }
     
-    open func refAtIndex(_ index: Int) -> FIRDatabaseReference {
+    open func refAtIndex(_ index: Int) -> DatabaseReference {
         return snapShots[index].ref
     }
     
@@ -75,7 +75,7 @@ open class FBArray<T>: NSObject where T: ModelBase {
     }
     
     fileprivate func initListeners() {
-        self.query.observe(.childAdded, andPreviousSiblingKeyWith: { (snapShot:FIRDataSnapshot, previousChildKey: String?) in
+        self.query.observe(.childAdded, andPreviousSiblingKeyWith: { (snapShot:DataSnapshot, previousChildKey: String?) in
             if let modelObject = self.getModelFrom(snapShot: snapShot) {
                 let index = self.indexForKey(previousChildKey) + 1
                 self.snapShots.insert(snapShot, at: index)
@@ -85,7 +85,7 @@ open class FBArray<T>: NSObject where T: ModelBase {
         ) { (error : Error) in
             self.delegate.cancelWithError(error)
         }
-        self.query.observe(.childMoved, andPreviousSiblingKeyWith: { (snapShot:FIRDataSnapshot, previousChildKey : String?) in
+        self.query.observe(.childMoved, andPreviousSiblingKeyWith: { (snapShot:DataSnapshot, previousChildKey : String?) in
             if let modelObject = self.getModelFrom(snapShot: snapShot) {
                 let fromIndex = self.indexForKey(snapShot.key)
                 let toIndex = self.indexForKey(previousChildKey) + 1
@@ -96,7 +96,7 @@ open class FBArray<T>: NSObject where T: ModelBase {
         }) { (error : Error) in
             self.delegate.cancelWithError(error)
         }
-        self.query.observe(.childRemoved, with: { (snapShot: FIRDataSnapshot) in
+        self.query.observe(.childRemoved, with: { (snapShot: DataSnapshot) in
             if let modelObject = self.getModelFrom(snapShot: snapShot) {
                 let index = self.indexForKey(snapShot.key)
                 self.snapShots.remove(at: index)
@@ -106,7 +106,7 @@ open class FBArray<T>: NSObject where T: ModelBase {
         }) { (error : Error) in
             self.delegate.cancelWithError(error)
         }
-        self.query.observe(.childChanged, with: { (snapShot: FIRDataSnapshot) in
+        self.query.observe(.childChanged, with: { (snapShot: DataSnapshot) in
             if let modelObject = self.getModelFrom(snapShot: snapShot) {
                 let index = self.indexForKey(snapShot.key)
                 self.snapShots[index] = snapShot

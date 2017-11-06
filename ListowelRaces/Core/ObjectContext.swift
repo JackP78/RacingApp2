@@ -19,10 +19,10 @@ import FCAlertView
 
 class ObjectContext: NSObject {
     fileprivate var urlDateFormatter = DateFormatter()
-    fileprivate var remoteConfig = FIRRemoteConfig.remoteConfig()
-    fileprivate let ladiesRef = FIRDatabase.database().reference().child("photos")
-    fileprivate let ladiesStorage = FIRStorage.storage().reference().child("ladies")
-    var localinfoRef = FIRDatabase.database().reference().child("localinfo")
+    fileprivate var remoteConfig = RemoteConfig.remoteConfig()
+    fileprivate let ladiesRef = Database.database().reference().child("photos")
+    fileprivate let ladiesStorage = Storage.storage().reference().child("ladies")
+    var localinfoRef = Database.database().reference().child("localinfo")
     
     override init() {
         urlDateFormatter.dateFormat = "yyyy-MM-dd"
@@ -31,14 +31,14 @@ class ObjectContext: NSObject {
         // load the config information
         let path = Bundle.main.path(forResource: "ListowelRaces", ofType: "plist")
         
-        remoteConfig = FIRRemoteConfig.remoteConfig()
-        let remoteConfigSettings = FIRRemoteConfigSettings(developerModeEnabled: true)
+        remoteConfig = RemoteConfig.remoteConfig()
+        let remoteConfigSettings = RemoteConfigSettings(developerModeEnabled: true)
         remoteConfig.configSettings = remoteConfigSettings!
-        remoteConfig.setDefaultsFromPlistFileName("ListowelRaces")
+        remoteConfig.setDefaults(fromPlist: "ListowelRaces")
         
         let expirationDuration = 43200
         remoteConfig.fetch(withExpirationDuration: TimeInterval(expirationDuration)) { (status, error) -> Void in
-            if (status == FIRRemoteConfigFetchStatus.success) {
+            if (status == RemoteConfigFetchStatus.success) {
                 self.remoteConfig.activateFetched()
             } else {
                 print("Error \(status) \(error?.localizedDescription)")
@@ -83,8 +83,8 @@ class ObjectContext: NSObject {
         }
     }
     
-    func ensureLoggedInWithCompletion(_ parentView: UIViewController, completion : @escaping ((_ user: FIRUser) -> Void)) {
-        if let token = FBSDKAccessToken.current(), let user = FIRAuth.auth()?.currentUser
+    func ensureLoggedInWithCompletion(_ parentView: UIViewController, completion : @escaping ((_ user: User) -> Void)) {
+        if let token = FBSDKAccessToken.current(), let user = Auth.auth().currentUser
         {
             if !user.isAnonymous {
                 completion(user)
@@ -101,17 +101,17 @@ class ObjectContext: NSObject {
     }
     
     
-    fileprivate func doAddTip(_ runner: Runner, race: Race, tipsRef: FIRDatabaseReference, user: FIRUser) {
-        let currentRunnerRef = FIRDatabase.database().reference().child("races").child(race.meetingDate).child(String(race.raceNumber)).child("runners").queryOrdered(byChild: "runnerId").queryEqual(toValue: runner.runnerId).observe(.childAdded, with: { snapshot in
+    fileprivate func doAddTip(_ runner: Runner, race: Race, tipsRef: DatabaseReference, user: User) {
+        let currentRunnerRef = Database.database().reference().child("races").child(race.meetingDate).child(String(race.raceNumber)).child("runners").queryOrdered(byChild: "runnerId").queryEqual(toValue: runner.runnerId).observe(.childAdded, with: { snapshot in
             let numberTipsRef = snapshot.ref.child("numberTips")
             numberTipsRef.runTransactionBlock({
-                (currentData:FIRMutableData!) in
+                (currentData:MutableData!) in
                 var value = currentData.value as? Int
                 if (value == nil) {
                     value = 0
                 }
                 currentData.value = value! + 1
-                return FIRTransactionResult.success(withValue: currentData)
+                return TransactionResult.success(withValue: currentData)
             })
         })
         // add a tip entry
@@ -131,8 +131,8 @@ class ObjectContext: NSObject {
     func addTip(_ runner: Runner, race: Race, parentView: UIViewController) {
         self.ensureLoggedInWithCompletion(parentView) { (user) in
             let key = "\(race.raceId)_\(user.uid)"
-            let tipsRef = FIRDatabase.database().reference().child("tips").child(key)
-            tipsRef.observeSingleEvent(of: .value, with: { (snapShot: FIRDataSnapshot) in
+            let tipsRef = Database.database().reference().child("tips").child(key)
+            tipsRef.observeSingleEvent(of: .value, with: { (snapShot: DataSnapshot) in
                 if let horseName = snapShot.childSnapshot(forPath: "horseName").value as? String {
                     // we already have a tip for this race
                     NSLog("You already tipped \(horseName) in this race.  This tip for will replace that tip")
@@ -160,29 +160,29 @@ class ObjectContext: NSObject {
     }
     
     func getRunnerDetails(_ runner: Runner, race: Race, delegate : FBDelegate) -> FBArray<Runner> {
-        let currentRunnerRef = FIRDatabase.database().reference().child("races").child(race.meetingDate).child(String(race.raceNumber)).child("runners").queryOrdered(byChild: "runnerId").queryEqual(toValue: runner.runnerId)
+        let currentRunnerRef = Database.database().reference().child("races").child(race.meetingDate).child(String(race.raceNumber)).child("runners").queryOrdered(byChild: "runnerId").queryEqual(toValue: runner.runnerId)
         return FBArray<Runner>(withQuery: currentRunnerRef, delegate : delegate)
     }
     
     
     func getFormFor(_ runner: Runner, delegate: FBDelegate) -> FBArray<Form> {
-        let formRef = FIRDatabase.database().reference().child("form").child((String(runner.runnerId)))
+        let formRef = Database.database().reference().child("form").child((String(runner.runnerId)))
         return FBArray<Form>(withQuery: formRef, delegate : delegate)
     }
     
     func getTipsFor(_ runner: Runner, delegate: FBDelegate) -> FBArray<Tip> {
-        let tipsRef = FIRDatabase.database().reference().child("tips").queryOrdered(byChild: "runnerId").queryEqual(toValue: runner.runnerId)
+        let tipsRef = Database.database().reference().child("tips").queryOrdered(byChild: "runnerId").queryEqual(toValue: runner.runnerId)
         return FBArray<Tip>(withQuery: tipsRef, delegate : delegate)
     }
     
     
     func getRunnersForRace(_ race: Race, delegate : FBDelegate) -> FBArray<Runner> {
-        let currentRaceRef = FIRDatabase.database().reference().child("races").child(race.meetingDate).child(String(race.raceNumber)).child("runners")
+        let currentRaceRef = Database.database().reference().child("races").child(race.meetingDate).child(String(race.raceNumber)).child("runners")
         return FBArray<Runner>(withQuery: currentRaceRef, delegate : delegate)
     }
     
     func findRacesFor(_ date : Date?, nibNamed : String, cellReuseIdentifier : String, tableView : UITableView) -> FBTableViewDataSource<Race> {
-        let baseRef = FIRDatabase.database().reference().child("races")
+        let baseRef = Database.database().reference().child("races")
         let firstDateStr = remoteConfig["first_date"].stringValue!
         let url = (date != nil) ? urlDateFormatter.string(from: date!) : firstDateStr
         let currentRaceRef = baseRef.child(url)
@@ -228,7 +228,7 @@ class ObjectContext: NSObject {
     
     func findLocalInfo(_ near: String, forEach: @escaping (_ current: LocalInfoEntry) -> Void) {
         // Attach an asynchronous callback to read the data at our posts reference
-        localinfoRef.observe(.childAdded, with: { (snapshot : FIRDataSnapshot) in
+        localinfoRef.observe(.childAdded, with: { (snapshot : DataSnapshot) in
             let model = LocalInfoEntry()
             if let postDict = snapshot.value as? Dictionary<String, AnyObject> {
                 model.setValuesForKeys(postDict)
@@ -251,7 +251,7 @@ class ObjectContext: NSObject {
                 loadingNotification.mode = MBProgressHUDMode.annularDeterminate
                 loadingNotification.label.text = "Uploading"
                 
-                let uploadTask = riversRef.put(imageData, metadata: nil) { metadata, error in
+                let uploadTask = riversRef.putData(imageData, metadata: nil) { metadata, error in
                     if (error != nil) {
                         NSLog("error occured")
                     } else {

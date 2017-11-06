@@ -59,13 +59,13 @@ class BestDressedCollectionViewController: UICollectionViewController, UIImagePi
                 let votesRef = object.child("votes")
                 
                 votesRef.runTransactionBlock({
-                    (currentData:FIRMutableData!) in
+                    (currentData:MutableData!) in
                     var value = currentData.value as? Int
                     if (value == nil) {
                         value = 0
                     }
                     currentData.value = value! + 1
-                    return FIRTransactionResult.success(withValue: currentData)
+                    return TransactionResult.success(withValue: currentData)
                 })
             }
         }

@@ -20,7 +20,7 @@ class FBTableViewDataSource<T>: NSObject, UITableViewDataSource, FBDelegate wher
         self.populateCell = block
     }
     
-    init(query: FIRDatabaseQuery, nibNamed: String?, cellReuseIdentifier: String, view : UITableView, section : Int) {
+    init(query: DatabaseQuery, nibNamed: String?, cellReuseIdentifier: String, view : UITableView, section : Int) {
         reuseIdentifier = cellReuseIdentifier
         tableView = view
         super.init()
@@ -34,11 +34,11 @@ class FBTableViewDataSource<T>: NSObject, UITableViewDataSource, FBDelegate wher
         }
     }
     
-    convenience init(query: FIRDatabaseQuery, cellReuseIdentifier: String, view : UITableView) {
+    convenience init(query: DatabaseQuery, cellReuseIdentifier: String, view : UITableView) {
         self.init(query: query, nibNamed: nil, cellReuseIdentifier: cellReuseIdentifier, view : view, section : 0)
     }
     
-    convenience init(query: FIRDatabaseQuery, nibNamed: String, cellReuseIdentifier: String, view : UITableView) {
+    convenience init(query: DatabaseQuery, nibNamed: String, cellReuseIdentifier: String, view : UITableView) {
         self.init(query: query, nibNamed: nibNamed, cellReuseIdentifier: cellReuseIdentifier, view : view, section : 0)
     }
     

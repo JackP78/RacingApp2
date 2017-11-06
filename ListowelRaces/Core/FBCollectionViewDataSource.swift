@@ -23,7 +23,7 @@ class FBCollectionViewDataSource<T>: NSObject, UICollectionViewDataSource, FBDel
     }
     
     
-    init(query: FIRDatabaseQuery, nibNamed: String?, cellReuseIdentifier: String, view : UICollectionView?, section : Int) {
+    init(query: DatabaseQuery, nibNamed: String?, cellReuseIdentifier: String, view : UICollectionView?, section : Int) {
         collectionView = view
         reuseIdentifier = cellReuseIdentifier
         super.init()

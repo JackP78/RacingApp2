@@ -12,8 +12,18 @@ import MapKit
 import Eureka
 
 //MARK: LocationRow
-
-public final class LocationRow2 : SelectorRow<PushSelectorCell<CLLocation>, MapPickerViewController>, RowType {
+public final class LocationRow: OptionsRow<PushSelectorCell<CLLocation>>, PresenterRowType, RowType {
+    
+    public typealias PresenterRow = MapPickerViewController
+    
+    /// Defines how the view controller will be presented, pushed, etc.
+    open var presentationMode: PresentationMode<PresenterRow>?
+    
+    /// Will be called before the presentation occurs.
+    open var onPresentCallback: ((FormViewController, PresenterRow) -> Void)?
+    
+    
+    
     public required init(tag: String?) {
         super.init(tag: tag)
         presentationMode = .show(controllerProvider: ControllerProvider.callback { return MapPickerViewController(){ _ in } }, onDismiss: { vc in _ = vc.navigationController?.popViewController(animated: true) })
@@ -27,6 +37,34 @@ public final class LocationRow2 : SelectorRow<PushSelectorCell<CLLocation>, MapP
             let longitude = fmt.string(from: NSNumber(value: location.coordinate.longitude))!
             return  "\(latitude), \(longitude)"
         }
+    }
+    
+    /**
+     Extends `didSelect` method
+     */
+    open override func customDidSelect() {
+        super.customDidSelect()
+        guard let presentationMode = presentationMode, !isDisabled else { return }
+        if let controller = presentationMode.makeController() {
+            controller.row = self
+            controller.title = selectorTitle ?? controller.title
+            onPresentCallback?(cell.formViewController()!, controller)
+            presentationMode.present(controller, row: self, presentingController: self.cell.formViewController()!)
+        } else {
+            presentationMode.present(nil, row: self, presentingController: self.cell.formViewController()!)
+        }
+    }
+    
+    /**
+     Prepares the pushed row setting its title and completion callback.
+     */
+    open override func prepare(for segue: UIStoryboardSegue) {
+        super.prepare(for: segue)
+        guard let rowVC = segue.destination as? PresenterRow else { return }
+        rowVC.title = selectorTitle ?? rowVC.title
+        rowVC.onDismissCallback = presentationMode?.onDismissCallback ?? rowVC.onDismissCallback
+        onPresentCallback?(cell.formViewController()!, rowVC)
+        rowVC.row = self
     }
 }
 
@@ -124,7 +162,7 @@ public class MapPickerViewController : UIViewController, TypedRowControllerType,
     }
     
     
-    func tappedDone(_ sender: UIBarButtonItem){
+    @objc func tappedDone(_ sender: UIBarButtonItem){
         let target = mapView.convert(ellipsisLayer.position, toCoordinateFrom: mapView)
         row.value = CLLocation(latitude: target.latitude, longitude: target.longitude)
         onDismissCallback?(self)
@@ -143,14 +181,14 @@ public class MapPickerViewController : UIViewController, TypedRowControllerType,
         ellipsisLayer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.pinView.center = CGPoint(x: self!.pinView.center.x, y: self!.pinView.center.y - 10)
-            })
+        })
     }
     
     public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         ellipsisLayer.transform = CATransform3DIdentity
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.pinView.center = CGPoint(x: self!.pinView.center.x, y: self!.pinView.center.y + 10)
-            })
+        })
         updateTitle()
     }
 }

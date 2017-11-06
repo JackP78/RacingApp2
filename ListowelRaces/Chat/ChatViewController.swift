@@ -14,13 +14,13 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     // MARK: Properties
     var messages = [JSQMessage]()
-    let rootRef = FIRDatabase.database().reference()
-    var messageRef: FIRDatabaseReference!
-    var usersTypingQuery: FIRDatabaseQuery!
+    let rootRef = Database.database().reference()
+    var messageRef: DatabaseReference!
+    var usersTypingQuery: DatabaseQuery!
     var objectContext = ObjectContext()
     fileprivate let imagePicker = UIImagePickerController()
     
-    var userIsTypingRef: FIRDatabaseReference! // 1
+    var userIsTypingRef: DatabaseReference! // 1
     fileprivate var localTyping = false // 2
     // Note: jack this is a property
     var isTyping: Bool {
@@ -111,7 +111,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         // 1
         let messagesQuery = messageRef.queryLimited(toLast: 25)
         // 2
-        messagesQuery.observe(.childAdded) { (snapshot: FIRDataSnapshot!) in
+        messagesQuery.observe(.childAdded) { (snapshot: DataSnapshot!) in
             NSLog("\(snapshot)")
             NSLog("\(snapshot.value)")
             // 3
@@ -166,7 +166,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         usersTypingQuery = typingIndicatorRef.queryOrderedByValue().queryEqual(toValue: true)
         
         // 2
-        usersTypingQuery.observe(.value) { (data: FIRDataSnapshot!) in
+        usersTypingQuery.observe(.value) { (data: DataSnapshot!) in
             
             // 3 You're the only typing, don't show the indicator
             if data.childrenCount == 1 && self.isTyping {
