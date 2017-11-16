@@ -13,7 +13,6 @@ class PageRacesViewController: UIViewController, UIPageViewControllerDataSource,
     
     @IBOutlet weak var containerView: UIView!
     
-    
     var pageController: UIPageViewController
     var raceNumber: Int=0
     var totalRaces: Int=0
@@ -104,10 +103,9 @@ class PageRacesViewController: UIViewController, UIPageViewControllerDataSource,
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "showPredictor" {
-            print("show predictor for race \(raceNumber)")
+        if let predictorController = segue.destination as? PredictorViewController {
+            predictorController.currentRace = self.dataSource![self.raceNumber];
         }
     }
 

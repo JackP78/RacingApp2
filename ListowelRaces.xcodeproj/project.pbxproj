@@ -19,6 +19,12 @@
 		7899E6E01E6E3E4400CFC76F /* TipSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7899E6DE1E6E3E4400CFC76F /* TipSectionHeaderView.xib */; };
 		7899E6E11E6E3E4400CFC76F /* TipSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7899E6DF1E6E3E4400CFC76F /* TipSectionHeaderView.swift */; };
 		7899E6E31E6E422700CFC76F /* FormRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7899E6E21E6E422700CFC76F /* FormRowCell.swift */; };
+		78DF60511FBD009E00B75BD9 /* BlackHorse.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 78DF604D1FBD009D00B75BD9 /* BlackHorse.atlas */; };
+		78DF60521FBD009E00B75BD9 /* BrownHorse.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 78DF604E1FBD009D00B75BD9 /* BrownHorse.atlas */; };
+		78DF60531FBD009E00B75BD9 /* GreyHorse.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 78DF604F1FBD009D00B75BD9 /* GreyHorse.atlas */; };
+		78DF60541FBD009E00B75BD9 /* TanHorse.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 78DF60501FBD009E00B75BD9 /* TanHorse.atlas */; };
+		78DF60571FBD0BBB00B75BD9 /* BackgroundTiles.sks in Resources */ = {isa = PBXBuildFile; fileRef = 78DF60551FBD0BBB00B75BD9 /* BackgroundTiles.sks */; };
+		78DF60581FBD0BBB00B75BD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78DF60561FBD0BBB00B75BD9 /* Assets.xcassets */; };
 		BC166DDB1D881E58009EC5D3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC166DDA1D881E58009EC5D3 /* GoogleService-Info.plist */; };
 		BC166DEC1D881EFE009EC5D3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DDE1D881EFE009EC5D3 /* Extensions.swift */; };
 		BC166DEF1D881EFE009EC5D3 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166DE11D881EFE009EC5D3 /* Form.swift */; };
@@ -34,10 +40,8 @@
 		BC166E111D881FAA009EC5D3 /* FBCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E0F1D881FAA009EC5D3 /* FBCollectionViewDataSource.swift */; };
 		BC166E1A1D8829B9009EC5D3 /* HorseSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E131D8829B9009EC5D3 /* HorseSummaryCell.swift */; };
 		BC166E1B1D8829B9009EC5D3 /* HorseSummaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC166E141D8829B9009EC5D3 /* HorseSummaryCell.xib */; };
-		BC166E281D882B1C009EC5D3 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BC166E221D882B1C009EC5D3 /* bg.png */; };
 		BC166E291D882B1C009EC5D3 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = BC166E231D882B1C009EC5D3 /* GameScene.sks */; };
 		BC166E2A1D882B1C009EC5D3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E241D882B1C009EC5D3 /* GameScene.swift */; };
-		BC166E2B1D882B1C009EC5D3 /* Horse1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = BC166E251D882B1C009EC5D3 /* Horse1.atlas */; };
 		BC166E2C1D882B1C009EC5D3 /* Predictor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC166E261D882B1C009EC5D3 /* Predictor.storyboard */; };
 		BC166E2D1D882B1C009EC5D3 /* PredictorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC166E271D882B1C009EC5D3 /* PredictorViewController.swift */; };
 		BC166E2F1D882B77009EC5D3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC166E2E1D882B77009EC5D3 /* Images.xcassets */; };
@@ -83,9 +87,6 @@
 		BCB913221D9B18B00069DCA9 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB913211D9B18B00069DCA9 /* SplashView.swift */; };
 		BCB9132A1D9C7E580069DCA9 /* AromaNo2LTW01-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCB913291D9C7DC60069DCA9 /* AromaNo2LTW01-ExtraBold.ttf */; };
 		BCB9132C1D9D6CC20069DCA9 /* UISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9132B1D9D6CC20069DCA9 /* UISettings.swift */; };
-		BCE6E45E1D88CD0D00949A56 /* Horse2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = BCE6E45D1D88CD0D00949A56 /* Horse2.atlas */; };
-		BCE6E4611D88CD2D00949A56 /* Horse4.atlas in Resources */ = {isa = PBXBuildFile; fileRef = BCE6E45F1D88CD2D00949A56 /* Horse4.atlas */; };
-		BCE6E4621D88CD2D00949A56 /* Horse3.atlas in Resources */ = {isa = PBXBuildFile; fileRef = BCE6E4601D88CD2D00949A56 /* Horse3.atlas */; };
 		BCE6E4641D88CFA500949A56 /* HorseSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E4631D88CFA500949A56 /* HorseSprite.swift */; };
 		BCE6E4681D89C7B700949A56 /* ListowelBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = BCE6E4671D89C7B700949A56 /* ListowelBackground.png */; };
 		BCEFDBDF1D9DD32000284036 /* TabBarControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFDBDE1D9DD32000284036 /* TabBarControllerDelegate.swift */; };
@@ -109,6 +110,12 @@
 		7899E6DE1E6E3E4400CFC76F /* TipSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TipSectionHeaderView.xib; sourceTree = "<group>"; };
 		7899E6DF1E6E3E4400CFC76F /* TipSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipSectionHeaderView.swift; sourceTree = "<group>"; };
 		7899E6E21E6E422700CFC76F /* FormRowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormRowCell.swift; sourceTree = "<group>"; };
+		78DF604D1FBD009D00B75BD9 /* BlackHorse.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = BlackHorse.atlas; sourceTree = "<group>"; };
+		78DF604E1FBD009D00B75BD9 /* BrownHorse.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = BrownHorse.atlas; sourceTree = "<group>"; };
+		78DF604F1FBD009D00B75BD9 /* GreyHorse.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GreyHorse.atlas; sourceTree = "<group>"; };
+		78DF60501FBD009E00B75BD9 /* TanHorse.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = TanHorse.atlas; sourceTree = "<group>"; };
+		78DF60551FBD0BBB00B75BD9 /* BackgroundTiles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BackgroundTiles.sks; sourceTree = "<group>"; };
+		78DF60561FBD0BBB00B75BD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BBBC3804371887833199B047 /* Pods_ListowelRaces.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ListowelRaces.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC166DDA1D881E58009EC5D3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BC166DDE1D881EFE009EC5D3 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -125,10 +132,8 @@
 		BC166E0F1D881FAA009EC5D3 /* FBCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		BC166E131D8829B9009EC5D3 /* HorseSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorseSummaryCell.swift; sourceTree = "<group>"; };
 		BC166E141D8829B9009EC5D3 /* HorseSummaryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HorseSummaryCell.xib; sourceTree = "<group>"; };
-		BC166E221D882B1C009EC5D3 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		BC166E231D882B1C009EC5D3 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		BC166E241D882B1C009EC5D3 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		BC166E251D882B1C009EC5D3 /* Horse1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Horse1.atlas; sourceTree = "<group>"; };
 		BC166E261D882B1C009EC5D3 /* Predictor.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Predictor.storyboard; sourceTree = "<group>"; };
 		BC166E271D882B1C009EC5D3 /* PredictorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredictorViewController.swift; sourceTree = "<group>"; };
 		BC166E2E1D882B77009EC5D3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -180,9 +185,6 @@
 		BCB913211D9B18B00069DCA9 /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		BCB913291D9C7DC60069DCA9 /* AromaNo2LTW01-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AromaNo2LTW01-ExtraBold.ttf"; sourceTree = "<group>"; };
 		BCB9132B1D9D6CC20069DCA9 /* UISettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISettings.swift; sourceTree = "<group>"; };
-		BCE6E45D1D88CD0D00949A56 /* Horse2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Horse2.atlas; sourceTree = "<group>"; };
-		BCE6E45F1D88CD2D00949A56 /* Horse4.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Horse4.atlas; sourceTree = "<group>"; };
-		BCE6E4601D88CD2D00949A56 /* Horse3.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Horse3.atlas; sourceTree = "<group>"; };
 		BCE6E4631D88CFA500949A56 /* HorseSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorseSprite.swift; sourceTree = "<group>"; };
 		BCE6E4671D89C7B700949A56 /* ListowelBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ListowelBackground.png; sourceTree = "<group>"; };
 		BCEFDBDE1D9DD32000284036 /* TabBarControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControllerDelegate.swift; sourceTree = "<group>"; };
@@ -280,18 +282,19 @@
 		BC166E211D882B1C009EC5D3 /* Predictor */ = {
 			isa = PBXGroup;
 			children = (
+				78DF604D1FBD009D00B75BD9 /* BlackHorse.atlas */,
+				78DF604E1FBD009D00B75BD9 /* BrownHorse.atlas */,
+				78DF604F1FBD009D00B75BD9 /* GreyHorse.atlas */,
+				78DF60501FBD009E00B75BD9 /* TanHorse.atlas */,
 				78229A6C1F33E8D400EC6F24 /* Grass.png */,
 				BCE6E4671D89C7B700949A56 /* ListowelBackground.png */,
-				BCE6E45F1D88CD2D00949A56 /* Horse4.atlas */,
-				BCE6E4601D88CD2D00949A56 /* Horse3.atlas */,
-				BCE6E45D1D88CD0D00949A56 /* Horse2.atlas */,
-				BC166E221D882B1C009EC5D3 /* bg.png */,
 				BC166E231D882B1C009EC5D3 /* GameScene.sks */,
 				BC166E241D882B1C009EC5D3 /* GameScene.swift */,
-				BC166E251D882B1C009EC5D3 /* Horse1.atlas */,
 				BC166E261D882B1C009EC5D3 /* Predictor.storyboard */,
 				BC166E271D882B1C009EC5D3 /* PredictorViewController.swift */,
 				BCE6E4631D88CFA500949A56 /* HorseSprite.swift */,
+				78DF60551FBD0BBB00B75BD9 /* BackgroundTiles.sks */,
+				78DF60561FBD0BBB00B75BD9 /* Assets.xcassets */,
 			);
 			path = Predictor;
 			sourceTree = "<group>";
@@ -495,28 +498,29 @@
 			files = (
 				BCB9132A1D9C7E580069DCA9 /* AromaNo2LTW01-ExtraBold.ttf in Resources */,
 				78229A6D1F33E8D400EC6F24 /* Grass.png in Resources */,
-				BC166E2B1D882B1C009EC5D3 /* Horse1.atlas in Resources */,
 				BC2E4CC91D88193C00376D95 /* LaunchScreen.storyboard in Resources */,
 				BC166E4D1D883119009EC5D3 /* ListowelRaces.plist in Resources */,
 				BCB912F71D9325CE0069DCA9 /* BestDressed.storyboard in Resources */,
+				78DF60511FBD009E00B75BD9 /* BlackHorse.atlas in Resources */,
+				78DF60531FBD009E00B75BD9 /* GreyHorse.atlas in Resources */,
 				BC1D7DB81DEF9D7B0099E085 /* RaceSummaryHeader.xib in Resources */,
-				BCE6E4621D88CD2D00949A56 /* Horse3.atlas in Resources */,
 				7899E6D51E6E0F6400CFC76F /* FormSectionHeaderView.xib in Resources */,
 				BC1D7DB21DE3C6AF0099E085 /* RaceSummaryCellTableViewCell.xib in Resources */,
 				7899E6DC1E6E380200CFC76F /* TipXibView.xib in Resources */,
+				78DF60541FBD009E00B75BD9 /* TanHorse.atlas in Resources */,
 				BC166DDB1D881E58009EC5D3 /* GoogleService-Info.plist in Resources */,
 				BC166E2C1D882B1C009EC5D3 /* Predictor.storyboard in Resources */,
 				BC166E2F1D882B77009EC5D3 /* Images.xcassets in Resources */,
-				BCE6E4611D88CD2D00949A56 /* Horse4.atlas in Resources */,
 				BC2E4CC41D88193C00376D95 /* Main.storyboard in Resources */,
+				78DF60571FBD0BBB00B75BD9 /* BackgroundTiles.sks in Resources */,
 				BC166E531D887D40009EC5D3 /* Login.storyboard in Resources */,
+				78DF60581FBD0BBB00B75BD9 /* Assets.xcassets in Resources */,
 				BCB9130A1D9342700069DCA9 /* LocalInfo.storyboard in Resources */,
 				BC166E471D882CB9009EC5D3 /* Racecard.storyboard in Resources */,
 				BC166E291D882B1C009EC5D3 /* GameScene.sks in Resources */,
-				BCE6E45E1D88CD0D00949A56 /* Horse2.atlas in Resources */,
 				7848A21A1E66353A0054981C /* FormXibView.xib in Resources */,
 				7899E6E01E6E3E4400CFC76F /* TipSectionHeaderView.xib in Resources */,
-				BC166E281D882B1C009EC5D3 /* bg.png in Resources */,
+				78DF60521FBD009E00B75BD9 /* BrownHorse.atlas in Resources */,
 				BC166E1B1D8829B9009EC5D3 /* HorseSummaryCell.xib in Resources */,
 				BCB913111D93449E0069DCA9 /* Chat.storyboard in Resources */,
 				BCE6E4681D89C7B700949A56 /* ListowelBackground.png in Resources */,

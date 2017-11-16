@@ -11,25 +11,25 @@ import SpriteKit
 
 class PredictorViewController: UIViewController {
     
+    var currentRace: Race?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let scene = GameScene(fileNamed:"GameScene") {
-            // Configure the view.
-            let skView = self.view as! SKView
-            skView.showsFPS = true
-            skView.showsNodeCount = true
-            
+        if let view = self.view as! SKView? {
+            if let scene =  GameScene(fileNamed: "GameScene") {
+                scene.scaleMode = .aspectFill
+                scene.currentRace = currentRace;
+                view.presentScene(scene)
+            }
             /* Sprite Kit applies additional optimizations to improve rendering performance */
-            skView.ignoresSiblingOrder = true
+            view.ignoresSiblingOrder = true
             
-            /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .aspectFill
+            view.showsFPS = true
+            view.showsNodeCount = true
             
             //set up notification so scene can get back to this view controller
             NotificationCenter.default.addObserver(self, selector: #selector(PredictorViewController.quitPredictor(_:)), name: NSNotification.Name(rawValue: "quitPredictor"), object: nil)
-            
-            skView.presentScene(scene)
         }
     }
     
@@ -38,19 +38,19 @@ class PredictorViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    override var shouldAutorotate : Bool {
+    override var shouldAutorotate: Bool {
         return true
     }
     
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
-        return .landscape;
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return .allButUpsideDown
+        } else {
+            return .all
+        }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    override var prefersStatusBarHidden : Bool {
+    override var prefersStatusBarHidden: Bool {
         return true
     }
 }

@@ -8,115 +8,132 @@
 
 import SpriteKit
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
-    let horseCategory: UInt32 = 0x1 << 0
-    let finishCategory: UInt32 = 0x1 << 1
-    var finished:Bool = false
+class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
+    
+    
+    var currentRace: Race?
+    var runners: FBArray<Runner>?
+    let context = ObjectContext()
+    
+    // Scene Nodes
+    var horse:SKSpriteNode!
+    var finishButton:SKSpriteNode!
+    var finishLine:SKSpriteNode!
+    var targetLocation: CGPoint = .zero
     
     override func didMove(to view: SKView) {
-        // setup the physics engine
-        // 1 Create a physics body that borders the screen
-        let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
-        // 2 Set physicsBody of scene to borderBody
-        self.physicsBody = borderBody;
-        // 3 Set the friction of that physicsBody to 0
-        self.physicsBody!.friction = 0.0
-        self.physicsWorld.gravity = CGVector(dx: 0.0, dy: 0.0);
-        self.physicsWorld.contactDelegate = self;
-        
-        createGround()
-        
-        
-        let finishNode = SKShapeNode(rectOf: CGSize(width: 100, height: self.frame.height - 20))
-        finishNode.position = CGPoint(x:self.frame.maxX - 50, y:self.frame.midY)
-        finishNode.physicsBody = SKPhysicsBody(rectangleOf: finishNode.frame.size)
-        finishNode.physicsBody!.categoryBitMask = finishCategory;
-        self.addChild(finishNode)
-        
+        loadSceneNodes()
+    	physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
+        self.runners = context.getRunnersForRace(self.currentRace!, delegate: self)
+        updateCamera()
     }
     
-    func finishedAnimation() -> (Void) {
-        // add a finish button
-        let startGameBtn = SKLabelNode(fontNamed: "Copperplate-Light")
-        startGameBtn.text = "Touch To Finish"
-        startGameBtn.color = SKColor.white
-        startGameBtn.fontColor = SKColor.black
-        startGameBtn.fontSize = 42
-        startGameBtn.position = CGPoint(x: frame.size.width/2, y: frame.size.height * 0.8)
-        addChild(startGameBtn)
-        finished = true
+    func loadSceneNodes() {
+        guard let horse = childNode(withName: "horse") as? SKSpriteNode else {
+            fatalError("Sprite Nodes not loaded")
+        }
+        self.horse = horse
+        if let horseName = horse.childNode(withName: "name") as? SKLabelNode {
+            horseName.text = "Kauto Star"
+        }
+        horse.physicsBody!.velocity = CGVector(dx: 200, dy: 0)
+        
+        guard let finishButton = childNode(withName: "finishbutton") as? SKSpriteNode  else {
+            fatalError("Sprite Nodes not loaded")
+        }
+        self.finishButton = finishButton
     }
     
-    
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        /* Called when a touch begins */
-        
-        if (finished) {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "quitPredictor"), object: nil)
+    func updateCamera() {
+        if let camera = camera {
+            camera.position = CGPoint(x: horse!.position.x, y: horse!.position.y)
         }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: self)
         
-        for touch in touches {
-            let location = touch.location(in: self)
-            
-            let runner = Runner()
-            runner.name = "KateO"
-            let speed = Int(arc4random_uniform(100)) + 1;
-            runner.speed = speed
-            let sprite = HorseSprite(runner: runner)
-            sprite.position = location
-            self.addChild(sprite)
-            sprite.startRunning(self.frame.size.width)
-            
-            beginBackgroundScroll()
-            
+        let touchNode = atPoint(location)
+        print("\(touchNode.name)")
+        
+        if touchNode.name == finishButton.name {
+            gameOver(didWin: true);
         }
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        targetLocation = touch.location(in: self)
     }
     
     override func update(_ currentTime: TimeInterval) {
         /* Called before each frame is rendered */
+        updateCamera()
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        endBackgroundScroll()
-        self.enumerateChildNodes(withName: "horse") { (node: SKNode, pointer: UnsafeMutablePointer<ObjCBool>) -> Void in
-            if let horse = node as? HorseSprite {
-                horse.stopRunning()
-            }
+        // 1. Create local variables for two physics bodies
+        var firstBody: SKPhysicsBody
+        var secondBody: SKPhysicsBody
+        
+        // 2. Assign the two physics bodies so that the one with the lower category is always stored in firstBody
+        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+        } else {
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
         }
-        finishedAnimation()
-    }
-    
-    func createGround() {
-        for i in 0 ... 1 {
-            let bg = SKSpriteNode(imageNamed: "Grass")
-            bg.size.height = self.size.height
-            bg.size.width = self.size.width
-            bg.zPosition = -10
-            bg.position = CGPoint(x: i * Int(bg.size.width), y: 0)
-            bg.anchorPoint = CGPoint.zero
-            bg.name = "background"
-            self.addChild(bg)
-            
-            let moveBgLeft = SKAction.moveBy(x: -bg.frame.width, y: 0, duration: 2)
-            let moveBgReset = SKAction.moveBy(x: bg.frame.width, y: 0, duration: 0)
-            let moveBgLoop = SKAction.sequence([moveBgLeft, moveBgReset])
-            let moveBgForever = SKAction.repeatForever(moveBgLoop)
-            
-            bg.run(moveBgForever)
-            bg.isPaused = true
+        
+        // 3. react to the contact between the two nodes
+        if firstBody.categoryBitMask == horse?.physicsBody?.categoryBitMask &&
+            secondBody.categoryBitMask == 3 {
+            self.isPaused = true
         }
     }
     
-    func beginBackgroundScroll() {
-        self.enumerateChildNodes(withName: "background") { (node: SKNode, pointer: UnsafeMutablePointer<ObjCBool>) -> Void in
-            node.isPaused = false
+    private func gameOver(didWin: Bool) {
+        print("- - - Game Ended - - -")
+        //NotificationCenter.default.post(name: Notification.Name(rawValue: "quitPredictor"), object: nil)
+        self.scene!.view?.viewController()?.dismiss(animated: true, completion: nil)
+        /*let menuScene = MenuScene(size: self.size)
+        menuScene.soundToPlay = didWin ? "fear_win.mp3" : "fear_lose.mp3"
+        let transition = SKTransition.flipVerticalWithDuration(1.0)
+        menuScene.scaleMode = SKSceneScaleMode.AspectFill
+        self.scene!.view?.presentScene(menuScene, transition: transition)*/
+    }
+    
+    // FB Delegate cells
+    func childAdded(_ object: AnyObject, atIndex: Int) {
+        if let runner = object as? Runner {
+            NSLog("adding \(runner.name!)");
+            /*let speed = Int(arc4random_uniform(100)) + 1;
+            runner.speed = speed
+            let spacing = Int(self.frame.height) / currentRace!.runners.count;
+            NSLog("height \(self.frame.height) runners \(currentRace!.runners.count) space \(spacing)")
+            let sprite = HorseSprite(runner: runner)
+            let location = CGPoint(x: self.frame.minX + 50, y: self.frame.minY + CGFloat(atIndex * spacing))
+            sprite.position = location
+            self.addChild(sprite)*/
+            //sprite.startRunning(self.frame.size.width)*/
+        }
+        else {
+            NSLog("Not a runner \(object)")
         }
     }
     
-    func endBackgroundScroll() {
-        self.enumerateChildNodes(withName: "background") { (node: SKNode, pointer: UnsafeMutablePointer<ObjCBool>) -> Void in
-            node.isPaused = true
-        }
+    func childChanged(_ object: AnyObject, atIndex: Int) {
     }
+    
+    func childRemoved(_ object: AnyObject, atIndex: Int) {
+    }
+    
+    func childMoved(_ object: AnyObject, fromIndex: Int, toIndex: Int) {
+    }
+    
+    func cancelWithError(_ error: Error) {
+        NSLog("user cancelled");
+    }
+    
 }
