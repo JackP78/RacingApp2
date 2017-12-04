@@ -12,6 +12,7 @@ import SpriteKit
 class PredictorViewController: UIViewController {
     
     var currentRace: Race?
+    var scene: GameScene?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,16 +21,22 @@ class PredictorViewController: UIViewController {
             if let scene =  GameScene(fileNamed: "GameScene") {
                 scene.scaleMode = .aspectFill
                 scene.currentRace = currentRace;
-                view.presentScene(scene)
+                self.scene = scene;
+                view.presentScene(self.scene)
             }
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             view.ignoresSiblingOrder = true
             
             view.showsFPS = true
             view.showsNodeCount = true
-            
-            //set up notification so scene can get back to this view controller
-            NotificationCenter.default.addObserver(self, selector: #selector(PredictorViewController.quitPredictor(_:)), name: NSNotification.Name(rawValue: "quitPredictor"), object: nil)
+        }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if UIDevice.current.orientation.isLandscape {
+            scene?.setOrientation(landscape: true)
+        } else {
+            scene?.setOrientation(landscape: false)
         }
     }
     
@@ -42,13 +49,13 @@ class PredictorViewController: UIViewController {
         return true
     }
     
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    /*override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return .allButUpsideDown
         } else {
             return .all
         }
-    }
+    }*/
     
     override var prefersStatusBarHidden: Bool {
         return true
