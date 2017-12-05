@@ -20,7 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
     var finishButton:SKSpriteNode!
     var finishLine:SKSpriteNode!
     var targetLocation: CGPoint = .zero
-    var background:SKTileMapNode!
+    var background:SKSpriteNode!
     
     override func didMove(to view: SKView) {
         loadSceneNodes()
@@ -38,7 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
         {
             fatalError("Sprite Nodes not loaded")
         }
-        guard let background = self.childNode(withName: "background") as? SKTileMapNode
+        guard let background = self.childNode(withName: "background") as? SKSpriteNode
             else
         {
             fatalError("Sprite Nodes not loaded")
@@ -50,6 +50,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
         if let horseName = horse.childNode(withName: "name") as? SKLabelNode {
             horseName.text = "Kauto Star"
         }
+        let wait = SKAction.wait(forDuration: 3)
+        let force = CGVector(dx: 50, dy: 0)
+        let go = SKAction.applyForce(force, duration: 1)
+        self.horse.run(SKAction.sequence([wait, go]))
         //horse.physicsBody!.velocity = CGVector(dx: 300, dy: 0)
         
     }
@@ -62,7 +66,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
         let zeroRange = SKRange(constantValue: 0.0)
         let horseConstraint = SKConstraint.distance(zeroRange, to: horse)
         
-        if UIDevice.current.orientation.isLandscape {
+        let scaledSize = CGSize(width: size.width * camera.xScale, height: size.height * camera.yScale)
+        NSLog("scaled size \(scaledSize)")
+        
+        let backgroundContentRect = background.calculateAccumulatedFrame()
+        NSLog("background rect \( backgroundContentRect)");
+        
+        let displaySize: CGRect = (self.scene!.view?.bounds)!
+        print("width of screen is \(displaySize.width)")
+        print("height of screen is \(displaySize.height)")
+        print("width of scene is \(size.width)")
+        print("width of camera is \(camera.calculateAccumulatedFrame().size.width)")
+        print("position of camera is \(camera.position)")
+        let xRange = SKRange(lowerLimit: displaySize.width / 2, upperLimit: backgroundContentRect.maxX - displaySize.width / 2)
+        let cameraPanConstraint = SKConstraint.positionX(xRange)
+        
+        camera.constraints = [horseConstraint,cameraPanConstraint]
+        
+        /*if UIDevice.current.orientation.isLandscape {
             /*
              Also constrain the camera to avoid it moving to the very edges of the scene.
              First, work out the scaled size of the scene. Its scaled height will always be
@@ -111,15 +132,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
         }
         else {
             camera.constraints = [horseConstraint]
-        }
+        }*/
     }
     
     func updateCamera() {
-        //camera.position = CGPoint(x: horse!.position.x, y: horse!.position.y)
-        /*if (camera?.contains(finishLine))! {
-            NSLog("position of camera \( camera?.calculateAccumulatedFrame())")
-            NSLog("position of bk \( background?.calculateAccumulatedFrame())")
-        }*/
+        if (camera?.contains(finishLine))! {
+            //NSLog("position of finish \( finishLine?.calculateAccumulatedFrame())")
+            //NSLog("position of camera \( camera?.calculateAccumulatedFrame())")
+            //NSLog("position of camera \( background?.calculateAccumulatedFrame())")
+        }
     }
     
     func setOrientation(landscape: Bool) {
@@ -144,6 +165,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
         
         if touchNode.name == finishButton.name {
             gameOver(didWin: true);
+        }
+        else {
+            self.isPaused = !self.isPaused;
         }
     }
     
