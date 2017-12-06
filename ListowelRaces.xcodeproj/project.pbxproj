@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		78229A6D1F33E8D400EC6F24 /* Grass.png in Resources */ = {isa = PBXBuildFile; fileRef = 78229A6C1F33E8D400EC6F24 /* Grass.png */; };
 		7848A2181E6635100054981C /* FormXibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7848A2171E6635100054981C /* FormXibView.swift */; };
 		7848A21A1E66353A0054981C /* FormXibView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7848A2191E66353A0054981C /* FormXibView.xib */; };
 		7848A21C1E6640B10054981C /* Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7848A21B1E6640B10054981C /* Rainbow.swift */; };
@@ -88,7 +87,6 @@
 		BCB9132A1D9C7E580069DCA9 /* AromaNo2LTW01-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCB913291D9C7DC60069DCA9 /* AromaNo2LTW01-ExtraBold.ttf */; };
 		BCB9132C1D9D6CC20069DCA9 /* UISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9132B1D9D6CC20069DCA9 /* UISettings.swift */; };
 		BCE6E4641D88CFA500949A56 /* HorseSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E4631D88CFA500949A56 /* HorseSprite.swift */; };
-		BCE6E4681D89C7B700949A56 /* ListowelBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = BCE6E4671D89C7B700949A56 /* ListowelBackground.png */; };
 		BCEFDBDF1D9DD32000284036 /* TabBarControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFDBDE1D9DD32000284036 /* TabBarControllerDelegate.swift */; };
 		BCF405451DCBF9DD000B4F47 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF405441DCBF9DD000B4F47 /* Friend.swift */; };
 		BCFB5A911DB58E30003F4F07 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCFB5A901DB58E30003F4F07 /* MapKit.framework */; };
@@ -98,7 +96,6 @@
 /* Begin PBXFileReference section */
 		12F1160F587CB904E27F1383 /* Pods-ListowelRaces.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListowelRaces.release.xcconfig"; path = "Pods/Target Support Files/Pods-ListowelRaces/Pods-ListowelRaces.release.xcconfig"; sourceTree = "<group>"; };
 		1E77A4BA1CE21E9AB313D0E5 /* Pods-ListowelRaces.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListowelRaces.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ListowelRaces/Pods-ListowelRaces.debug.xcconfig"; sourceTree = "<group>"; };
-		78229A6C1F33E8D400EC6F24 /* Grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Grass.png; sourceTree = "<group>"; };
 		7848A2171E6635100054981C /* FormXibView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormXibView.swift; sourceTree = "<group>"; };
 		7848A2191E66353A0054981C /* FormXibView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormXibView.xib; sourceTree = "<group>"; };
 		7848A21B1E6640B10054981C /* Rainbow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rainbow.swift; sourceTree = "<group>"; };
@@ -186,7 +183,6 @@
 		BCB913291D9C7DC60069DCA9 /* AromaNo2LTW01-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AromaNo2LTW01-ExtraBold.ttf"; sourceTree = "<group>"; };
 		BCB9132B1D9D6CC20069DCA9 /* UISettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISettings.swift; sourceTree = "<group>"; };
 		BCE6E4631D88CFA500949A56 /* HorseSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorseSprite.swift; sourceTree = "<group>"; };
-		BCE6E4671D89C7B700949A56 /* ListowelBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ListowelBackground.png; sourceTree = "<group>"; };
 		BCEFDBDE1D9DD32000284036 /* TabBarControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControllerDelegate.swift; sourceTree = "<group>"; };
 		BCF405441DCBF9DD000B4F47 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		BCFB5A8F1DB58E24003F4F07 /* ListowelRaces.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ListowelRaces.entitlements; sourceTree = "<group>"; };
@@ -286,8 +282,6 @@
 				78DF604E1FBD009D00B75BD9 /* BrownHorse.atlas */,
 				78DF604F1FBD009D00B75BD9 /* GreyHorse.atlas */,
 				78DF60501FBD009E00B75BD9 /* TanHorse.atlas */,
-				78229A6C1F33E8D400EC6F24 /* Grass.png */,
-				BCE6E4671D89C7B700949A56 /* ListowelBackground.png */,
 				BC166E231D882B1C009EC5D3 /* GameScene.sks */,
 				BC166E241D882B1C009EC5D3 /* GameScene.swift */,
 				BC166E261D882B1C009EC5D3 /* Predictor.storyboard */,
@@ -497,7 +491,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCB9132A1D9C7E580069DCA9 /* AromaNo2LTW01-ExtraBold.ttf in Resources */,
-				78229A6D1F33E8D400EC6F24 /* Grass.png in Resources */,
 				BC2E4CC91D88193C00376D95 /* LaunchScreen.storyboard in Resources */,
 				BC166E4D1D883119009EC5D3 /* ListowelRaces.plist in Resources */,
 				BCB912F71D9325CE0069DCA9 /* BestDressed.storyboard in Resources */,
@@ -523,7 +516,6 @@
 				78DF60521FBD009E00B75BD9 /* BrownHorse.atlas in Resources */,
 				BC166E1B1D8829B9009EC5D3 /* HorseSummaryCell.xib in Resources */,
 				BCB913111D93449E0069DCA9 /* Chat.storyboard in Resources */,
-				BCE6E4681D89C7B700949A56 /* ListowelBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

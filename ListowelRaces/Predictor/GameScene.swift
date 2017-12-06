@@ -30,15 +30,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
         setCameraConstraints()
     }
     
+    override func didChangeSize(_ oldSize: CGSize) {
+        super.didChangeSize(oldSize)
+        setCameraConstraints();
+    }
+    
     func loadSceneNodes() {
-        guard let horse = childNode(withName: "horse") as? SKSpriteNode,
+        guard let background = self.childNode(withName: "background") as? SKSpriteNode,
+            let horse = self.childNode(withName: "horse") as? SKSpriteNode,
             let finishButton = self.camera?.childNode(withName: "finishButton") as? SKSpriteNode,
             let finishLine = self.childNode(withName: "finishLine") as? SKSpriteNode
-            else
-        {
-            fatalError("Sprite Nodes not loaded")
-        }
-        guard let background = self.childNode(withName: "background") as? SKSpriteNode
             else
         {
             fatalError("Sprite Nodes not loaded")
@@ -51,10 +52,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
             horseName.text = "Kauto Star"
         }
         let wait = SKAction.wait(forDuration: 3)
-        let force = CGVector(dx: 50, dy: 0)
+        let force = CGVector(dx: 20, dy: 0)
         let go = SKAction.applyForce(force, duration: 1)
         self.horse.run(SKAction.sequence([wait, go]))
-        //horse.physicsBody!.velocity = CGVector(dx: 300, dy: 0)
         
     }
     
@@ -62,85 +62,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
         // Don't try to set up camera constraints if we don't yet have a camera.
         guard let camera = camera else { return }
         
+        let displayRect: CGRect = (self.scene!.view?.bounds)!
+        let centerPoint = CGPoint(x: displayRect.midX, y: displayRect.midY)
+        let sceneCenterPoint = self.view!.convert(centerPoint, to: self)
+        let bgPoint = self.background.position;
+        let backgroundContentRect = background.calculateAccumulatedFrame()
+        let offset = sceneCenterPoint.x
+        print("displayRect \(displayRect) centerPoint \(centerPoint) backgroundSize \(backgroundContentRect) sceneCenterPoint \(sceneCenterPoint) bgPoint\(bgPoint)")
+        // 160 for portrait, 520 for landscape but I have no idea why 160 cause its half of 560
+        /*if UIDevice.current.orientation.isLandscape {
+            let offset = displayRect.maxX
+        } else {
+            let offset = displayRect.midX
+        }*/
+        let xRange = SKRange(lowerLimit: offset, upperLimit: backgroundContentRect.maxX - offset)
+        let levelEdgeConstraint = SKConstraint.positionX(xRange)
+        
+        
         // Constrain the camera to stay a constant distance of 0 points from the player node.
         let zeroRange = SKRange(constantValue: 0.0)
         let horseConstraint = SKConstraint.distance(zeroRange, to: horse)
-        
-        let scaledSize = CGSize(width: size.width * camera.xScale, height: size.height * camera.yScale)
-        NSLog("scaled size \(scaledSize)")
-        
-        let backgroundContentRect = background.calculateAccumulatedFrame()
-        NSLog("background rect \( backgroundContentRect)");
-        
-        let displaySize: CGRect = (self.scene!.view?.bounds)!
-        print("width of screen is \(displaySize.width)")
-        print("height of screen is \(displaySize.height)")
-        print("width of scene is \(size.width)")
-        print("width of camera is \(camera.calculateAccumulatedFrame().size.width)")
-        print("position of camera is \(camera.position)")
-        let xRange = SKRange(lowerLimit: displaySize.width / 2, upperLimit: backgroundContentRect.maxX - displaySize.width / 2)
-        let cameraPanConstraint = SKConstraint.positionX(xRange)
-        
-        camera.constraints = [horseConstraint,cameraPanConstraint]
-        
-        /*if UIDevice.current.orientation.isLandscape {
-            /*
-             Also constrain the camera to avoid it moving to the very edges of the scene.
-             First, work out the scaled size of the scene. Its scaled height will always be
-             the original height of the scene, but its scaled width will vary based on
-             the window's current aspect ratio.
-             */
-            let scaledSize = CGSize(width: size.width * camera.xScale, height: size.height * camera.yScale)
-            NSLog("scaled size \(scaledSize)")
-            
-            /*
-             Calculate the accumulated frame of this node.
-             The accumulated frame of a node is the outer bounds of all of the node's
-             child nodes, i.e. the total size of the entire contents of the node.
-             This gives us the bounding rectangle for the level's environment.
-             */
-            let backgroundContentRect = background.calculateAccumulatedFrame()
-            NSLog("background rect \( backgroundContentRect)");
-            
-            /*
-             Work out how far within this rectangle to constrain the camera.
-             We want to stop the camera when we get within 100pts of the edge of the screen,
-             unless the level is so small that this inset would be outside of the level.
-             */
-            let xInset = min((scaledSize.width / 2), backgroundContentRect.width / 2)
-            let yInset = min((scaledSize.height / 2), backgroundContentRect.height / 2)
-            
-            // Use these insets to create a smaller inset rectangle within which the camera must stay.
-            let insetContentRect = backgroundContentRect.insetBy(dx: xInset, dy: yInset)
-            NSLog("inset rect \( insetContentRect)");
-            
-            // Define an `SKRange` for each of the x and y axes to stay within the inset rectangle.
-            let xRange = SKRange(lowerLimit: insetContentRect.minX, upperLimit: insetContentRect.maxX)
-            let yRange = SKRange(lowerLimit: insetContentRect.minY, upperLimit: insetContentRect.maxY)
-            
-            // Constrain the camera within the inset rectangle.
-            let levelEdgeConstraint = SKConstraint.positionX(xRange, y: yRange)
-            levelEdgeConstraint.referenceNode = background
-            
-            /*
-             Add both constraints to the camera. The scene edge constraint is added
-             second, so that it takes precedence over following the `PlayerBot`.
-             The result is that the camera will follow the player, unless this would mean
-             moving too close to the edge of the level.
-             */
-            camera.constraints = [horseConstraint, levelEdgeConstraint]
-        }
-        else {
-            camera.constraints = [horseConstraint]
-        }*/
-    }
-    
-    func updateCamera() {
-        if (camera?.contains(finishLine))! {
-            //NSLog("position of finish \( finishLine?.calculateAccumulatedFrame())")
-            //NSLog("position of camera \( camera?.calculateAccumulatedFrame())")
-            //NSLog("position of camera \( background?.calculateAccumulatedFrame())")
-        }
+        camera.constraints = [horseConstraint, levelEdgeConstraint]
     }
     
     func setOrientation(landscape: Bool) {
@@ -149,11 +91,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
         }
         else {
             print ("portrait")
-            if let camera = camera {
-                camera.position = CGPoint(x: horse!.position.x, y: horse!.position.y)
-            }
         }
-        setCameraConstraints()
+        setCameraConstraints();
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -178,7 +117,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         /* Called before each frame is rendered */
-        updateCamera()
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -203,29 +141,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
     }
     
     private func gameOver(didWin: Bool) {
-        print("- - - Game Ended - - -")
-        //NotificationCenter.default.post(name: Notification.Name(rawValue: "quitPredictor"), object: nil)
+        print("- - - Game Ended - - - \(camera?.position)")
         self.scene!.view?.viewController()?.dismiss(animated: true, completion: nil)
-        /*let menuScene = MenuScene(size: self.size)
-        menuScene.soundToPlay = didWin ? "fear_win.mp3" : "fear_lose.mp3"
-        let transition = SKTransition.flipVerticalWithDuration(1.0)
-        menuScene.scaleMode = SKSceneScaleMode.AspectFill
-        self.scene!.view?.presentScene(menuScene, transition: transition)*/
     }
     
     // FB Delegate cells
     func childAdded(_ object: AnyObject, atIndex: Int) {
         if let runner = object as? Runner {
             NSLog("adding \(runner.name!)");
-            /*let speed = Int(arc4random_uniform(100)) + 1;
-            runner.speed = speed
-            let spacing = Int(self.frame.height) / currentRace!.runners.count;
-            NSLog("height \(self.frame.height) runners \(currentRace!.runners.count) space \(spacing)")
-            let sprite = HorseSprite(runner: runner)
-            let location = CGPoint(x: self.frame.minX + 50, y: self.frame.minY + CGFloat(atIndex * spacing))
-            sprite.position = location
-            self.addChild(sprite)*/
-            //sprite.startRunning(self.frame.size.width)*/
         }
         else {
             NSLog("Not a runner \(object)")
