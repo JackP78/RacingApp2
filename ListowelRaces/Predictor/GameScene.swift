@@ -8,17 +8,33 @@
 
 import SpriteKit
 
+func loadTextureAtlas(_ atlasName : String) -> [SKTexture] {
+    var textureArea = [SKTexture]()
+    let textureAtlas = SKTextureAtlas(named: atlasName)
+    let numImages = textureAtlas.textureNames.count;
+    for i in 1...numImages {
+        textureArea.append(textureAtlas.textureNamed("Move\(i).png"))
+    }
+    return textureArea
+}
+
+private var brownTexture = loadTextureAtlas("BrownHorse")
+private var tanTexture = loadTextureAtlas("TanHorse")
+private var greyTexture = loadTextureAtlas("GreyHorse")
+private var blackTexture = loadTextureAtlas("BlackHorse")
+
 class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
-    
-    
     var currentRace: Race?
     var runners: FBArray<Runner>?
     let context = ObjectContext()
     
     // horse nodes
+    var topHorse: SKSpriteNode!
+    var bottomHorse: SKSpriteNode!
     var horses: [SKSpriteNode] = []
-    var currentHorse: Int = 0
-    var horseMask: UInt32?
+    var numRunners: Int = 0
+    var fieldWidth: CGFloat = 0
+    var horseMask: UInt32 = 0x1 << 0
     
     var finishButton:SKSpriteNode!
     var finishLine:SKSpriteNode!
@@ -29,6 +45,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
         loadSceneNodes()
     	physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsWorld.contactDelegate = self
+        self.numRunners = (currentRace?.runners.count)!
+        print("number of runners \(self.numRunners)")
         self.runners = context.getRunnersForRace(self.currentRace!, delegate: self)
         setCameraConstraints(viewSize: (self.scene!.view?.bounds.size)!)
     }
@@ -76,20 +94,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
     func loadSceneNodes() {
         guard let background = self.childNode(withName: "background") as? SKSpriteNode,
             let finishButton = self.camera?.childNode(withName: "finishButton") as? SKSpriteNode,
-            let finishLine = self.childNode(withName: "finishLine") as? SKSpriteNode
+            let finishLine = self.childNode(withName: "finishLine") as? SKSpriteNode,
+            let topHorse = self.childNode(withName: "tophorse") as? SKSpriteNode,
+            let bottomHorse = self.childNode(withName: "bottomhorse") as? SKSpriteNode
             else
         {
             fatalError("Sprite Nodes not loaded")
         }
-        self.enumerateChildNodes(withName: "horse") {
-            node, stop in
-            if let horse = node as? SKSpriteNode {
-                self.horseMask = horse.physicsBody?.categoryBitMask
-                self.horses.append(horse)
-            }
-        }
+        self.topHorse = topHorse;
+        self.bottomHorse = bottomHorse;
         self.finishButton = finishButton
         self.finishLine = finishLine
+        self.fieldWidth = abs(topHorse.position.y - bottomHorse.position.y)
         self.background = background
         
     }
@@ -103,13 +119,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
         let offset = visibleRect.width / 2;
         print("viewRect \(viewSize) sceneRect \(sceneRect) visibleRect\(visibleRect) offset \(offset)")
         let xRange = SKRange(lowerLimit: offset, upperLimit: sceneRect.maxX - offset)
-        let levelEdgeConstraint = SKConstraint.positionX(xRange)
-        
+        let yRange = SKRange(lowerLimit: 0, upperLimit: 0)
+        let levelEdgeConstraint = SKConstraint.positionX(xRange, y: yRange)
         
         // Constrain the camera to stay a constant distance of 0 points from the player node.
-        let zeroRange = SKRange(constantValue: 0.0)
-        let horseConstraint = SKConstraint.distance(zeroRange, to: horses[0])
-        camera.constraints = [horseConstraint, levelEdgeConstraint]
+        //let zeroRange = SKRange(constantValue: 0.0)
+        //let horseConstraint = SKConstraint.distance(zeroRange, to: topHorse)
+        camera.constraints = [levelEdgeConstraint]
     }
     
     func viewWillTransition(to size: CGSize) {
@@ -136,8 +152,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
         targetLocation = touch.location(in: self)
     }
     
+    func updateCamera() {
+        if #available(iOS 9.0, *) {
+            if let camera = camera, (horses.count > 0) {
+                let leadHorse = horses.sorted(by: { $0.position.y < $1.position.y })[0];
+                camera.position = CGPoint(x: leadHorse.position.x, y: 0)
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
     override func update(_ currentTime: TimeInterval) {
-        /* Called before each frame is rendered */
+        updateCamera()
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -168,15 +195,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
     
     // FB Delegate cells
     func childAdded(_ object: AnyObject, atIndex: Int) {
-        if let runner = object as? Runner, currentHorse < horses.count {
-            let horse = self.horses[self.currentHorse];
-            self.currentHorse = self.currentHorse + 1;
-            if let horseName = horse.childNode(withName: "name") as? SKLabelNode {
+        if let runner = object as? Runner,
+        let newHorseSprite = bottomHorse.copy() as? SKSpriteNode
+        {
+            let myMultiplier = CGFloat(atIndex)
+            //newHorseSprite.texture = SKTexture(imageNamed: "TanHorse01")
+            let timeToFinish = arc4random_uniform(12) + 5;
+            newHorseSprite.zPosition -= myMultiplier;
+            let newY:  CGFloat = newHorseSprite.position.y + (fieldWidth / CGFloat(numRunners)) * myMultiplier
+            newHorseSprite.position = CGPoint(x: newHorseSprite.position.x, y: newY)
+            print("adding \(runner.name!) at \(newHorseSprite.position)")
+            if let horseName = newHorseSprite.childNode(withName: "name") as? SKLabelNode {
                 horseName.text = runner.name!
             }
             let wait = SKAction.wait(forDuration: 3)
-            let go = SKAction.moveTo(x: self.finishLine.position.x, duration: 5)
-            horse.run(SKAction.sequence([wait, go]))
+            //let animateAction = SKAction.animate(with: tanTexture, timePerFrame: 0.05)
+            //let repeatAnimation = SKAction.repeatForever(animateAction)
+            let moveToFinish = SKAction.moveTo(x: self.finishLine.position.x, duration: Double(timeToFinish))
+            //let combinedMovement = SKAction.group([repeatAnimation,moveToFinish])
+            newHorseSprite.run(SKAction.sequence([wait, moveToFinish]))
+            horses.append(newHorseSprite);
+            self.addChild(newHorseSprite);
         }
     }
     

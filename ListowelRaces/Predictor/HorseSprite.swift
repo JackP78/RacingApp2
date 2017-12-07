@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-func loadTextureAtlas(_ atlasName : String) -> [SKTexture] {
+/*func loadTextureAtlas(_ atlasName : String) -> [SKTexture] {
     var textureArea = [SKTexture]()
     let textureAtlas = SKTextureAtlas(named: atlasName)
     let numImages = textureAtlas.textureNames.count;
@@ -16,7 +16,7 @@ func loadTextureAtlas(_ atlasName : String) -> [SKTexture] {
         textureArea.append(textureAtlas.textureNamed("Move\(i).png"))
     }
     return textureArea
-}
+}*/
 
 private var brownTexture = loadTextureAtlas("BrownHorse")
 private var lightBrownTexture = loadTextureAtlas("TanHorse")
