@@ -86,7 +86,6 @@
 		BCB913221D9B18B00069DCA9 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB913211D9B18B00069DCA9 /* SplashView.swift */; };
 		BCB9132A1D9C7E580069DCA9 /* AromaNo2LTW01-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCB913291D9C7DC60069DCA9 /* AromaNo2LTW01-ExtraBold.ttf */; };
 		BCB9132C1D9D6CC20069DCA9 /* UISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9132B1D9D6CC20069DCA9 /* UISettings.swift */; };
-		BCE6E4641D88CFA500949A56 /* HorseSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E4631D88CFA500949A56 /* HorseSprite.swift */; };
 		BCEFDBDF1D9DD32000284036 /* TabBarControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFDBDE1D9DD32000284036 /* TabBarControllerDelegate.swift */; };
 		BCF405451DCBF9DD000B4F47 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF405441DCBF9DD000B4F47 /* Friend.swift */; };
 		BCFB5A911DB58E30003F4F07 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCFB5A901DB58E30003F4F07 /* MapKit.framework */; };
@@ -182,7 +181,6 @@
 		BCB913211D9B18B00069DCA9 /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		BCB913291D9C7DC60069DCA9 /* AromaNo2LTW01-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AromaNo2LTW01-ExtraBold.ttf"; sourceTree = "<group>"; };
 		BCB9132B1D9D6CC20069DCA9 /* UISettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISettings.swift; sourceTree = "<group>"; };
-		BCE6E4631D88CFA500949A56 /* HorseSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorseSprite.swift; sourceTree = "<group>"; };
 		BCEFDBDE1D9DD32000284036 /* TabBarControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControllerDelegate.swift; sourceTree = "<group>"; };
 		BCF405441DCBF9DD000B4F47 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		BCFB5A8F1DB58E24003F4F07 /* ListowelRaces.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ListowelRaces.entitlements; sourceTree = "<group>"; };
@@ -286,7 +284,6 @@
 				BC166E241D882B1C009EC5D3 /* GameScene.swift */,
 				BC166E261D882B1C009EC5D3 /* Predictor.storyboard */,
 				BC166E271D882B1C009EC5D3 /* PredictorViewController.swift */,
-				BCE6E4631D88CFA500949A56 /* HorseSprite.swift */,
 				78DF60551FBD0BBB00B75BD9 /* BackgroundTiles.sks */,
 				78DF60561FBD0BBB00B75BD9 /* Assets.xcassets */,
 			);
@@ -640,7 +637,6 @@
 				BC166E2D1D882B1C009EC5D3 /* PredictorViewController.swift in Sources */,
 				7899E6E31E6E422700CFC76F /* FormRowCell.swift in Sources */,
 				BC166DF21D881EFE009EC5D3 /* LocalInfoEntry.swift in Sources */,
-				BCE6E4641D88CFA500949A56 /* HorseSprite.swift in Sources */,
 				BC1D7DB61DEF9CDB0099E085 /* RaceSummaryHeader.swift in Sources */,
 				BC166E551D887EC4009EC5D3 /* LoginViewController.swift in Sources */,
 				7848A2181E6635100054981C /* FormXibView.swift in Sources */,
