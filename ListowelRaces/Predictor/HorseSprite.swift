@@ -18,10 +18,10 @@ func loadTextureAtlas(_ atlasName : String) -> [SKTexture] {
     return textureArea
 }
 
-private var brownTexture = loadTextureAtlas("Horse1")
-private var lightBrownTexture = loadTextureAtlas("Horse2")
-private var greyTexture = loadTextureAtlas("Horse3")
-private var blackTexture = loadTextureAtlas("Horse4")
+private var brownTexture = loadTextureAtlas("BrownHorse")
+private var lightBrownTexture = loadTextureAtlas("TanHorse")
+private var greyTexture = loadTextureAtlas("GreyHorse")
+private var blackTexture = loadTextureAtlas("BlackHorse")
 
 class HorseSprite: SKSpriteNode {
     static fileprivate var brownTexture = [SKTexture]()

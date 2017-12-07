@@ -33,11 +33,7 @@ class PredictorViewController: UIViewController {
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        if UIDevice.current.orientation.isLandscape {
-            scene?.setOrientation(landscape: true)
-        } else {
-            scene?.setOrientation(landscape: false)
-        }
+        scene?.viewWillTransition(to: size);
     }
     
     // Function to pop this view controller and go back to my Levels screen

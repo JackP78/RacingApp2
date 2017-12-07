@@ -15,8 +15,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
     var runners: FBArray<Runner>?
     let context = ObjectContext()
     
-    // Scene Nodes
-    var horse:SKSpriteNode!
+    // horse nodes
+    var horses: [SKSpriteNode] = []
+    var currentHorse: Int = 0
+    var horseMask: UInt32?
+    
     var finishButton:SKSpriteNode!
     var finishLine:SKSpriteNode!
     var targetLocation: CGPoint = .zero
@@ -27,20 +30,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
     	physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsWorld.contactDelegate = self
         self.runners = context.getRunnersForRace(self.currentRace!, delegate: self)
-        setCameraConstraints()
-    }
-    
-    override func didChangeSize(_ oldSize: CGSize) {
-        super.didChangeSize(oldSize)
-        setCameraConstraints();
+        setCameraConstraints(viewSize: (self.scene!.view?.bounds.size)!)
     }
     
     //Returns a CGRect that has the dimensions and position for any device with respect to any specified scene. This will result in a boundary that can be utilised for positioning nodes on a scene so that they are always visible
-    func getVisibleScreen( sceneBounds: CGRect, viewBounds: CGRect) -> CGRect {
+    func getVisibleScreen( sceneBounds: CGRect, viewBounds: CGSize) -> CGRect {
         var sceneHeight = sceneBounds.height
         var sceneWidth = sceneBounds.width
-        var viewHeight = viewBounds.height
-        var viewWidth = viewBounds.width
+        let viewHeight = viewBounds.height
+        let viewWidth = viewBounds.width
         var x: CGFloat = 0
         var y: CGFloat = 0
         
@@ -77,54 +75,45 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
     
     func loadSceneNodes() {
         guard let background = self.childNode(withName: "background") as? SKSpriteNode,
-            let horse = self.childNode(withName: "horse") as? SKSpriteNode,
             let finishButton = self.camera?.childNode(withName: "finishButton") as? SKSpriteNode,
             let finishLine = self.childNode(withName: "finishLine") as? SKSpriteNode
             else
         {
             fatalError("Sprite Nodes not loaded")
         }
-        self.horse = horse
+        self.enumerateChildNodes(withName: "horse") {
+            node, stop in
+            if let horse = node as? SKSpriteNode {
+                self.horseMask = horse.physicsBody?.categoryBitMask
+                self.horses.append(horse)
+            }
+        }
         self.finishButton = finishButton
         self.finishLine = finishLine
         self.background = background
-        if let horseName = horse.childNode(withName: "name") as? SKLabelNode {
-            horseName.text = "Kauto Star"
-        }
-        let wait = SKAction.wait(forDuration: 3)
-        let force = CGVector(dx: 20, dy: 0)
-        let go = SKAction.applyForce(force, duration: 1)
-        self.horse.run(SKAction.sequence([wait, go]))
         
     }
     
-    private func setCameraConstraints() {
+    private func setCameraConstraints(viewSize: CGSize) {
         // Don't try to set up camera constraints if we don't yet have a camera.
         guard let camera = camera else { return }
         
-        let viewRect: CGRect = (self.scene!.view?.bounds)!
         let sceneRect = background.calculateAccumulatedFrame()
-        let visibleRect = self.getVisibleScreen(sceneBounds: sceneRect, viewBounds: viewRect)
+        let visibleRect = self.getVisibleScreen(sceneBounds: sceneRect, viewBounds: viewSize)
         let offset = visibleRect.width / 2;
-        print("viewRect \(viewRect) sceneRect \(sceneRect) visibleRect\(visibleRect) offset \(offset)")
+        print("viewRect \(viewSize) sceneRect \(sceneRect) visibleRect\(visibleRect) offset \(offset)")
         let xRange = SKRange(lowerLimit: offset, upperLimit: sceneRect.maxX - offset)
         let levelEdgeConstraint = SKConstraint.positionX(xRange)
         
         
         // Constrain the camera to stay a constant distance of 0 points from the player node.
         let zeroRange = SKRange(constantValue: 0.0)
-        let horseConstraint = SKConstraint.distance(zeroRange, to: horse)
+        let horseConstraint = SKConstraint.distance(zeroRange, to: horses[0])
         camera.constraints = [horseConstraint, levelEdgeConstraint]
     }
     
-    func setOrientation(landscape: Bool) {
-        if (landscape) {
-            print("landscape")
-        }
-        else {
-            print ("portrait")
-        }
-        setCameraConstraints();
+    func viewWillTransition(to size: CGSize) {
+        setCameraConstraints(viewSize: size);
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -166,7 +155,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
         }
         
         // 3. react to the contact between the two nodes
-        if firstBody.categoryBitMask == horse?.physicsBody?.categoryBitMask &&
+        if firstBody.categoryBitMask == self.horseMask &&
             secondBody.categoryBitMask == finishLine?.physicsBody?.categoryBitMask {
             self.isPaused = true
         }
@@ -179,11 +168,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
     
     // FB Delegate cells
     func childAdded(_ object: AnyObject, atIndex: Int) {
-        if let runner = object as? Runner {
-            NSLog("adding \(runner.name!)");
-        }
-        else {
-            NSLog("Not a runner \(object)")
+        if let runner = object as? Runner, currentHorse < horses.count {
+            let horse = self.horses[self.currentHorse];
+            self.currentHorse = self.currentHorse + 1;
+            if let horseName = horse.childNode(withName: "name") as? SKLabelNode {
+                horseName.text = runner.name!
+            }
+            let wait = SKAction.wait(forDuration: 3)
+            let go = SKAction.moveTo(x: self.finishLine.position.x, duration: 5)
+            horse.run(SKAction.sequence([wait, go]))
         }
     }
     
