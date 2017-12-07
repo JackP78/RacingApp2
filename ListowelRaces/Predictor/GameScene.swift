@@ -35,6 +35,46 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
         setCameraConstraints();
     }
     
+    //Returns a CGRect that has the dimensions and position for any device with respect to any specified scene. This will result in a boundary that can be utilised for positioning nodes on a scene so that they are always visible
+    func getVisibleScreen( sceneBounds: CGRect, viewBounds: CGRect) -> CGRect {
+        var sceneHeight = sceneBounds.height
+        var sceneWidth = sceneBounds.width
+        var viewHeight = viewBounds.height
+        var viewWidth = viewBounds.width
+        var x: CGFloat = 0
+        var y: CGFloat = 0
+        
+        let deviceAspectRatio = viewWidth/viewHeight
+        let sceneAspectRatio = sceneWidth/sceneHeight
+        
+        //If the the device's aspect ratio is smaller than the aspect ratio of the preset scene dimensions, then that would mean that the visible width will need to be calculated
+        //as the scene's height has been scaled to match the height of the device's screen. To keep the aspect ratio of the scene this will mean that the width of the scene will extend
+        //out from what is visible.
+        //The opposite will happen in the device's aspect ratio is larger.
+        if deviceAspectRatio < sceneAspectRatio {
+            let newSceneWidth: CGFloat = (sceneWidth * viewHeight) / sceneHeight
+            let sceneWidthDifference: CGFloat = (newSceneWidth - viewWidth)/2
+            let diffPercentageWidth: CGFloat = sceneWidthDifference / (newSceneWidth)
+            
+            //Increase the x-offset by what isn't visible from the lrft of the scene
+            x = diffPercentageWidth * sceneWidth
+            //Multipled by 2 because the diffPercentageHeight is only accounts for one side(e.g right or left) not both
+            sceneWidth = sceneWidth - (diffPercentageWidth * 2 * sceneWidth)
+        } else {
+            let newSceneHeight: CGFloat = (sceneHeight * viewWidth) / sceneWidth
+            let sceneHeightDifference: CGFloat = (newSceneHeight - viewHeight)/2
+            let diffPercentageHeight: CGFloat = fabs(sceneHeightDifference / (newSceneHeight))
+            
+            //Increase the y-offset by what isn't visible from the bottom of the scene
+            y = diffPercentageHeight * sceneHeight
+            //Multipled by 2 because the diffPercentageHeight is only accounts for one side(e.g top or bottom) not both
+            sceneHeight = sceneHeight - (diffPercentageHeight * 2 * sceneHeight)
+        }
+        
+        let visibleScreenOffset = CGRect(x: CGFloat(x), y: CGFloat(y), width: CGFloat(sceneWidth), height: CGFloat(sceneHeight))
+        return visibleScreenOffset
+    }
+    
     func loadSceneNodes() {
         guard let background = self.childNode(withName: "background") as? SKSpriteNode,
             let horse = self.childNode(withName: "horse") as? SKSpriteNode,
@@ -62,20 +102,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
         // Don't try to set up camera constraints if we don't yet have a camera.
         guard let camera = camera else { return }
         
-        let displayRect: CGRect = (self.scene!.view?.bounds)!
-        let centerPoint = CGPoint(x: displayRect.midX, y: displayRect.midY)
-        let sceneCenterPoint = self.view!.convert(centerPoint, to: self)
-        let bgPoint = self.background.position;
-        let backgroundContentRect = background.calculateAccumulatedFrame()
-        let offset = sceneCenterPoint.x
-        print("displayRect \(displayRect) centerPoint \(centerPoint) backgroundSize \(backgroundContentRect) sceneCenterPoint \(sceneCenterPoint) bgPoint\(bgPoint)")
-        // 160 for portrait, 520 for landscape but I have no idea why 160 cause its half of 560
-        /*if UIDevice.current.orientation.isLandscape {
-            let offset = displayRect.maxX
-        } else {
-            let offset = displayRect.midX
-        }*/
-        let xRange = SKRange(lowerLimit: offset, upperLimit: backgroundContentRect.maxX - offset)
+        let viewRect: CGRect = (self.scene!.view?.bounds)!
+        let sceneRect = background.calculateAccumulatedFrame()
+        let visibleRect = self.getVisibleScreen(sceneBounds: sceneRect, viewBounds: viewRect)
+        let offset = visibleRect.width / 2;
+        print("viewRect \(viewRect) sceneRect \(sceneRect) visibleRect\(visibleRect) offset \(offset)")
+        let xRange = SKRange(lowerLimit: offset, upperLimit: sceneRect.maxX - offset)
         let levelEdgeConstraint = SKConstraint.positionX(xRange)
         
         
