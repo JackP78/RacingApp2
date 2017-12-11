@@ -16,6 +16,8 @@ import MapKit
 import Gloss
 import RealmSwift
 import FCAlertView
+import Alamofire
+import SwiftyJSON
 
 class ObjectContext: NSObject {
     fileprivate var urlDateFormatter = DateFormatter()
@@ -55,7 +57,7 @@ class ObjectContext: NSObject {
                 if (error == nil){
                     let data:[String:AnyObject] = result as! [String : AnyObject]
                     print(result!)
-                    if let friends = [FriendJSON].from(jsonArray: data["data"] as! [JSON]) {
+                    if let friends = [FriendJSON].from(jsonArray: data["data"] as! [Gloss.JSON]) {
                         print ("iterate over \(friends.count) json friends")
                         let realm = try! Realm()
                         for friend in friends {
@@ -240,12 +242,34 @@ class ObjectContext: NSObject {
         }
     }
     
+    fileprivate func finishUpload(_ downloadURL: String, user: User, parentView: UIViewController) {
+        let itemRef = self.ladiesRef.childByAutoId() // 1
+        let messageItem = [ // 2
+            "name": user.displayName!,
+            "userId": user.uid,
+            "votes": 0
+            ,"url": downloadURL
+            ] as [String : Any]
+        itemRef.setValue(messageItem) // 3
+        NSLog("Finish upload \(itemRef)")
+        MBProgressHUD.hide(for: parentView.view, animated: true)
+    }
+    
+    fileprivate func invalidPhotoError(_ message: String, parentView: UIViewController) {
+        let alert = UIAlertController(title: "Invalid Photo", message: message, preferredStyle: .alert)
+        let sorryAction = UIAlertAction(title: "Sorry", style: UIAlertActionStyle.default, handler: { (action : UIAlertAction) in
+            alert.dismiss(animated: true, completion: nil)
+        })
+        alert.addAction(sorryAction)
+        parentView.present(alert, animated: true, completion: nil)
+    }
+    
     func enterBestDressed(_ parentView: UIViewController, image : UIImage) {
         NSLog("Begin upload best dressed")
         self.ensureLoggedInWithCompletion(parentView) { (user) in
             if let imageData = UIImageJPEGRepresentation(image, 0.25) {
                 let uuid = CFUUIDCreateString(nil, CFUUIDCreate(nil))
-                let riversRef = self.ladiesStorage.child("\(user.uid)-\(uuid).jpg")
+                let riversRef = self.ladiesStorage.child("\(user.uid)-\(uuid!).jpg")
                 NSLog("begin upload of \(riversRef)")
                 let loadingNotification = MBProgressHUD.showAdded(to: parentView.view, animated: true)
                 loadingNotification.mode = MBProgressHUDMode.annularDeterminate
@@ -257,16 +281,66 @@ class ObjectContext: NSObject {
                     } else {
                         // Metadata contains file metadata such as size, content-type, and download URL.
                         let downloadURL = metadata!.downloadURL()!.absoluteString
-                        let itemRef = self.ladiesRef.childByAutoId() // 1
-                        let messageItem = [ // 2
-                            "name": user.displayName!,
-                            "userId": user.uid,
-                            "votes": 0
-                            ,"url": downloadURL
-                        ] as [String : Any]
-                        itemRef.setValue(messageItem) // 3
-                        NSLog("Finish upload \(itemRef)")
-                        MBProgressHUD.hide(for: parentView.view, animated: true)
+                        loadingNotification.mode = MBProgressHUDMode.indeterminate
+                        loadingNotification.label.text = "Validating"
+                        
+                        let alamoParameters: Parameters = [
+                            "image": downloadURL
+                        ]
+                        let headers = [
+                            "app_id": "625bfadb",
+                            "app_key": "8fe27b1a44afa1ced2b25837fe468911"
+                        ]
+                        
+                        Alamofire.request("http://api.kairos.com/detect",
+                                          method: .post,
+                                          parameters: alamoParameters,
+                                          encoding: JSONEncoding.default,
+                                          headers: headers
+                            )
+                            .responseJSON{ response in
+                                guard response.result.isSuccess else {
+                                    print("Error while fetching tags: \(response.result.error)")
+                                    self.finishUpload(downloadURL, user: user, parentView: parentView)
+                                    return;
+                                }
+                                let json = SwiftyJSON.JSON(response.result.value!)
+                                print("reponse \(json)")
+                                if json["Errors"][0].exists() {
+                                    let error = json["Errors"][0]
+                                    print("error \(error)")
+                                    MBProgressHUD.hide(for: parentView.view, animated: true)
+                                    riversRef.delete(completion: nil)
+                                    self.invalidPhotoError("The photo does not contain any people in it at all", parentView: parentView)
+                                    
+                                }
+                                else if json["images"][0]["faces"].exists() &&
+                                   json["images"][0]["faces"].arrayValue.count > 1 {
+                                    MBProgressHUD.hide(for: parentView.view, animated: true)
+                                    riversRef.delete(completion: nil)
+                                    self.invalidPhotoError("The photo has more than one person it it, the photo must contain only one person at a time", parentView: parentView)
+                                }
+                                else if let gender = json["images"][0]["faces"][0]["attributes"]["gender"]["type"].string,
+                                    let femaleConfidence = json["images"][0]["faces"][0]["attributes"]["gender"]["femaleConfidence"].double,
+                                    let maleConfidence = json["images"][0]["faces"][0]["attributes"]["gender"]["maleConfidence"].double,
+                                    let age = json["images"][0]["faces"][0]["attributes"]["age"].number  {
+                                    print ("got good photo M/F \(gender) female confidence \(femaleConfidence) male confidence \(maleConfidence) age\(age)")
+                                    if (gender != "F") {
+                                        MBProgressHUD.hide(for: parentView.view, animated: true)
+                                        riversRef.delete(completion: nil)
+                                        self.invalidPhotoError("The photo you uploaded is of a man, this is a best dressed lady competition", parentView: parentView)
+                                    }
+                                    else if (age.intValue < 18) {
+                                        MBProgressHUD.hide(for: parentView.view, animated: true)
+                                        riversRef.delete(completion: nil)
+                                        self.invalidPhotoError("You are too young to enter the best dressed lady, must be 18", parentView: parentView)
+                                    }
+                                    else {
+                                        MBProgressHUD.hide(for: parentView.view, animated: true)
+                                        self.finishUpload(downloadURL, user: user, parentView: parentView)
+                                    }
+                                }
+                        }
                     }
                 }
                 _ = uploadTask.observe(.progress) { snapshot in

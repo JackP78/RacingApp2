@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 import MBProgressHUD
 
-class BestDressedCollectionViewController: UICollectionViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+class BestDressedCollectionViewController: UICollectionViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UICollectionViewDelegateFlowLayout {
     fileprivate let reuseIdentifier = "PictureEntry"
     fileprivate let objectContext = ObjectContext()
     fileprivate let imagePicker = UIImagePickerController()
@@ -29,7 +29,13 @@ class BestDressedCollectionViewController: UICollectionViewController, UIImagePi
                 myCell.nameLabel.text = snap.name
                 myCell.voteCount.text = snap.votes?.stringValue
                 if let url = snap.url {
-                    myCell.entryImage.sd_setImage(with: URL(string: url))
+                    myCell.entryImage.sd_setImage(with: URL(string: url), completed: { (image, error, cachetype, url) in
+                        if let imageVar = image,
+                            let urlVar = url {
+                            myCell.aspectRatio = imageVar.size.width / imageVar.size.height > 1.0 ? AspectRatio.landscape : AspectRatio.portrait
+                            print("image \(urlVar) aspect ratio: \(myCell.aspectRatio!)")
+                        }
+                    })
                 }
                 myCell.voteButton.addTarget(self, action: #selector(BestDressedCollectionViewController.votePressed(_:)), for: .touchUpInside)
 
@@ -41,6 +47,28 @@ class BestDressedCollectionViewController: UICollectionViewController, UIImagePi
         
         self.collectionView!.dataSource = self.dataSource
         self.initButtons()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let aspectRatio: AspectRatio = indexPath.row % 2 == 0 ? AspectRatio.landscape : AspectRatio.portrait;
+        switch (aspectRatio) {
+        case .landscape:
+            return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.width + )
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 1.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout
+        collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 1.0
     }
 
 

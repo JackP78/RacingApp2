@@ -1,9 +1,10 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '8.1'
+platform :ios, '10.0'
 use_frameworks!
 workspace 'ListowelRaces'
 xcodeproj 'ListowelRaces.xcodeproj'
 target 'ListowelRaces' do
+    pod 'Alamofire', '~> 4.2.0'
     pod 'Bolts'
     pod 'FBSDKCoreKit', '4.27.1'
     pod 'FBSDKLoginKit', '4.27.1'
@@ -27,6 +28,7 @@ target 'ListowelRaces' do
     pod 'UIActivityIndicator-for-SDWebImage'
     pod 'RealmSwift'
     pod 'Gloss', '2.0.0-beta.2'
+    pod 'SwiftyJSON'
 end
 
 post_install do |installer|
