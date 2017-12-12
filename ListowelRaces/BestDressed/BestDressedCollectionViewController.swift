@@ -54,8 +54,8 @@ class BestDressedCollectionViewController: UICollectionViewController, UIImagePi
         var size = CGSize(width: 300, height: 300);
         let viewWidth = collectionView.bounds.width - 20;
         if let entry = self.dataSource?.array[indexPath.row],
-            let imgWidth = entry.width as? NSNumber,
-            let imgHeight = entry.height as? NSNumber{
+            let imgWidth = entry.width,
+            let imgHeight = entry.height {
             let viewHeight = CGFloat(imgHeight.doubleValue / imgWidth.doubleValue * Double(viewWidth));
             size = CGSize(width: viewWidth, height: viewHeight + 100);
         }
@@ -87,7 +87,7 @@ class BestDressedCollectionViewController: UICollectionViewController, UIImagePi
         // Dispose of any resources that can be recreated.
     }
 
-    func votePressed(_ sender:UIButton)
+    @objc func votePressed(_ sender:UIButton)
     {
         NSLog("Vote pressed")
         let touchPoint = collectionView!.convert(CGPoint.zero, from: sender)
@@ -115,7 +115,7 @@ class BestDressedCollectionViewController: UICollectionViewController, UIImagePi
         self.navigationItem.rightBarButtonItem = tipButton;
     }
     
-    func chooseImage() {
+    @objc func chooseImage() {
         objectContext.ensureLoggedInWithCompletion(self) { (user) in
             self.imagePicker.allowsEditing = false
             self.imagePicker.sourceType = .photoLibrary

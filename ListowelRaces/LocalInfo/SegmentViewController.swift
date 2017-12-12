@@ -52,7 +52,7 @@ class SegmentViewController: UIViewController, SegmentDelegateSource {
         }
     }
     
-    func addNew(_ sender: UIBarButtonItem) {
+    @objc func addNew(_ sender: UIBarButtonItem) {
         self.performSegue(withIdentifier: "addNewLocalInfo", sender: self)
     }
 

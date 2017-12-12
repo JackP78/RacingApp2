@@ -66,8 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navbarFont = UISettings.getPrimaryFont()
         let barbuttonFont = UIFont(name: UISettings.getFontName(), size: 17) ?? UIFont.systemFont(ofSize: 15)
         
-        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: navbarFont, NSForegroundColorAttributeName:UIColor.white]
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: barbuttonFont, NSForegroundColorAttributeName:UIColor.white], for: UIControlState())
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.font: navbarFont, NSAttributedStringKey.foregroundColor:UIColor.white]
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: barbuttonFont, NSAttributedStringKey.foregroundColor:UIColor.white], for: UIControlState())
         
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().barTintColor = UISettings.getPrimaryBackGroundColour()
@@ -148,7 +148,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // [END receive_message]
     
     // [START refresh_token]
-    func tokenRefreshNotification(_ notification: Notification) {
+    @objc func tokenRefreshNotification(_ notification: Notification) {
         if let refreshedToken = InstanceID.instanceID().token() {
             print("InstanceID token: \(refreshedToken)")
         }

@@ -38,7 +38,7 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
         self.formList = objectContext.getFormFor(self.runner!, delegate: self)
     }
     
-    func addTip(_ sender: UIBarButtonItem) {
+    @objc func addTip(_ sender: UIBarButtonItem) {
         objectContext.addTip(self.runner!, race: self.race!, parentView: self)
     }
 

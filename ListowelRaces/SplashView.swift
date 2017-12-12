@@ -101,7 +101,7 @@ class SplashView: UIView {
     func addText(_ text: String, color : UIColor, top : Bool) -> CATextLayer{
         let listowelTextLayer = CATextLayer()
         let height = CGFloat(75)
-        listowelTextLayer.font = CTFontCreateWithName("AromaNo2LTW01-ExtraBold" as CFString?, 40, nil)
+        listowelTextLayer.font = CTFontCreateWithName(("AromaNo2LTW01-ExtraBold" as CFString?)!, 40, nil)
         listowelTextLayer.foregroundColor = color.cgColor
         listowelTextLayer.alignmentMode = kCAAlignmentCenter
         listowelTextLayer.contentsScale = UIScreen.main.scale

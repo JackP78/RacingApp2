@@ -31,7 +31,7 @@ class ObjectContext: NSObject {
         super.init()
         
         // load the config information
-        let path = Bundle.main.path(forResource: "ListowelRaces", ofType: "plist")
+        _ = Bundle.main.path(forResource: "ListowelRaces", ofType: "plist")
         
         remoteConfig = RemoteConfig.remoteConfig()
         let remoteConfigSettings = RemoteConfigSettings(developerModeEnabled: true)
@@ -43,7 +43,7 @@ class ObjectContext: NSObject {
             if (status == RemoteConfigFetchStatus.success) {
                 self.remoteConfig.activateFetched()
             } else {
-                print("Error \(status) \(error?.localizedDescription)")
+                print("Error \(status) \(String(describing: error?.localizedDescription))")
             }
         }
         
@@ -69,9 +69,9 @@ class ObjectContext: NSObject {
                         let friendEnts = realm.objects(FriendEntity.self) // retrieves all Dogs from the default 
                         print ("retrieved \(friendEnts.count) realm friends")
                         for friendEnt in friendEnts {
-                            print ("name: \(friendEnt.name)")
-                            print ("fbId: \(friendEnt.fbId)")
-                            print ("url: \(friendEnt.pictureUrl)")
+                            print ("name: \(friendEnt.name!)")
+                            print ("fbId: \(friendEnt.fbId!)")
+                            print ("url: \(friendEnt.pictureUrl!)")
                         }
                     }
                     else {
@@ -79,7 +79,7 @@ class ObjectContext: NSObject {
                     }
                 }
                 else {
-                    print ("error occurred: \(error)")
+                    print ("error occurred: \(error!)")
                 }
             })
         }
@@ -220,7 +220,7 @@ class ObjectContext: NSObject {
                 result[key] = string
             }
             else {
-                NSLog("Cannot set \(key) with \(value)")
+                NSLog("Cannot set \(key) with \(value!)")
             }
         }
         NSLog("To be saved \(result)")

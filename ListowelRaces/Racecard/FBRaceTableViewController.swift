@@ -52,7 +52,7 @@ class FBRaceTableViewController: UITableViewController {
         self.tableView.dataSource = self.dataSource
     }
 
-    func dateSelected() {
+    @objc func dateSelected() {
         self.dataSource!.tableView = nil;
         self.title = titleDateFormatter.string(from: self.datePicker.selectedDate)
         self.dataSource = context.findRacesFor(self.datePicker.selectedDate, nibNamed: "RaceSummaryCellTableViewCell", cellReuseIdentifier: "HorseSummaryCell", tableView: self.tableView)

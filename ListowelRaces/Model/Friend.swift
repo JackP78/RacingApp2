@@ -29,9 +29,9 @@ class FriendJSON : Friend, JSONDecodable {
 }
 
 class FriendEntity : Object, Friend {
-    dynamic var name : String?
-    dynamic var fbId : String?
-    dynamic var pictureUrl : String?
+    @objc dynamic var name : String?
+    @objc dynamic var fbId : String?
+    @objc dynamic var pictureUrl : String?
     
     convenience init(friend: Friend) {
         self.init()
