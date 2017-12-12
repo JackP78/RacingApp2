@@ -13,10 +13,10 @@ class FBTableViewDataSource<T>: NSObject, UITableViewDataSource, FBDelegate wher
     var array: FBArray<T>!
     var reuseIdentifier : String
     var tableView : UITableView?
-    var populateCell:((_ cell: UITableViewCell, _ object: NSObject) -> Void)?
+    var populateCell:((_ cell: UITableViewCell, _ object: NSObject, _ indexPath: IndexPath) -> Void)?
     var section : Int = 1
     
-    func populateCellWithBlock(_ block : @escaping (UITableViewCell, _ object: NSObject) -> Void) {
+    func populateCellWithBlock(_ block : @escaping (UITableViewCell, _ object: NSObject, _ indexPath: IndexPath) -> Void) {
         self.populateCell = block
     }
     
@@ -49,7 +49,7 @@ class FBTableViewDataSource<T>: NSObject, UITableViewDataSource, FBDelegate wher
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier) {
             let model = array[(indexPath as NSIndexPath).row]
-            self.populateCell?(cell, model)
+            self.populateCell?(cell, model, indexPath)
             return cell
         }
         return UITableViewCell()

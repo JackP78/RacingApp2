@@ -21,7 +21,7 @@ class FBRaceTableViewController: UITableViewController {
     
     var initialDate:Date?
     
-    func populateCellWithBlock(rawCell: UITableViewCell, obj: NSObject) -> Void {
+    func populateCellWithBlock(rawCell: UITableViewCell, obj: NSObject, index: IndexPath) -> Void {
         if let cell = rawCell as? RaceSummaryCellTableViewCell {
             let race = obj as! Race
             cell.race = race

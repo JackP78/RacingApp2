@@ -12,13 +12,13 @@ import FirebaseDatabase
 class FBCollectionViewDataSource<T>: NSObject, UICollectionViewDataSource, FBDelegate where T: ModelBase {
     
     var collectionView : UICollectionView?
-    var populateCell:((_ cell: UICollectionViewCell, _ object: NSObject) -> Void)?
+    var populateCell:((_ cell: UICollectionViewCell, _ object: NSObject, _ indexPath: IndexPath) -> Void)?
     var array: FBArray<T>!
     var section : Int = 1
     var reuseIdentifier : String
 
     
-    func populateCellWithBlock(_ block : @escaping (UICollectionViewCell, _ object: NSObject) -> Void) {
+    func populateCellWithBlock(_ block : @escaping (UICollectionViewCell, _ object: NSObject, _ indexPath: IndexPath) -> Void) {
         self.populateCell = block
     }
     
@@ -40,7 +40,7 @@ class FBCollectionViewDataSource<T>: NSObject, UICollectionViewDataSource, FBDel
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = self.collectionView?.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) {
             let model = array[indexPath.row]
-            self.populateCell?(cell, model)
+            self.populateCell?(cell, model, indexPath)
             return cell;
         }
         return UICollectionViewCell()

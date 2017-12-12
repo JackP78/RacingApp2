@@ -242,13 +242,15 @@ class ObjectContext: NSObject {
         }
     }
     
-    fileprivate func finishUpload(_ downloadURL: String, user: User, parentView: UIViewController) {
+    fileprivate func finishUpload(_ downloadURL: String, user: User, parentView: UIViewController, size: CGSize) {
         let itemRef = self.ladiesRef.childByAutoId() // 1
         let messageItem = [ // 2
             "name": user.displayName!,
             "userId": user.uid,
             "votes": 0
             ,"url": downloadURL
+            ,"height": size.height
+            ,"width": size.width
             ] as [String : Any]
         itemRef.setValue(messageItem) // 3
         NSLog("Finish upload \(itemRef)")
@@ -301,7 +303,7 @@ class ObjectContext: NSObject {
                             .responseJSON{ response in
                                 guard response.result.isSuccess else {
                                     print("Error while fetching tags: \(response.result.error)")
-                                    self.finishUpload(downloadURL, user: user, parentView: parentView)
+                                    self.finishUpload(downloadURL, user: user, parentView: parentView, size: image.size)
                                     return;
                                 }
                                 let json = SwiftyJSON.JSON(response.result.value!)
@@ -337,7 +339,7 @@ class ObjectContext: NSObject {
                                     }
                                     else {
                                         MBProgressHUD.hide(for: parentView.view, animated: true)
-                                        self.finishUpload(downloadURL, user: user, parentView: parentView)
+                                        self.finishUpload(downloadURL, user: user, parentView: parentView, size: image.size)
                                     }
                                 }
                         }

@@ -15,4 +15,6 @@ class BestDressedEntry : ModelBase {
     var name: String?
     var url: String?
     var votes: NSNumber?
+    var height: NSNumber?
+    var width: NSNumber?
 }

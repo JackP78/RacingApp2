@@ -14,7 +14,7 @@ enum AspectRatio {
 }
 
 class PicCollectionViewCell: UICollectionViewCell {
-    
+    @IBOutlet weak var imageAspectConstraint: NSLayoutConstraint!
     @IBOutlet weak var entryImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var voteCount: UILabel!

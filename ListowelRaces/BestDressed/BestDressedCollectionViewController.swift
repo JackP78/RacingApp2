@@ -22,7 +22,7 @@ class BestDressedCollectionViewController: UICollectionViewController, UIImagePi
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         self.dataSource = objectContext.getBestDressedLadies(reuseIdentifier, collectionView: self.collectionView)
-        self.dataSource!.populateCellWithBlock { (cell: UICollectionViewCell, obj: NSObject) -> Void in
+        self.dataSource!.populateCellWithBlock { (cell: UICollectionViewCell, obj: NSObject, indexPath: IndexPath) -> Void in
             if let myCell = cell as? PicCollectionViewCell {
                 let snap = obj as! BestDressedEntry
                 NSLog("\(snap)")
@@ -38,7 +38,6 @@ class BestDressedCollectionViewController: UICollectionViewController, UIImagePi
                     })
                 }
                 myCell.voteButton.addTarget(self, action: #selector(BestDressedCollectionViewController.votePressed(_:)), for: .touchUpInside)
-
             }
             else {
                 NSLog("could not cast cell but got \(obj)")
@@ -52,23 +51,34 @@ class BestDressedCollectionViewController: UICollectionViewController, UIImagePi
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let aspectRatio: AspectRatio = indexPath.row % 2 == 0 ? AspectRatio.landscape : AspectRatio.portrait;
-        switch (aspectRatio) {
-        case .landscape:
-            return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.width + )
+        var size = CGSize(width: 300, height: 300);
+        let viewWidth = collectionView.bounds.width - 20;
+        if let entry = self.dataSource?.array[indexPath.row],
+            let imgWidth = entry.width as? NSNumber,
+            let imgHeight = entry.height as? NSNumber{
+            let viewHeight = CGFloat(imgHeight.doubleValue / imgWidth.doubleValue * Double(viewWidth));
+            size = CGSize(width: viewWidth, height: viewHeight + 100);
+        }
+        switch UIDevice.current.orientation{
+        case .portrait, .portraitUpsideDown:
+            return size;
+        case .landscapeLeft, .landscapeRight:
+            return CGSize(width: viewWidth / 2, height: viewWidth / 2)
+        default:
+            return size;
         }
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 1.0
+        return 20.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout
         collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 1.0
+        return 20.0
     }
 
 
