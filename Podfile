@@ -2,16 +2,16 @@
 platform :ios, '10.0'
 use_frameworks!
 workspace 'ListowelRaces'
-xcodeproj 'ListowelRaces.xcodeproj'
+project 'ListowelRaces.xcodeproj'
 target 'ListowelRaces' do
-    pod 'Alamofire', '~> 4.2.0'
+    pod 'Alamofire', '~> 4.7.3'
     pod 'Bolts'
-    pod 'FBSDKCoreKit', '4.27.1'
-    pod 'FBSDKLoginKit', '4.27.1'
-    pod 'FBSDKShareKit', '4.27.1'
+    pod 'FBSDKCoreKit', '4.38.1'
+    pod 'FBSDKLoginKit', '4.38.1'
+    pod 'FBSDKShareKit', '4.38.1'
     #pod 'SwiftValidator', '3.0.3'
     pod 'Eureka'
-    pod 'MBProgressHUD', '~> 1.0.0'
+    pod 'MBProgressHUD', '~> 1.1.0'
     pod 'SVGPath'
     pod 'Firebase/Core'
     pod 'Firebase/Database'
@@ -27,14 +27,14 @@ target 'ListowelRaces' do
     pod 'SDWebImage'
     pod 'UIActivityIndicator-for-SDWebImage'
     pod 'RealmSwift'
-    pod 'Gloss', '2.0.0-beta.2'
+    pod 'Gloss', '2.0.1'
     pod 'SwiftyJSON'
 end
 
 post_install do |installer|
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
-            config.build_settings['SWIFT_VERSION'] = '4.0'
+            config.build_settings['SWIFT_VERSION'] = '4.2'
         end
     end
 end

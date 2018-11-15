@@ -10,6 +10,10 @@ import UIKit
 import FirebaseDatabase
 
 class FBTableViewDataSource<T>: NSObject, UITableViewDataSource, FBDelegate where T: ModelBase {
+    func beginUpdates() {
+        self.tableView?.beginUpdates()
+    }
+    
     var array: FBArray<T>!
     var reuseIdentifier : String
     var tableView : UITableView?
@@ -56,25 +60,21 @@ class FBTableViewDataSource<T>: NSObject, UITableViewDataSource, FBDelegate wher
     }
 
     func childAdded(_ object: AnyObject, atIndex: Int) {
-        self.tableView?.beginUpdates()
         self.tableView?.insertRows(at: [IndexPath(row: Int(atIndex), section: self.section)], with: .automatic)
         self.tableView?.endUpdates()
     }
     
     func childChanged(_ object: AnyObject, atIndex: Int) {
-        self.tableView?.beginUpdates()
         self.tableView?.reloadRows(at: [IndexPath(row: Int(atIndex), section: self.section)], with: .automatic)
         self.tableView?.endUpdates()
     }
     
     func childRemoved(_ object: AnyObject, atIndex: Int) {
-        self.tableView?.beginUpdates()
         self.tableView?.deleteRows(at: [IndexPath(row: Int(atIndex), section: self.section)], with: .automatic)
         self.tableView?.endUpdates()
     }
     
     func childMoved(_ object: AnyObject, fromIndex: Int, toIndex: Int) {
-        self.tableView?.beginUpdates()
         self.tableView?.moveRow(at: IndexPath(row: Int(fromIndex), section: self.section), to: IndexPath(row: Int(toIndex), section: self.section))
         self.tableView?.endUpdates()
     }

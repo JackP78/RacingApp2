@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // For iOS 10 display notification (sent via APNS)
             UNUserNotificationCenter.current().delegate = self
             // For iOS 10 data message (sent via FCM)
-            Messaging.messaging().remoteMessageDelegate = self
+            Messaging.messaging().delegate = self
             
         } else {
             let settings: UIUserNotificationSettings =
@@ -60,8 +60,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // end register for push notifications
         
         // keyboard manager
-        IQKeyboardManager.sharedManager().enable = true
-        IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
         let navbarFont = UISettings.getPrimaryFont()
         let barbuttonFont = UIFont(name: UISettings.getFontName(), size: 17) ?? UIFont.systemFont(ofSize: 15)
@@ -161,7 +161,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         // for development
         print("didRegisterForNotifications \(deviceToken)")
-        InstanceID.instanceID().setAPNSToken(deviceToken, type: InstanceIDAPNSTokenType.sandbox)
+        Messaging.messaging().apnsToken = deviceToken
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {

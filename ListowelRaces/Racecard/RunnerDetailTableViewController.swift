@@ -10,6 +10,10 @@ import UIKit
 
 
 class RunnerDetailTableViewController: UITableViewController, FBDelegate {
+    func beginUpdates() {
+        self.tableView?.beginUpdates()
+    }
+    
     var runner: Runner?
     var race : Race?
     fileprivate var horseList : FBArray<Runner>?
@@ -140,7 +144,6 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
     // FB Delegate cells
     func childAdded(_ object: AnyObject, atIndex: Int) {
         let section = getSectionFor(object: object)
-        self.tableView?.beginUpdates()
         if (object is Tip && atIndex == 0) {
             // inserting our first tip
             let indexSet = IndexSet([1])
@@ -152,14 +155,12 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
     }
     
     func childChanged(_ object: AnyObject, atIndex: Int) {
-        self.tableView?.beginUpdates()
         self.tableView?.reloadRows(at: [IndexPath(row: Int(atIndex), section: getSectionFor(object: object))], with: .automatic)
         self.tableView?.endUpdates()
     }
     
     func childRemoved(_ object: AnyObject, atIndex: Int) {
         let section = getSectionFor(object: object)
-        self.tableView?.beginUpdates()
         self.tableView?.deleteRows(at: [IndexPath(row: Int(atIndex), section: section)], with: .automatic)
         if (object is Tip && tipList!.count == 0) {
             // removing our last tip
@@ -171,7 +172,6 @@ class RunnerDetailTableViewController: UITableViewController, FBDelegate {
     }
     
     func childMoved(_ object: AnyObject, fromIndex: Int, toIndex: Int) {
-        self.tableView?.beginUpdates()
         self.tableView?.moveRow(at: IndexPath(row: Int(fromIndex), section: getSectionFor(object: object)), to: IndexPath(row: Int(toIndex), section: 1))
         self.tableView?.endUpdates()
     }

@@ -35,7 +35,7 @@ class ObjectContext: NSObject {
         
         remoteConfig = RemoteConfig.remoteConfig()
         let remoteConfigSettings = RemoteConfigSettings(developerModeEnabled: true)
-        remoteConfig.configSettings = remoteConfigSettings!
+        remoteConfig.configSettings = remoteConfigSettings
         remoteConfig.setDefaults(fromPlist: "ListowelRaces")
         
         let expirationDuration = 43200
@@ -281,68 +281,75 @@ class ObjectContext: NSObject {
                     if (error != nil) {
                         NSLog("error occured")
                     } else {
-                        // Metadata contains file metadata such as size, content-type, and download URL.
-                        let downloadURL = metadata!.downloadURL()!.absoluteString
-                        loadingNotification.mode = MBProgressHUDMode.indeterminate
-                        loadingNotification.label.text = "Validating"
-                        
-                        let alamoParameters: Parameters = [
-                            "image": downloadURL
-                        ]
-                        let headers = [
-                            "app_id": "625bfadb",
-                            "app_key": "8fe27b1a44afa1ced2b25837fe468911"
-                        ]
-                        
-                        Alamofire.request("http://api.kairos.com/detect",
-                                          method: .post,
-                                          parameters: alamoParameters,
-                                          encoding: JSONEncoding.default,
-                                          headers: headers
-                            )
-                            .responseJSON{ response in
-                                guard response.result.isSuccess else {
-                                    print("Error while fetching tags: \(response.result.error)")
-                                    self.finishUpload(downloadURL, user: user, parentView: parentView, size: image.size)
-                                    return;
-                                }
-                                let json = SwiftyJSON.JSON(response.result.value!)
-                                print("reponse \(json)")
-                                if json["Errors"][0].exists() {
-                                    let error = json["Errors"][0]
-                                    print("error \(error)")
-                                    MBProgressHUD.hide(for: parentView.view, animated: true)
-                                    riversRef.delete(completion: nil)
-                                    self.invalidPhotoError("The photo does not contain any people in it at all", parentView: parentView)
+                        riversRef.downloadURL(completion: { (url, error) in
+                            if let error = error {
+                                NSLog("error occured")
+                            } else {
+                                if let downloadURL = url?.absoluteString {
+                                    loadingNotification.mode = MBProgressHUDMode.indeterminate
+                                    loadingNotification.label.text = "Validating"
                                     
-                                }
-                                else if json["images"][0]["faces"].exists() &&
-                                   json["images"][0]["faces"].arrayValue.count > 1 {
-                                    MBProgressHUD.hide(for: parentView.view, animated: true)
-                                    riversRef.delete(completion: nil)
-                                    self.invalidPhotoError("The photo has more than one person it it, the photo must contain only one person at a time", parentView: parentView)
-                                }
-                                else if let gender = json["images"][0]["faces"][0]["attributes"]["gender"]["type"].string,
-                                    let femaleConfidence = json["images"][0]["faces"][0]["attributes"]["gender"]["femaleConfidence"].double,
-                                    let maleConfidence = json["images"][0]["faces"][0]["attributes"]["gender"]["maleConfidence"].double,
-                                    let age = json["images"][0]["faces"][0]["attributes"]["age"].number  {
-                                    print ("got good photo M/F \(gender) female confidence \(femaleConfidence) male confidence \(maleConfidence) age\(age)")
-                                    if (gender != "F") {
-                                        MBProgressHUD.hide(for: parentView.view, animated: true)
-                                        riversRef.delete(completion: nil)
-                                        self.invalidPhotoError("The photo you uploaded is of a man, this is a best dressed lady competition", parentView: parentView)
+                                    let alamoParameters: Parameters = [
+                                        "image": downloadURL
+                                    ]
+                                    let headers = [
+                                        "app_id": "625bfadb",
+                                        "app_key": "8fe27b1a44afa1ced2b25837fe468911"
+                                    ]
+                                    // TODO handle kairos response not json
+                                    Alamofire.request("http://api.kairos.com/detect",
+                                                      method: .post,
+                                                      parameters: alamoParameters,
+                                                      encoding: JSONEncoding.default,
+                                                      headers: headers
+                                        )
+                                        .responseJSON{ response in
+                                            guard response.result.isSuccess else {
+                                                print("Error while fetching tags: \(response.result.error)")
+                                                self.finishUpload(downloadURL, user: user, parentView: parentView, size: image.size)
+                                                return;
+                                            }
+                                            let json = SwiftyJSON.JSON(response.result.value!)
+                                            print("reponse \(json)")
+                                            if json["Errors"][0].exists() {
+                                                let error = json["Errors"][0]
+                                                print("error \(error)")
+                                                MBProgressHUD.hide(for: parentView.view, animated: true)
+                                                riversRef.delete(completion: nil)
+                                                self.invalidPhotoError("The photo does not contain any people in it at all", parentView: parentView)
+                                                
+                                            }
+                                            else if json["images"][0]["faces"].exists() &&
+                                                json["images"][0]["faces"].arrayValue.count > 1 {
+                                                MBProgressHUD.hide(for: parentView.view, animated: true)
+                                                riversRef.delete(completion: nil)
+                                                self.invalidPhotoError("The photo has more than one person it it, the photo must contain only one person at a time", parentView: parentView)
+                                            }
+                                            else if let gender = json["images"][0]["faces"][0]["attributes"]["gender"]["type"].string,
+                                                let femaleConfidence = json["images"][0]["faces"][0]["attributes"]["gender"]["femaleConfidence"].double,
+                                                let maleConfidence = json["images"][0]["faces"][0]["attributes"]["gender"]["maleConfidence"].double,
+                                                let age = json["images"][0]["faces"][0]["attributes"]["age"].number  {
+                                                print ("got good photo M/F \(gender) female confidence \(femaleConfidence) male confidence \(maleConfidence) age\(age)")
+                                                if (gender != "F") {
+                                                    MBProgressHUD.hide(for: parentView.view, animated: true)
+                                                    riversRef.delete(completion: nil)
+                                                    self.invalidPhotoError("The photo you uploaded is of a man, this is a best dressed lady competition", parentView: parentView)
+                                                }
+                                                else if (age.intValue < 18) {
+                                                    MBProgressHUD.hide(for: parentView.view, animated: true)
+                                                    riversRef.delete(completion: nil)
+                                                    self.invalidPhotoError("You are too young to enter the best dressed lady, must be 18", parentView: parentView)
+                                                }
+                                                else {
+                                                    MBProgressHUD.hide(for: parentView.view, animated: true)
+                                                    self.finishUpload(downloadURL, user: user, parentView: parentView, size: image.size)
+                                                }
+                                            }
                                     }
-                                    else if (age.intValue < 18) {
-                                        MBProgressHUD.hide(for: parentView.view, animated: true)
-                                        riversRef.delete(completion: nil)
-                                        self.invalidPhotoError("You are too young to enter the best dressed lady, must be 18", parentView: parentView)
-                                    }
-                                    else {
-                                        MBProgressHUD.hide(for: parentView.view, animated: true)
-                                        self.finishUpload(downloadURL, user: user, parentView: parentView, size: image.size)
-                                    }
                                 }
-                        }
+                            }
+                        })
+                        
                     }
                 }
                 _ = uploadTask.observe(.progress) { snapshot in

@@ -10,6 +10,10 @@ import UIKit
 
 
 class LRRunnerTableViewController: UITableViewController, FBDelegate {
+    func beginUpdates() {
+        self.tableView?.beginUpdates()
+    }
+    
     fileprivate var objectContext = ObjectContext()
     var array: FBArray<Runner>?
     var raceIndex: Int=0
@@ -84,25 +88,21 @@ class LRRunnerTableViewController: UITableViewController, FBDelegate {
     
     // FB Delegate cells
     func childAdded(_ object: AnyObject, atIndex: Int) {
-        self.tableView?.beginUpdates()
         self.tableView?.insertRows(at: [IndexPath(row: Int(atIndex), section: 0)], with: .automatic)
         self.tableView?.endUpdates()
     }
     
     func childChanged(_ object: AnyObject, atIndex: Int) {
-        self.tableView?.beginUpdates()
         self.tableView?.reloadRows(at: [IndexPath(row: Int(atIndex), section: 0)], with: .automatic)
         self.tableView?.endUpdates()
     }
     
     func childRemoved(_ object: AnyObject, atIndex: Int) {
-        self.tableView?.beginUpdates()
         self.tableView?.deleteRows(at: [IndexPath(row: Int(atIndex), section: 0)], with: .automatic)
         self.tableView?.endUpdates()
     }
     
     func childMoved(_ object: AnyObject, fromIndex: Int, toIndex: Int) {
-        self.tableView?.beginUpdates()
         self.tableView?.moveRow(at: IndexPath(row: Int(fromIndex), section: 0), to: IndexPath(row: Int(toIndex), section: 1))
         self.tableView?.endUpdates()
     }

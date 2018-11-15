@@ -69,7 +69,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.loginButton.readPermissions = ["user_about_me", "public_profile","email", "user_friends"]
+        self.loginButton.readPermissions = ["user_age_range", "user_gender", "public_profile","email", "user_friends"]
         self.loginButton.delegate = self
     }
 

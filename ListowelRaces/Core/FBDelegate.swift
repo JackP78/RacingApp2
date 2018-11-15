@@ -8,6 +8,8 @@
 import UIKit
 
 protocol FBDelegate {
+    func beginUpdates()
+    
     func childAdded(_ object: AnyObject, atIndex: Int)
     
     func childChanged(_ object: AnyObject, atIndex: Int)

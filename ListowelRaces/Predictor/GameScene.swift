@@ -24,6 +24,9 @@ private var greyTexture = loadTextureAtlas("GreyHorse")
 private var blackTexture = loadTextureAtlas("BlackHorse")
 
 class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
+    func beginUpdates() {
+    }
+    
     var currentRace: Race?
     var runners: FBArray<Runner>?
     let context = ObjectContext()
@@ -190,7 +193,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, FBDelegate {
     
     private func gameOver(didWin: Bool) {
         print("- - - Game Ended - - - \(camera?.position)")
-        self.scene!.view?.viewController()?.dismiss(animated: true, completion: nil)
+        self.scene!.view?.topMostController()?.dismiss(animated: true, completion: nil)
     }
     
     // FB Delegate cells

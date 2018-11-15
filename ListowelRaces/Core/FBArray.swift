@@ -78,6 +78,7 @@ open class FBArray<T>: NSObject where T: ModelBase {
         self.query.observe(.childAdded, andPreviousSiblingKeyWith: { (snapShot:DataSnapshot, previousChildKey: String?) in
             if let modelObject = self.getModelFrom(snapShot: snapShot) {
                 let index = self.indexForKey(previousChildKey) + 1
+                self.delegate.beginUpdates()
                 self.snapShots.insert(snapShot, at: index)
                 self.delegate.childAdded(modelObject, atIndex: index)
             }
@@ -89,6 +90,7 @@ open class FBArray<T>: NSObject where T: ModelBase {
             if let modelObject = self.getModelFrom(snapShot: snapShot) {
                 let fromIndex = self.indexForKey(snapShot.key)
                 let toIndex = self.indexForKey(previousChildKey) + 1
+                self.delegate.beginUpdates()
                 self.snapShots.remove(at: fromIndex)
                 self.snapShots.insert(snapShot, at: toIndex)
                 self.delegate.childMoved(modelObject, fromIndex: fromIndex, toIndex: toIndex)
@@ -99,6 +101,7 @@ open class FBArray<T>: NSObject where T: ModelBase {
         self.query.observe(.childRemoved, with: { (snapShot: DataSnapshot) in
             if let modelObject = self.getModelFrom(snapShot: snapShot) {
                 let index = self.indexForKey(snapShot.key)
+                self.delegate.beginUpdates()
                 self.snapShots.remove(at: index)
                 self.delegate.childRemoved(modelObject, atIndex: index)
             }
@@ -109,6 +112,7 @@ open class FBArray<T>: NSObject where T: ModelBase {
         self.query.observe(.childChanged, with: { (snapShot: DataSnapshot) in
             if let modelObject = self.getModelFrom(snapShot: snapShot) {
                 let index = self.indexForKey(snapShot.key)
+                self.delegate.beginUpdates()
                 self.snapShots[index] = snapShot
                 self.delegate.childChanged(modelObject, atIndex: index)
             }

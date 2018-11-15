@@ -10,6 +10,9 @@ import UIKit
 import FirebaseDatabase
 
 class FBCollectionViewDataSource<T>: NSObject, UICollectionViewDataSource, FBDelegate where T: ModelBase {
+    func beginUpdates() {
+    }
+    
     
     var collectionView : UICollectionView?
     var populateCell:((_ cell: UICollectionViewCell, _ object: NSObject, _ indexPath: IndexPath) -> Void)?
